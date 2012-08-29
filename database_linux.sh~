@@ -14,6 +14,14 @@ mysql -u root --password=123456 -h 127.0.0.1 --database=mangos < "ytdb/627_corep
 mysql -u root --password=123456 -h 127.0.0.1 --database=mangos < "ytdb/627_mangos_FIX_(12092).sql"
 mysql -u root --password=123456 -h 127.0.0.1 --database=mangos < "sql_mr/custom_mangos_tables.sql"
 
+# characters
+mysql -u root --password=123456 -h 127.0.0.1 --database=characters < "sql/characters.sql"
+mysql -u root --password=123456 -h 127.0.0.1 --database=characters < "sql_mr/custom_characters_tables.sql"
+
+# realmd
+mysql -u root --password=123456 -h 127.0.0.1 --database=realmd < "sql/realmd.sql"
+mysql -u root --password=123456 -h 127.0.0.1 --database=realmd < "sql_mr/custom_realmd_tables.sql"
+
 # mr_sql files
 cd sql_mr
 find . -name 'mr*mangos*sql' | sort -n  | awk '{ print "source",$0 }' | mysql -u root --password=123456 -h 127.0.0.1 --database=mangos
