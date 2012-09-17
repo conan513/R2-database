@@ -18,10 +18,12 @@ mysql -u root --password=123456 -h 127.0.0.1 --port=3310 --database=mangos < "yt
 mysql -u root --password=123456 -h 127.0.0.1 --port=3310 --database=mangos < "ytdb/628_mangos_FIX_(12126).sql"
 mysql -u root --password=123456 -h 127.0.0.1 --port=3310 --database=mangos < "sql_mr/custom_mangos_tables.sql"
 
+echo.
 echo Importing MaNGOS updates
 for %%i in (updates\*sql) do if %%i neq updates\*sql if %%i neq updates\*sql if %%i neq updates\*sql echo %%i & mysql -u root --password=123456 -h 127.0.0.1 --port=3310 --database=mangos < %%i
 
-echo Importing R2 files
+echo.
+echo Importing MaNGOSR2 files
 for %%i in (sql_mr\mr*mangos*sql) do if %%i neq sql_mr\mr*mangos*sql if %%i neq sql_mr\mr*mangos*sql if %%i neq sql_mr\mr*mangos*sql echo %%i & mysql -u root --password=123456 -h 127.0.0.1 --port=3310 --database=mangos < %%i
 
 pause

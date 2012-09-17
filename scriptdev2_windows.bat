@@ -1,6 +1,6 @@
 @echo off
 
-echo Importing YTDB database
+echo Importing ScriptDev2 database
 mysql -u root --password=123456 -h 127.0.0.1 --port=3310 --database=scriptdev2 < "sql/scriptdev2_create_structure_mysql.sql"
 mysql -u root --password=123456 -h 127.0.0.1 --port=3310 --database=scriptdev2 < "scriptdev2/custom_scriptdev2_bsw_table.sql"
 mysql -u root --password=123456 -h 127.0.0.1 --port=3310 --database=mangos < "sql/mangos_scriptname_clear.sql"
