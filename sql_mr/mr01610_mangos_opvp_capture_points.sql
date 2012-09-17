@@ -81,6 +81,7 @@ insert into gossip_menu (entry, text_id) values
 -- Alliance & horde - stores the text and the script id
 delete from gossip_menu_option where menu_id in (30001,30002);
 insert into gossip_menu_option (menu_id, id, option_icon, option_text, option_id, npc_option_npcflag, action_script_id) values
+(7724,0,0,'[PH] Zangarmarsh PvP Banner',1,1,@CREATURE+1),
 (7723,1,1,'I have marks to redeem!',3,128,0),
 (7723,0,0,'[PH] Zangarmarsh PvP Banner',1,1,@CREATURE+2);
 -- Alliance & horde - stores the gossip script

@@ -2,13 +2,13 @@
 TRUNCATE TABLE `worldstate_template`;
 
 -- Flags definition
-SET @FLAG_ACTIVE          = 0x2;
-SET @FLAG_INITIAL_STATE   = 0x10000;
-SET @FLAG_NOT_EXPIREABLE  = 0x40000;
+SET @FLAG_ACTIVE          = 2; -- 0x2
+SET @FLAG_INITIAL_STATE   = 65536; -- 0x10000
+SET @FLAG_NOT_EXPIREABLE  = 262144; -- 0x40000
 
 -- Combinations of flag
-SET @FLAG_INITIAL_ACTIVE = 0x2 + 0x10000;
-SET @FLAG_INITIAL_ACTIVE_NONEXPIRE = 0x2 + 0x10000 + 0x40000;
+SET @FLAG_INITIAL_ACTIVE = @FLAG_ACTIVE + @FLAG_INITIAL_STATE;
+SET @FLAG_INITIAL_ACTIVE_NONEXPIRE = @FLAG_ACTIVE + @FLAG_INITIAL_STATE + @FLAG_NOT_EXPIREABLE;
 
 -- Common
 DELETE FROM `worldstate_template` WHERE `type` = 1 AND `condition` = 0;
@@ -450,10 +450,6 @@ INSERT INTO `worldstate_template` (`state_id`, `type`, `condition`, `flags`, `de
 (2750, 4, 566, @FLAG_INITIAL_ACTIVE, 0, 2753, '', ''),
 (2752, 4, 566, @FLAG_INITIAL_ACTIVE, 0, 0, '', ''),
 (2753, 4, 566, @FLAG_INITIAL_ACTIVE, 0, 0, '', ''),
--- Progress bar
-(2718, 4, 566, @FLAG_INITIAL_ACTIVE, 0, 0, '', ''),
-(2719, 4, 566, @FLAG_INITIAL_ACTIVE, 0, 2718, '', ''),
-(2720, 4, 566, @FLAG_INITIAL_ACTIVE, 0, 2718, '', ''),
 -- Blood elf
 (2722, 4, 566, @FLAG_INITIAL_ACTIVE, 1, 0, '', ''),
 (2723, 4, 566, @FLAG_INITIAL_ACTIVE, 0, 0, '', ''),
@@ -497,6 +493,9 @@ INSERT INTO `worldstate_template` (`state_id`, `type`, `condition`, `flags`, `de
 (3564, 4, 607, @FLAG_INITIAL_ACTIVE, 0, 0, '', 'Battle finish timer (data - 3559,3560,3561)'),
 (3565, 4, 607, @FLAG_INITIAL_ACTIVE, 0, 0, '', 'Round timer (data - 3559,3560,3561)'),
 (3571, 4, 607, @FLAG_INITIAL_ACTIVE, 0, 0, '', 'Bonus timer (data - 3559,3560,3561)'),
+-- State (?)
+(3536, 4, 607, @FLAG_INITIAL_ACTIVE, 0, 0, '', ''),
+(3537, 4, 607, @FLAG_INITIAL_ACTIVE, 0, 3536, '', ''),
 -- Attackers
 (4352, 4, 607, @FLAG_INITIAL_ACTIVE, 0, 0, '', ''),
 (4353, 4, 607, @FLAG_INITIAL_ACTIVE, 0, 0, '', ''),
@@ -577,6 +576,23 @@ INSERT INTO `worldstate_template` (`state_id`, `type`, `condition`, `flags`, `de
 (4327, 4, 628, @FLAG_INITIAL_ACTIVE, 1, 0, '', ''),
 (4328, 4, 628, @FLAG_INITIAL_ACTIVE, 1, 0, '', '');
 
+-- Arenas
+-- Dalaran arena
+SET @MAP := 617;
+DELETE FROM `worldstate_template` WHERE `type` = 4 AND `condition` = @MAP;
+INSERT INTO `worldstate_template` (`state_id`, `type`, `condition`, `flags`, `default`, `linked_id`, `ScriptName`, `comment`) VALUES
+(3610, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 0, '', 'Arena counters activate'),
+(3600, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 3610, '', 'Arena Green command counter'),
+(3601, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 3610, '', 'Arena Gold command counter');
+
+-- Ring of Valor
+SET @MAP := 618;
+DELETE FROM `worldstate_template` WHERE `type` = 4 AND `condition` = @MAP;
+INSERT INTO `worldstate_template` (`state_id`, `type`, `condition`, `flags`, `default`, `linked_id`, `ScriptName`, `comment`) VALUES
+(3610, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 0, '', 'Arena counter activate'),
+(3600, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 3610, '', 'Arena Green command counter'),
+(3601, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 3610, '', 'Arena Gold command counter');
+
 -- Instances
 -- Zulaman
 SET @MAP := 568;
@@ -650,6 +666,27 @@ DELETE FROM `worldstate_template` WHERE `type` = 4 AND `condition` = @MAP;
 INSERT INTO `worldstate_template` (`state_id`, `type`, `condition`, `flags`, `default`, `linked_id`, `ScriptName`, `comment`) VALUES
 (4390, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 0, '', 'TOC attempts main WS'),
 (4389, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 4390, '', 'TOC attempts counter');
+
+-- Oculus
+SET @MAP := 578;
+DELETE FROM `worldstate_template` WHERE `type` = 4 AND `condition` = @MAP;
+INSERT INTO `worldstate_template` (`state_id`, `type`, `condition`, `flags`, `default`, `linked_id`, `ScriptName`, `comment`) VALUES
+(3524, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 0, '', 'Oculus CONSTRUCTS'),
+(3486, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 3524, '', 'Oculus CONSTRUCTS_COUNT');
+
+-- ICC
+SET @MAP := 631;
+DELETE FROM `worldstate_template` WHERE `type` = 4 AND `condition` = @MAP;
+INSERT INTO `worldstate_template` (`state_id`, `type`, `condition`, `flags`, `default`, `linked_id`, `ScriptName`, `comment`) VALUES
+(4903, 4, @MAP, @FLAG_INITIAL_STATE, 0, 0, '', 'Quest 24874/24879 active'),
+(4904, 4, @MAP, @FLAG_INITIAL_STATE, 0, 4903, '', 'Quest 24874/24879 remining time');
+
+-- Culling of stratholme
+SET @MAP := 595;
+DELETE FROM `worldstate_template` WHERE `type` = 4 AND `condition` = @MAP;
+INSERT INTO `worldstate_template` (`state_id`, `type`, `condition`, `flags`, `default`, `linked_id`, `ScriptName`, `comment`) VALUES
+(3479, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 0, '', 'COS Crates'),
+(3480, 4, @MAP, @FLAG_INITIAL_ACTIVE, 0, 3479, '', 'COS Crates count');
 
 -- Zones
 -- Ebon hold
