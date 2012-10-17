@@ -137,7 +137,6 @@ UPDATE creature_template SET ScriptName='guard_shattrath_scryer' WHERE entry=185
 UPDATE item_template SET ScriptName='item_arcane_charges' WHERE entry=34475;
 UPDATE item_template SET ScriptName='item_flying_machine' WHERE entry IN (34060,34061);
 UPDATE item_template SET ScriptName='item_gor_dreks_ointment' WHERE entry=30175;
-UPDATE item_template SET ScriptName='item_tainted_core' WHERE entry=31088;
 UPDATE item_template SET ScriptName='item_petrov_cluster_bombs' WHERE entry=33098;
 
 /* NPC (usually creatures to be found in more than one specific zone) */
@@ -447,8 +446,7 @@ UPDATE creature_template SET ScriptName='mob_water_globule' WHERE entry=21913;
 /* Lady Vashj event */
 UPDATE creature_template SET ScriptName='boss_lady_vashj' WHERE entry=21212;
 UPDATE creature_template SET ScriptName='mob_enchanted_elemental' WHERE entry=21958;
-UPDATE creature_template SET ScriptName='mob_tainted_elemental' WHERE entry=22009;
-UPDATE creature_template SET ScriptName='mob_shield_generator_channel' WHERE entry=19870;
+UPDATE gameobject_template SET ScriptName='go_shield_generator' WHERE entry IN (185051,185052,185053,185054);
 /* The Lurker Below event */
 UPDATE gameobject_template SET ScriptName='go_strange_pool' WHERE entry=184956;
 UPDATE creature_template SET ScriptName='boss_the_lurker_below' WHERE entry=21217;
@@ -631,6 +629,7 @@ UPDATE gameobject_template SET ScriptName='go_manticron_cube' WHERE entry=181713
 UPDATE creature_template SET ScriptName='boss_magtheridon' WHERE entry=17257;
 UPDATE creature_template SET ScriptName='mob_abyssal' WHERE entry=17454;
 UPDATE creature_template SET ScriptName='mob_hellfire_channeler' WHERE entry=17256;
+UPDATE creature_template SET ScriptName='npc_target_trigger' WHERE entry=17474;
 
 /* HELLFIRE PENINSULA */
 UPDATE creature_template SET ScriptName='boss_doomlord_kazzak' WHERE entry=18728;
