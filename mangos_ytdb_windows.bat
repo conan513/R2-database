@@ -1,5 +1,7 @@
 @echo off
 
+mysql -u root --password=123456 -h 127.0.0.1 --port=3310 < "mangos\sql\mangos_recreate_database.sql
+
 echo Importing YTDB database
 for %%i in (ytdb\full\ytdb*mangos*sql) do if %%i neq ytdb\full\ytdb*mangos*sql if %%i neq ytdb\full\ytdb*mangos*sql if %%i neq ytdb\full\ytdb*mangos*sql echo %%i & mysql -u root --password=123456 -h 127.0.0.1 --port=3310 --database=mangos < %%i
 for %%i in (ytdb\update\*mangos*sql) do if %%i neq ytdb\update\ytdb*mangos*sql if %%i neq ytdb\update\ytdb*mangos*sql if %%i neq ytdb\update\ytdb*mangos*sql echo %%i & mysql -u root --password=123456 -h 127.0.0.1 --port=3310 --database=mangos < %%i
