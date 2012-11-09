@@ -955,7 +955,23 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1000887,'End him...',0,0,0,0,'lexlort SAY_LEXLORT_3'),
 (-1000888,'You, soldier, report back to Kargath at once!',0,0,0,1,'lexlort SAY_LEXLORT_4'),
 (-1000889,'%s submits.',0,2,0,0,'grark EMOTE_SUBMIT'),
-(-1000890,'You have come to play? Then let us play!',0,0,0,0,'grark SAY_AGGRO');
+(-1000890,'You have come to play? Then let us play!',0,0,0,0,'grark SAY_AGGRO'),
+
+(-1000891,'Let\'s do this... Just keep me covered and I\'ll deliver the package.',0,0,0,0,'demolitionist SAY_INTRO'),
+(-1000892,'I\'m under attack! I repeat, I am under attack!',0,0,0,0,'demolitionist SAY_ATTACK_1'),
+(-1000893,'I need to find a new line of work.',0,0,0,0,'demolitionist SAY_ATTACK_2'),
+(-1000894,'By the second sun of K\'aresh, look at this place! I can only imagine what Salhadaar is planning. Come on, let\'s keep going.',0,0,0,1,'demolitionist SAY_STAGING_GROUNDS'),
+(-1000895,'With this much void waste and run off, a toxic void horror can\'t be too far behind.',0,0,0,0,'demolitionist SAY_TOXIC_HORROR'),
+(-1000896,'Look there, fleshling! Salhadaar\'s conduits! He\'s keeping well fed...',0,0,0,1,'demolitionist SAY_SALHADAAR'),
+(-1000897,'Alright, keep me protected while I plant this disruptor. This shouldn\'t take very long...',0,0,0,0,'demolitionist SAY_DISRUPTOR'),
+(-1000898,'Protect the conduit! Stop the intruders!',0,0,0,0,'nexus stalkers SAY_PROTECT'),
+(-1000899,'Done! Back up! Back up!',0,0,0,0,'demolitionist SAY_FINISH_1'),
+(-1000900,'Looks like my work here is done. Report to the holo-image of Ameer over at the transporter.',0,0,0,1,'demolitionist SAY_FINISH_2'),
+
+(-1000901,'Thanks, friend. Will you help me get out of here?',0,0,0,1,'vanguard SAY_VANGUARD_INTRO'),
+(-1000902,'We\'re not too far from the Protectorate Watch Post, $N. This way!',0,0,0,1,'vanguard SAY_VANGUARD_START'),
+(-1000903,'Commander! This fleshling rescued me!',0,0,0,0,'vanguard SAY_VANGUARD_FINISH'),
+(-1000904,'%s salutes $N.',0,2,0,0,'vanguard EMOTE_VANGUARD_FINISH');
 
 -- -1 033 000 SHADOWFANG KEEP
 INSERT INTO script_texts (entry,content_default,sound,type,language,emote,comment) VALUES
@@ -2599,32 +2615,32 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1564095,'Destiny... awaits.',11485,1,0,0,'council mala DEATH'),
 (-1564096,'Diel ma\'ahn... oreindel\'o',11443,1,0,0,'council zere DEATH'),
 
-(-1564097,'Akama... your duplicity is hardly surprising. I should have slaughtered you and your malformed brethren long ago.',11463,1,0,0,'illidan SAY_CONVO_1'),
-(-1564098,'We\'ve come to end your reign, Illidan. My people and all of Outland shall be free!',11389,1,0,25,'illidan SAY_CONVO_2'),
-(-1564099,'Boldly said. But I remain unconvinced.',11464,1,0,396,'illidan SAY_CONVO_3'),
-(-1564100,'The time has come! The moment is at hand!',11380,1,0,22,'illidan SAY_CONVO_4'),
-(-1564101,'You are not prepared!',11466,1,0,406,'illidan SAY_CONVO_5'),
-(-1564102,'Is this it, mortals? Is this all the fury you can muster?',11476,1,0,0,'illidan SAY_CONVO_6'),
-(-1564103,'Their fury pales before mine, Illidan. We have some unsettled business between us.',11491,1,0,5,'illidan SAY_CONVO_7'),
-(-1564104,'Maiev... How is this even possible?',11477,1,0,1,'illidan SAY_CONVO_8'),
-(-1564105,'Ah... my long hunt is finally over. Today, Justice will be done!',11492,1,0,15,'illidan SAY_CONVO_9'),
-(-1564106,'Feel the hatred of ten thousand years!',11470,1,0,0,'illidan SAY_CONVO_10'),
-(-1564107,'Ahh... It is finished. You are beaten.',11496,1,0,0,'illidan SAY_CONVO_11'),
-(-1564108,'You have won... Maiev...but the huntress... is nothing...without the hunt... you... are nothing... without me..',11478,1,0,65,'illidan SAY_CONVO_12'),
-(-1564109,'He is right. I feel nothing... I am nothing...',11497,1,0,0,'illidan SAY_CONVO_13'),
-(-1564110,'Farewell, champions.',11498,1,0,0,'illidan SAY_CONVO_14'),
-(-1564111,'The Light will fill these dismal halls once again. I swear it.',11387,1,0,0,'illidan SAY_CONVO_15'),
+(-1564097,'Akama. Your duplicity is hardly surprising. I should have slaughtered you and your malformed brethren long ago.',11463,1,0,0,'illidan SAY_ILLIDAN_SPEECH_1'),
+(-1564098,'We\'ve come to end your reign, Illidan. My people and all of Outland shall be free!',11389,1,0,25,'akama(illidan) SAY_AKAMA_SPEECH_2'),
+(-1564099,'Boldly said. But I remain unconvinced.',11464,1,0,6,'illidan SAY_ILLIDAN_SPEECH_3'),
+(-1564100,'The time has come! The moment is at hand!',11380,1,0,22,'akama(illidan) SAY_AKAMA_SPEECH_4'),
+(-1564101,'You are not prepared!',11466,1,0,406,'illidan SAY_ILLIDAN_SPEECH_5'),
+(-1564102,'Is this it, mortals? Is this all the fury you can muster?',11476,1,0,0,'illidan SAY_ILLIDAN_SPEECH_6'),
+(-1564103,'Their fury pales before mine, Illidan. We have some unsettled business between us.',11491,1,0,6,'maiev SAY_MAIEV_SPEECH_7'),
+(-1564104,'Maiev... How is this even possible?',11477,1,0,1,'illidan SAY_ILLIDAN_SPEECH_8'),
+(-1564105,'My long hunt is finally over. Today, Justice will be done!',11492,1,0,5,'maiev SAY_MAIEV_SPEECH_9'),
+(-1564106,'Feel the hatred of ten thousand years!',11470,1,0,0,'illidan SAY_FRENZY'),
+(-1564107,'It is finished. You are beaten.',11496,1,0,0,'maiev SAY_MAIEV_EPILOGUE_1'),
+(-1564108,'You have won... Maiev. But the huntress... is nothing without the hunt. You... are nothing... without me.',11478,1,0,0,'illidan SAY_ILLIDAN_EPILOGUE_2'),
+(-1564109,'He\'s right. I feel nothing... I am... nothing.',11497,1,0,0,'maiev SAY_MAIEV_EPILOGUE_3'),
+(-1564110,'Farewell, champions.',11498,1,0,0,'maiev SAY_MAIEV_EPILOGUE_4'),
+(-1564111,'The Light will fill these dismal halls once again. I swear it.',11387,1,0,0,'akama(illidan) SAY_AKAMA_EPILOGUE_5'),
 (-1564112,'I can feel your hatred.',11467,1,0,0,'illidan SAY_TAUNT_1'),
 (-1564113,'Give in to your fear!',11468,1,0,0,'illidan SAY_TAUNT_2'),
 (-1564114,'You know nothing of power!',11469,1,0,0,'illidan SAY_TAUNT_3'),
 (-1564115,'Such... arrogance!',11471,1,0,0,'illidan SAY_TAUNT_4'),
-(-1564116,'That is for Naisha!',11493,1,0,0,'illidan SAY_MAIEV_TAUNT_1'),
-(-1564117,'Bleed as I have bled!',11494,1,0,0,'illidan SAY_MAIEV_TAUNT_2'),
-(-1564118,'There shall be no prison for you this time!',11495,1,0,0,'illidan SAY_MAIEV_TAUNT_3'),
-(-1564119,'Meet your end, demon!',11500,1,0,0,'illidan SAY_MAIEV_TAUNT_4'),
-(-1564120,'Be wary friends, The Betrayer meditates in the court just beyond.',11388,1,0,0,'illidan SAY_AKAMA_BEWARE'),
+(-1564116,'That is for Naisha!',11493,1,0,0,'maiev SAY_MAIEV_TAUNT_1'),
+(-1564117,'Bleed as I have bled!',11494,1,0,0,'maiev SAY_MAIEV_TAUNT_2'),
+(-1564118,'There shall be no prison for you this time!',11495,1,0,0,'maiev SAY_MAIEV_TRAP'),
+(-1564119,'Meet your end, demon!',11500,1,0,0,'maiev SAY_MAIEV_TAUNT_4'),
+(-1564120,'Be wary friends, The Betrayer meditates in the court just beyond.',11388,1,0,0,'akama(illidan) SAY_AKAMA_BEWARE'),
 (-1564121,'Come, my minions. Deal with this traitor as he deserves!',11465,1,0,0,'illidan SAY_AKAMA_MINION'),
-(-1564122,'I\'ll deal with these mongrels. Strike now, friends! Strike at the betrayer!',11390,1,0,0,'illidan SAY_AKAMA_LEAVE'),
+(-1564122,'I\'ll deal with these mongrels. Strike now, friends! Strike at the betrayer!',11390,1,0,22,'akama(illidan) SAY_AKAMA_LEAVE'),
 (-1564123,'Who shall be next to taste my blades?!',11473,1,0,0,'illidan SAY_KILL1'),
 (-1564124,'This is too easy!',11472,1,0,0,'illidan SAY_KILL2'),
 (-1564125,'I will not be touched by rabble such as you!',11479,1,0,254,'illidan SAY_TAKEOFF'),
@@ -2633,7 +2649,12 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1564128,'Behold the power... of the demon within!',11475,1,0,0,'illidan SAY_MORPH'),
 (-1564129,'You\'ve wasted too much time mortals, now you shall fall!',11474,1,0,0,'illidan SAY_ENRAGE'),
 
-(-1564130,'Broken of the Ashtongue tribe, your leader speaks!',0,1,0,0,'akama shade SAY_FREE_1');
+(-1564130,'Broken of the Ashtongue tribe, your leader speaks!',0,1,0,0,'akama(shade) SAY_FREE_1'),
+
+(-1564131,'This door is all that stands between us and the Betrayer. Stand aside, friends.',0,0,0,1,'akama(illidan) SAY_OPEN_DOOR_1'),
+(-1564132,'I cannot do this alone...',0,0,0,0,'akama(illidan) SAY_OPEN_DOOR_2'),
+(-1564133,'You are not alone, Akama.',0,0,0,0,'spirit_Udalo SAY_OPEN_DOOR_3'),
+(-1564134,'Your people will always be with you!',0,0,0,0,'spirit_Olum SAY_OPEN_DOOR_4');
 
 -- -1 565 000 GRUUL'S LAIR
 INSERT INTO script_texts (entry,content_default,sound,type,language,emote,comment) VALUES
@@ -4405,7 +4426,9 @@ INSERT INTO gossip_texts (entry,content_default,comment) VALUES
 
 -- -3 564 000 BLACK TEMPLE
 INSERT INTO gossip_texts (entry,content_default,comment) VALUES
-(-3564000,'I\'m with you, Akama.','akama(shade) GOSSIP_ITEM_START_ENCOUNTER');
+(-3564000,'I\'m with you, Akama.','akama(shade) GOSSIP_ITEM_START_ENCOUNTER'),
+(-3564001,'I\'m ready, Akama.','akama(illidan) GOSSIP_ITEM_PREPARE'),
+(-3564002,'We\'re ready to face Illidan.','akama(illidan) GOSSIP_ITEM_START_EVENT');
 
 -- -3 595 000 CULLING OF STRATHOLME
 INSERT INTO gossip_texts (entry,content_default,comment) VALUES
@@ -6968,5 +6991,78 @@ INSERT INTO script_waypoint VALUES
 (17225, 29, -11121.31, -1890.25, 111.643, 0, ''),
 (17225, 30, -11118.22, -1883.83, 110.595, 3000, ''),
 (17225, 31, -11118.45, -1883.68, 91.473, 0, 'start combat');
+
+DELETE FROM script_waypoint WHERE entry=20802;
+INSERT INTO script_waypoint VALUES
+(20802, 0, 4017.864, 2325.038, 114.029, 3000, 'SAY_INTRO'),
+(20802, 1, 4006.373, 2324.593, 111.455, 0, ''),
+(20802, 2, 3998.391, 2326.364, 113.164, 0, ''),
+(20802, 3, 3982.309, 2330.261, 113.846, 7000, 'SAY_STAGING_GROUNDS'),
+(20802, 4, 3950.646, 2329.249, 113.924, 0, 'SAY_TOXIC_HORROR'),
+(20802, 5, 3939.229, 2330.994, 112.197, 0, ''),
+(20802, 6, 3927.858, 2333.644, 111.330, 0, ''),
+(20802, 7, 3917.851, 2337.696, 113.493, 0, ''),
+(20802, 8, 3907.743, 2343.336, 114.062, 0, ''),
+(20802, 9, 3878.760, 2378.611, 114.037, 8000, 'SAY_SALHADAAR'),
+(20802, 10, 3863.153, 2355.876, 114.987, 0, ''),
+(20802, 11, 3861.241, 2344.893, 115.201, 0, ''),
+(20802, 12, 3872.463, 2323.114, 114.671, 0, 'escort paused - SAY_DISRUPTOR'),
+(20802, 13, 3863.740, 2349.790, 115.382, 0, 'SAY_FINISH_2');
+
+DELETE FROM script_waypoint WHERE entry=20763;
+INSERT INTO script_waypoint VALUES
+(20763, 0, 4084.092, 2297.254, 110.277, 0, ''),
+(20763, 1, 4107.174, 2294.916, 106.625, 0, ''),
+(20763, 2, 4154.129, 2296.789, 102.331, 0, ''),
+(20763, 3, 4166.021, 2302.819, 103.422, 0, ''),
+(20763, 4, 4195.039, 2301.094, 113.786, 0, ''),
+(20763, 5, 4205.246, 2297.116, 117.992, 0, ''),
+(20763, 6, 4230.429, 2294.642, 127.307, 0, ''),
+(20763, 7, 4238.981, 2293.579, 129.332, 0, ''),
+(20763, 8, 4250.184, 2293.272, 129.009, 0, ''),
+(20763, 9, 4262.810, 2290.768, 126.485, 0, ''),
+(20763, 10, 4265.845, 2278.562, 128.235, 0, ''),
+(20763, 11, 4265.609, 2265.734, 128.452, 0, ''),
+(20763, 12, 4258.838, 2245.354, 132.804, 0, ''),
+(20763, 13, 4247.976, 2221.211, 137.668, 0, ''),
+(20763, 14, 4247.973, 2213.876, 137.721, 0, ''),
+(20763, 15, 4249.876, 2204.265, 137.121, 4000, ''),
+(20763, 16, 4249.876, 2204.265, 137.121, 0, 'SAY_VANGUARD_FINISH'),
+(20763, 17, 4252.455, 2170.885, 137.677, 3000, 'EMOTE_VANGUARD_FINISH'),
+(20763, 18, 4252.455, 2170.885, 137.677, 5000, '');
+
+DELETE FROM script_waypoint WHERE entry=23089;
+INSERT INTO script_waypoint VALUES
+(23089, 0, 660.22, 305.74, 271.688, 0, 'escort paused - GOSSIP_ITEM_PREPARE'),
+(23089, 1, 675.10, 343.30, 271.688, 0, ''),
+(23089, 2, 694.01, 374.84, 271.687, 0, ''),
+(23089, 3, 706.22, 375.75, 274.888, 0, ''),
+(23089, 4, 720.48, 370.38, 281.300, 0, ''),
+(23089, 5, 733.30, 357.66, 292.477, 0, ''),
+(23089, 6, 740.40, 344.39, 300.920, 0, ''),
+(23089, 7, 747.54, 329.03, 308.509, 0, ''),
+(23089, 8, 748.24, 318.78, 311.781, 0, ''),
+(23089, 9, 752.41, 304.31, 312.077, 0, 'escort paused - SAY_AKAMA_OPEN_DOOR_1'),
+(23089, 10, 770.27, 304.89, 312.35, 0, ''),
+(23089, 11, 780.18, 305.26, 319.71, 0, ''),
+(23089, 12, 791.45, 289.27, 319.80, 0, ''),
+(23089, 13, 790.41, 262.70, 341.42, 0, ''),
+(23089, 14, 782.88, 250.20, 341.60, 0, ''),
+(23089, 15, 765.35, 241.40, 353.62, 0, ''),
+(23089, 16, 750.61, 235.63, 353.02, 0, 'escort paused - GOSSIP_ITEM_START_EVENT'),
+(23089, 17, 748.87, 304.93, 352.99, 0, 'escort paused - SAY_ILLIDAN_SPEECH_1'),
+(23089, 18, 737.92, 368.15, 352.99, 0, ''),
+(23089, 19, 749.64, 378.69, 352.99, 0, ''),
+(23089, 20, 766.49, 371.79, 353.63, 0, ''),
+(23089, 21, 784.98, 361.89, 341.41, 0, ''),
+(23089, 22, 791.44, 347.10, 341.41, 0, ''),
+(23089, 23, 794.80, 319.47, 319.75, 0, ''),
+(23089, 24, 794.34, 304.34, 319.75, 0, 'escort paused - fight illidari elites'),
+(23089, 25, 794.80, 319.47, 319.75, 0, ''),
+(23089, 26, 791.44, 347.10, 341.41, 0, ''),
+(23089, 27, 784.98, 361.89, 341.41, 0, ''),
+(23089, 28, 766.49, 371.79, 353.63, 0, ''),
+(23089, 29, 749.64, 378.69, 352.99, 0, ''),
+(23089, 30, 737.92, 368.15, 352.99, 0, 'escort paused');
 
 -- EOF

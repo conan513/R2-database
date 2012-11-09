@@ -1,42 +1,35 @@
 /* ULDUAR from Xfurry*/
 
--- Flame Leviathan
-    UPDATE creature_template SET ScriptName = 'boss_flame_leviathan' WHERE entry = 33113;
-    UPDATE creature_template SET ScriptName = 'mob_defense_turret' WHERE entry = 33142;
-    UPDATE creature_template SET ScriptName = 'mob_pool_of_tar' WHERE entry = 33090;
-    UPDATE creature_template SET ScriptName = 'mob_mechanolift' WHERE entry = 33214;
-    UPDATE creature_template SET ScriptName = 'mob_freyas_ward' WHERE entry = 33367;
-    UPDATE creature_template SET ScriptName = 'mob_hodirs_fury' WHERE entry = 33212;  
-    UPDATE creature_template SET ScriptName = 'mob_mimiron_inferno' WHERE entry = 33370;
-    UPDATE creature_template SET ScriptName = 'mob_thorims_hammer' WHERE entry = 33365;
-    UPDATE creature_template SET ScriptName = 'mob_lorekeeper' WHERE entry=33686;
+-- --------------- --
+-- Flame Leviathan --
+-- --------------- --
+DELETE FROM `creature` WHERE `id` IN(33060, 33062, 33109); -- Loading vehicles by script
+UPDATE `creature_template` SET `ScriptName` = 'boss_flame_leviathan' WHERE `entry` = 33113;
+UPDATE `creature` SET `position_x` = 432.09, `position_y` =-13.3 , `position_z` = 409.9 WHERE `id` = 33113;
+UPDATE `creature_template` SET `ScriptName` = 'npc_brann_bronzebeard' WHERE `entry` = 33579;
+UPDATE `creature_template` SET `npcflag` = `npcflag` | 1 WHERE `entry` = 33579;
+UPDATE `creature_template` SET `ScriptName` = 'mob_defense_turret' WHERE `entry` = 33142;
+UPDATE `creature_template` SET `ScriptName` = 'mob_pool_of_tar' WHERE `entry` = 33090;
+UPDATE `creature_template` SET `ScriptName` = 'mob_mechanolift' WHERE `entry` = 33214;
+UPDATE `creature_template` SET `ScriptName` = 'mob_freyas_ward' WHERE `entry` = 33367;
+UPDATE `creature_template` SET `ScriptName` = 'mob_hodirs_fury' WHERE `entry` = 33212;
+UPDATE `creature_template` SET `ScriptName` = 'mob_mimiron_inferno' WHERE `entry` = 33370;
+UPDATE `creature_template` SET `ScriptName` = 'mob_thorims_hammer' WHERE `entry` = 33365;
+UPDATE `creature_template` SET `ScriptName` = 'mob_lorekeeper' WHERE `entry` = 33686;
+UPDATE `creature_template` SET `InhabitType` = 4 WHERE `entry` IN (33366, 33369, 33364, 33108);
+DELETE FROM `spell_script_target` WHERE `entry` IN(62906, 62909, 62911, 62533);
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(62906, 1, 33367), -- Freya's Ward
+(62909, 1, 33370), -- Mimiron's Inferno
+(62911, 1, 33365), -- Thorim's Hammer
+(62533, 1, 33212); -- Hodir's Fury
 
-    -- grünes leuchten
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 63295;
-    INSERT INTO spell_script_target (entry, type, targetEntry) VALUES (63295,1,33367);
-    -- blaues  leuchten
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 63294;
-    INSERT INTO spell_script_target (entry, type, targetEntry) VALUES (63294,1,33212),(63294,1,33365);
-    -- gelbes(rotes) leuchten
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 63292;
-    INSERT INTO spell_script_target (entry, type, targetEntry) VALUES (63292,1,33370);
-
-
-    -- Freya Wall (Pflanzen)
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 62906;
-    INSERT INTO spell_script_target (entry, type, targetEntry) VALUES (62906,1,33060),(62906,1,33109) ;
-
-    -- Hodir Fury (Eis)
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 62533;
-    INSERT INTO spell_script_target (entry, type, targetEntry) VALUES (62533,1,33060),(62533,1,33109);
-
-    -- mimiron inferno (Feuer)
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 62909;
-    INSERT INTO spell_script_target (entry, type, targetEntry) VALUES (62909,1,33369);
-
-    -- Thorim Hammer
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 62911 ;
-    INSERT INTO spell_script_target (entry, type, targetEntry) VALUES (62911 ,1,33060),(62911 ,1,33109);
+DELETE FROM `spell_script_target` WHERE `entry` IN(63295, 63294, 63292);
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(63295, 1, 33367), -- Freya Dummy Green - Freya's Ward
+(63294, 1, 33212), -- Freya Dummy Blue - Hodir's Fury
+(63294, 1, 33365), -- Freya Dummy Blue - Thorim's Hammer
+(63292, 1, 33370); -- Freya Dummy Yellow - Mimiron's Inferno
 
 -- Ignis
     UPDATE creature_template SET mechanic_immune_mask=617299803, scriptname='boss_ignis' WHERE entry=33118;
@@ -337,7 +330,6 @@ UPDATE `gameobject` SET `position_x` = 2734.73 WHERE `id` IN (194789, 194956);
 REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('64444', '1', '33670');
 REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('63414', '1', '33651');
 REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('65101', '1', '33350');
--- REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('62909', '1', '33350');
 
 -- SOME MIMIRON LOOT BOXES ARE MISSING IN YTDB, THIS IS THE FIX FOR IT!
 -- mimiron loot fix:

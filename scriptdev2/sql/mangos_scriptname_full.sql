@@ -294,12 +294,8 @@ UPDATE creature_template SET ScriptName='boss_illidan_stormrage' WHERE entry=229
 UPDATE creature_template SET ScriptName='boss_high_nethermancer_zerevor' WHERE entry=22950; -- Mage at Illidari Council
 UPDATE creature_template SET ScriptName='boss_gathios_the_shatterer' WHERE entry=22949; -- Paladin at Illidari Council
 UPDATE creature_template SET ScriptName='boss_maiev_shadowsong' WHERE entry=23197; -- Maiev Shadowsong
-UPDATE gameobject_template SET ScriptName='gameobject_cage_trap' WHERE entry=185916; -- Cage Trap GO in Illidan Encounter
-UPDATE creature_template SET ScriptName='mob_blaze' WHERE entry=23259; -- Blaze mob in Illidan Phase 2
 UPDATE creature_template SET ScriptName='mob_flame_of_azzinoth' WHERE entry=22997; -- Flame of Azzinoth (Illidan Phase 2)
 UPDATE creature_template SET ScriptName='mob_blade_of_azzinoth' WHERE entry=22996; -- Blade of Azzinoth (Illidan Phase 2)
-UPDATE creature_template SET ScriptName='mob_demon_fire' WHERE entry=23069; -- Demon Fire in Illidan Phase 2
-UPDATE creature_template SET ScriptName='mob_flame_crash' WHERE entry=23336; -- Flame Crash in Illidan Normal Form
 UPDATE creature_template SET ScriptName='mob_cage_trap_trigger' WHERE entry=23304; -- Cage Trap mob in Illidan Phase 3/4 Normal
 UPDATE creature_template SET ScriptName='mob_shadow_demon' WHERE entry=23375; -- Shadow Demon in Illidan Demon Form
 UPDATE creature_template SET ScriptName='npc_volcano' WHERE entry=23085; -- Supremus Volcano
@@ -637,6 +633,7 @@ UPDATE creature_template SET ScriptName='npc_aeranas' WHERE entry=17085;
 UPDATE creature_template SET ScriptName='npc_ancestral_wolf' WHERE entry=17077;
 UPDATE creature_template SET ScriptName='npc_demoniac_scryer' WHERE entry=22258;
 UPDATE creature_template SET ScriptName='npc_wounded_blood_elf' WHERE entry=16993;
+UPDATE creature_template SET ScriptName='npc_fel_guard_hound' WHERE entry=21847;
 
 /* HILLSBRAD FOOTHILLS */
 
@@ -814,6 +811,8 @@ UPDATE creature_template SET ScriptName='npc_commander_dawnforge' WHERE entry=19
 UPDATE creature_template SET ScriptName='npc_bessy' WHERE entry=20415;
 UPDATE creature_template SET ScriptName='npc_maxx_a_million' WHERE entry=19589;
 UPDATE creature_template SET ScriptName='npc_zeppit' WHERE entry=22484;
+UPDATE creature_template SET ScriptName='npc_protectorate_demolitionist' WHERE entry=20802;
+UPDATE creature_template SET ScriptName='npc_captured_vanguard' WHERE entry=20763;
 
 /*  */
 /* THE NEXUS */
