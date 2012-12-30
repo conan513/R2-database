@@ -47,14 +47,8 @@ UPDATE `creature_template` SET `flags_extra` = 128 WHERE `entry` = 25703;
 -- remove static spawn as Felmyst is summoned when needed
 DELETE FROM `creature` WHERE `id` = 25038;
 
-UPDATE `creature_template` SET `ScriptName` = 'spell_dummy_npc_brutallus_cloud' WHERE `entry` = 25703;
 UPDATE `creature_template` SET `ScriptName` = 'npc_felmyst_vapor' WHERE `entry` = 25265;
 UPDATE `creature_template` SET `ScriptName` = 'npc_felmyst_vapor_cloud' WHERE `entry` = 25267;
-
--- cast 45063 at brutallus
-DELETE FROM `spell_script_target` WHERE `entry` = 45063;
-INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
-('45063', '1', '24882');
 
 -- Demonic Vapor :: unit flags (not attackable, pacified, not selectable), bosslevel, factions, speed, spawn/dmg aura
 UPDATE `creature_template` SET `modelid_2` = 11686, `minlevel` = 73, `maxlevel` = 73, `faction_A` = 16, `faction_H` = 16, `unit_flags` = 33685506 WHERE `entry` = 25265;

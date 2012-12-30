@@ -7,7 +7,5 @@ UPDATE `creature_template` SET `ScriptName`='boss_prophet_velen' WHERE `entry`=1
 UPDATE `creature_template` SET `ScriptName`='boss_voljin' WHERE `entry`=10540;
 UPDATE `creature_template` SET `ScriptName`='boss_tyrande_whisperwind' WHERE `entry`=7999;
 UPDATE `creature_template` SET `ScriptName`='boss_fandral_staghelm' WHERE `entry`=3516;
-UPDATE `creature_template` SET `ScriptName`='generic_creature' WHERE `entry` in (16801, 34986, 1748);
-REPLACE INTO spell_target_position VALUES
-(20682, 1, -3992.637, -4717.926, 11.006, 0.7);
-
+UPDATE `creature_template` SET `ScriptName` = 'generic_creature' WHERE `entry` = 16801;
+UPDATE `spell_target_position` SET `target_map` = 1, `target_position_x` = -3992.637, `target_position_y` = -4717.926, `target_position_z` = 11.006, `target_orientation` = 0.7 WHERE `id` = 20682;

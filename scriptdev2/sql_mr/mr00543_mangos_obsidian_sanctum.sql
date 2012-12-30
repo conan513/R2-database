@@ -1,19 +1,13 @@
 -- Instance Obsidian Sanctum
 
 -- ScriptNames
-UPDATE `creature_template` SET `ScriptName` = "boss_sartharion" WHERE `entry` = 28860;
-UPDATE `creature_template` SET `ScriptName` = "mob_vesperon" WHERE `entry` = 30449;
-UPDATE `creature_template` SET `ScriptName` = "mob_shadron" WHERE `entry` = 30451;
-UPDATE `creature_template` SET `ScriptName` = "mob_tenebron" WHERE `entry` = 30452;
-UPDATE `creature_template` SET `ScriptName` = "mob_acolyte_of_shadron" WHERE `entry` IN (30688, 31218);
-UPDATE `creature_template` SET `ScriptName` = "mob_acolyte_of_vesperon" WHERE `entry` IN (30858, 31219);
-UPDATE `creature_template` SET `ScriptName` = "mob_twilight_eggs" WHERE `entry` = 30882;
-UPDATE `creature_template` SET `ScriptName` = "mob_twilight_whelp" WHERE `entry` IN (30890, 31214);
+UPDATE `creature_template` SET `ScriptName` = "mob_acolyte_of_shadron" WHERE `entry` = 30688;
+UPDATE `creature_template` SET `ScriptName` = "mob_acolyte_of_vesperon" WHERE `entry` = 30858;
 UPDATE `creature_template` SET `ScriptName` = "mob_fire_cyclone" WHERE `entry` = 30648;
 UPDATE `creature_template` SET `ScriptName` = "mob_flame_tsunami" WHERE `entry` = 30616;
 
 -- Drakes' templates - instance binding dependent on instance script; set lootid.
-UPDATE `creature_template` SET `lootid` = `entry`, `flags_extra` = `flags_extra`&~1 WHERE `entry` IN (30449, 30451, 30452, 31535, 31520, 31534);
+UPDATE `creature_template` SET `flags_extra` = `flags_extra`&~1 WHERE `entry` IN (30449, 30451, 30452, 31535, 31520, 31534);
 
 -- fix speed of tsunami
 UPDATE `creature_template` SET speed_walk = 23 WHERE entry = 30616;
@@ -22,17 +16,13 @@ UPDATE `creature_template` SET speed_walk = 23 WHERE entry = 30616;
 UPDATE creature_template SET InhabitType = 7 WHERE entry IN (30451, 31520, 30452, 31534, 30449, 31535);
 
 -- Shadow Fissure
-UPDATE `creature_template` SET `AIName` = "EventAI" WHERE entry = 30641;
-DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 30641;
-INSERT INTO `creature_ai_scripts`VALUES
-(3064101, 30641, 1, 0, 100, 2, 5000, 5000, 0, 0, 11, 57581, 0, 2, 37, 0, 0, 0, 0, 0, 0, 0, "Twilight Fissure - Cast Void Blast (Sartharion)"),
-(3064102, 30641, 1, 0, 100, 4, 5000, 5000, 0, 0, 11, 59128, 0, 2, 37, 0, 0, 0, 0, 0, 0, 0, "Twilight Fissure - Cast Void Blast heroic (Sartharion)");
+UPDATE `creature_ai_scripts` SET `action1_param3` = 2, `action2_type` = 37 WHERE `creature_id` = 30641;
 
 -- Warden of The Chamber - make them appear as dead after failing to defend the sanctum
 UPDATE `creature` SET `DeathState` = 1 WHERE `guid` IN (131063, 131064);
 
 -- Hatch Eggs - target Twilight Egg Controller
-DELETE FROM `spell_script_target` WHERE `entry` IN (58542, 59189);
+DELETE FROM `spell_script_target` WHERE `entry` IN (58542, 59189); -- cause drop (58542, 1, 30172), (59189, 1, 30173) from YTDB
 INSERT INTO `spell_script_target` VALUES
 (58542, 1, 31138),
 (59189, 1, 31138);
@@ -45,13 +35,10 @@ UPDATE `creature_template` SET `ScriptName` = "mob_twilight_egg_controller" WHER
 UPDATE `gameobject_template` SET `ScriptName` = "obsidian_sanctum_portals" WHERE `entry` = 193988;
 
 -- Safe Area dummy creature - mark targets in 40yd radius to be not targeted by Sartharion's Pyrobuffet
-UPDATE `creature_template` SET `spell1` = 56911 WHERE `entry` = 30494;
+REPLACE INTO `creature_template_spells` SET `entry` = 30494, `spell1` = 56911;
 
--- TRASH ACID
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '30680';
+-- TRASH ACID  (Need compare with last ACID)
 UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '30681';
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '30682';
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '30453';
 DELETE FROM `creature_ai_scripts` WHERE `creature_id` IN (30680, 30681, 30682, 30453);
 INSERT INTO `creature_ai_scripts` VALUES
 (3068001, 30680, 0, 0, 100, 7, 5000, 10000, 5000, 10000, 11, 13737, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, "Onyx Brood General - Cast Mortal Strike"),
@@ -76,13 +63,4 @@ INSERT INTO `creature_ai_scripts` VALUES
 (3045304, 30453, 2, 0, 100, 6, 25, 1, 0, 0, 11, 53801, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "Onyx Sanctum Guardian - Cast Frenzy at 25% HP");
 
 -- Achievements
-DELETE FROM `achievement_criteria_requirement` WHERE `criteria_id` BETWEEN 7326 AND 7333;
-INSERT INTO `achievement_criteria_requirement` VALUES
-(7326, 18, 0, 0),
-(7327, 18, 0, 0),
-(7328, 18, 0, 0),
-(7331, 18, 0, 0),
-(7329, 18, 0, 0),
-(7332, 18, 0, 0),
-(7330, 18, 0, 0),
-(7333, 18, 0, 0);
+DELETE FROM `achievement_criteria_requirement`  WHERE (`criteria_id` BETWEEN 7326 AND 7333) AND `type` = 12;

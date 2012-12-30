@@ -6,11 +6,6 @@
 -- Elder Nadox -
 -- -------------
 
--- boss Elder Nadox Achievment
-UPDATE `achievement_criteria_requirement` SET `type`='18' WHERE (`criteria_id`='7317') AND (`type`='11');
-
-UPDATE `creature_template` SET `ScriptName` = 'boss_nadox', `AIName`='' WHERE `entry` = 29309;
-
 UPDATE `creature_template` SET `AIName`='',`ScriptName`='mob_nadox_guardian' WHERE (`entry`='30176');
 DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 30176;
 UPDATE `creature_template` SET `faction_A` = 16, `faction_H` = 16 WHERE `entry` = 30176;
@@ -28,28 +23,19 @@ UPDATE `creature_template` SET `ScriptName` = '', `AIName`='' WHERE `entry` = 30
 
 -- --------------- OLD STUFF ----------------------------------------------------------------------- 
 
-
-UPDATE `instance_template` SET `ScriptName` = 'instance_ahnkahet' WHERE `map`=619;
-UPDATE `creature_template` SET `ScriptName` = 'boss_jedoga', `AIName`='' WHERE `entry`=29310;
-
-UPDATE `creature_template` SET `ScriptName` = 'boss_taldaram', `AIName`='' WHERE `entry`=29308;
 UPDATE `creature_template` SET `ScriptName` = 'mob_flame_orb', `AIName`='' WHERE `entry`=30702;
-UPDATE `gameobject_template` SET `ScriptName` = 'go_nerubian_device' WHERE `entry` IN (193093,193094);
-UPDATE `creature_template` SET `ScriptName` = 'boss_volazj', `AIName`='' WHERE `entry`=29311;
 UPDATE `creature_template` SET `ScriptName` = 'mob_twisted_visage' WHERE `entry` = 30621;
 UPDATE `creature_template` SET `ScriptName` = 'mob_ancient_void' WHERE `entry` = 30622;
-UPDATE `creature_template` SET `ScriptName` = 'npc_twilight_volunteer', `AIName`='' WHERE `entry`=30385;
 
 DELETE FROM `creature_template_addon` WHERE `entry` IN (30385, 31474);
 INSERT INTO `creature_template_addon` (`entry`, `mount`, `bytes1`, `b2_0_sheath`, `b2_1_pvp_state`, `emote`, `moveflags`, `auras`) VALUES
-(30385, 0, 8, 1, 0, 0, 0, '');
-INSERT INTO `creature_template_addon` (`entry`, `mount`, `bytes1`, `b2_0_sheath`, `b2_1_pvp_state`, `emote`, `moveflags`, `auras`) VALUES
+(30385, 0, 8, 1, 0, 0, 0, ''),
 (31474, 0, 8, 1, 0, 0, 0, '');
 
 UPDATE `creature_template` SET `unit_flags` = '0' WHERE `entry` IN (30114,31473);
 
 DELETE FROM `creature_addon` WHERE guid=131953;
-DELETE FROM `creature` WHERE guid IN (131953, 115064);
+DELETE FROM `creature` WHERE guid IN (131953, 115064);  -- this cause drop C34144 from YTDB
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`) VALUES
 (131953, 29310, 619, 3, 1, 26777, 0, 357.353, -692.808, -10.7028, 5.56541, 14400, 5, 0, 212700, 0, 0, 1);
 
@@ -58,8 +44,7 @@ INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `positi
 (911321, 194394, 619, 2, 1, 371.842, -701.621, -16.1797, 5.67851, 0, 0, 0.297751, -0.954644, -10, 0, 1);
 
 UPDATE `creature_template` SET `unit_flags` = 0 WHERE `entry` IN (30258, 30391, 30435);
-UPDATE `creature_template` SET `ScriptName` ='npc_amanitar_mushroom', `AIName`='' WHERE `entry` IN (30391, 30435);
-UPDATE `creature_template` SET `ScriptName` ='boss_amanitar', `AIName`='', `mindmg` = 488, `maxdmg` = 648, `attackpower` = 782, `dmg_multiplier` = 13  WHERE `entry` = 30258;
+UPDATE `creature_template` SET `mindmg` = 488, `maxdmg` = 648, `attackpower` = 782, `dmg_multiplier` = 13  WHERE `entry` = 30258;
 
 -- -
 -- Mushrooms

@@ -17,9 +17,8 @@ DELETE FROM `creature` WHERE `id`=29560;
 -- -------------
 -- Quest 11560 -
 -- -------------
-UPDATE `gameobject_template` SET `ScriptName` = "", `data2` = 11560 WHERE `entry` = 187373;
+UPDATE `gameobject_template` SET `data2` = 11560 WHERE `entry` = 187373;
 UPDATE `creature_template` SET `ScriptName` = "npc_tadpole" WHERE `entry` = 25201;
-UPDATE `creature` SET `MovementType` = 0 WHERE `id` = 25201;
 DELETE FROM `scripted_event_id` WHERE `id` = 11560;
 INSERT INTO `scripted_event_id` (`id`,`ScriptName`) VALUES (11560,"go_tadpole_cage"); 
 
@@ -33,31 +32,13 @@ UPDATE `creature_template` SET `armor` = 7618, `faction_A` = 67, `faction_H` = 6
 -- -------------
 -- Quest 14104 -
 -- -------------
-DELETE FROM `event_scripts` WHERE `id` = 22030;
-INSERT INTO `event_scripts` (`id`,`delay`,`command`,`datalong`,`datalong2`,`x`,`y`,`z`,`o`,`comments`) VALUES (22030,3,10,35012,300000,10006.4,650.6,10.34,4.542,"");
-
-DELETE FROM `creature_equip_template` WHERE (`entry`=110000);
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES (110000, 34816, 34816, 0);
-
-UPDATE `creature_template` SET `equipment_id` = 110000 WHERE `entry` = 35012;
+DELETE FROM `dbscripts_on_event` WHERE `id` = 22030;
+INSERT INTO `dbscripts_on_event` (`id`,`delay`,`command`,`datalong`,`datalong2`,`x`,`y`,`z`,`o`,`comments`) VALUES (22030,3,10,35012,300000,10006.4,650.6,10.34,4.542,"");
 
 -- ------------
 -- Quest 9164 -
 -- ------------
-UPDATE `creature_template` SET `modelid_2` = 18682 WHERE `entry` = 16206;
-DELETE FROM `creature` WHERE `id`=16206;
-INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
-(75331, 16206, 530, 1, 1, 0, 0, 6435.93, -6636.06, 108.881, 0.270366, 600, 0, 0, 247, 0, 0, 0);
-
-UPDATE `creature_template` SET `modelid_2` = 16113 WHERE `entry` = 16208;
-DELETE FROM `creature` WHERE `id`=16208;
-INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
-(81222, 16208, 530, 1, 1, 0, 0, 6640.26, -6343.53, 8.94499, 4.61578, 600, 0, 0, 247, 0, 0, 0);
-
-UPDATE `creature_template` SET `modelid_2` = 18683 WHERE `entry` = 16209;
-DELETE FROM `creature` WHERE `id`=16209;
-INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
-(81221, 16209, 530, 1, 1, 0, 0, 6287.23, -6365.73, 79.4685, 4.04323, 600, 0, 0, 247, 0, 0, 0);
+UPDATE `creature` SET `MovementType` = 0 WHERE `id` IN (16206, 16208, 16209); -- in YTDB is 2
 
 -- ---
 -- -Quest 8468
@@ -79,16 +60,12 @@ UPDATE `creature_template` SET `AIName` = '', `ScriptName` = 'npc_black_knights_
 UPDATE creature_template SET vehicle_id = 402 WHERE entry = 33519; -- vehicle_id can be 88 107 108 112 143 etc.
 UPDATE creature_template SET KillCredit1 = 38595 WHERE entry = 33448;
 
-UPDATE `creature_template` SET `modelid_2` = 28652 WHERE `entry` = 33513;
-UPDATE `creature_template` SET `modelid_2` = 28652 WHERE `entry` = 33519;
-
 -- ------------------
 -- Quests 13665, 13745, 13750, 13756, 13761, 13767, 13772, 13777, 13782, 13787, 13790, 13793, 13811, 13814
 -- ------------------
 -- dk fix
 
 UPDATE quest_template SET RequiredClasses = 0 WHERE entry = 13794;
-UPDATE quest_template SET PrevQuestId = 13795 WHERE entry IN (13793,13814,13791,13813);
 UPDATE quest_template SET PrevQuestId = 13794, ExclusiveGroup = 0 WHERE entry = 13795;
 
 -- it is also necessary (otherwise spell=63010 do not work)
@@ -96,32 +73,28 @@ UPDATE creature_template SET unit_flags = 8 WHERE entry IN
 (33217,33316,33317,33318,33319,33320,33321,33322,33323,33324);
 
 -- The Valiant's Challenge (10 quests)
-DELETE FROM creature WHERE id = 33707; -- Argent Champion
-DELETE FROM creature_addon WHERE guid = 129089;
-UPDATE creature_template SET faction_A = 7, faction_H = 7, npcflag = 0, KillCredit1 = 33708 WHERE entry = 33707;
-REPLACE INTO creature_template_addon (`entry`,`mount`,`auras`) VALUES (33707,14337,63501);
-UPDATE gossip_scripts SET datalong = 33707 WHERE id IN (33518,50102);
-UPDATE creature_template SET npcflag = 0 WHERE entry = 33448; -- Argent Valiant
+UPDATE `creature_template` SET `KillCredit1` = 33708 WHERE `entry` = 33707;
+UPDATE `creature_template_addon` SET `b2_0_sheath` = 0 WHERE `entry` = 33707;
+-- UPDATE `dbscripts_on_gossip` SET datalong = 33707 WHERE id IN (33518,50102); -- Not found in YTDB
  
--- Among the Champions (4 quests)
-DELETE FROM gossip_scripts WHERE id IN (10453,10454,10455,10456,10457,10458,10459,10460,10461,10462);
+-- Among the Champions (4 quests) (may do not need)
+DELETE FROM `dbscripts_on_gossip` WHERE id IN (10453,10454,10455,10456,10457,10458,10459,10460,10461,10462);
+/*
 DELETE FROM gossip_menu_option WHERE menu_id IN (10453,10454,10455,10456,10457,10458,10459,10460,10461,10462);
- 
 INSERT INTO `gossip_menu_option`(`menu_id`,`id`,`option_icon`,`option_text`,`option_id`,`npc_option_npcflag`,
-`action_menu_id`,`action_poi_id`,`action_script_id`,`box_coded`,`box_money`,`box_text`,`cond_1`,`cond_1_val_1`,
-`cond_1_val_2`,`cond_2`,`cond_2_val_1`,`cond_2_val_2`,`cond_3`,`cond_3_val_1`,`cond_3_val_2`) VALUES
-(10453,0,0,'I am ready to fight!',1,1,-1,0,10453,0,0,NULL,1,62853,0,6,469,0,0,0,0),
-(10454,0,0,'I am ready to fight!',1,1,-1,0,10454,0,0,NULL,1,62853,0,6,469,0,0,0,0),
-(10455,0,0,'I am ready to fight!',1,1,-1,0,10455,0,0,NULL,1,62853,0,6,469,0,0,0,0),
-(10456,0,0,'I am ready to fight!',1,1,-1,0,10456,0,0,NULL,1,62853,0,6,469,0,0,0,0),
-(10457,0,0,'I am ready to fight!',1,1,-1,0,10457,0,0,NULL,1,62853,0,6,67,0,0,0,0),
-(10458,0,0,'I am ready to fight!',1,1,-1,0,10458,0,0,NULL,1,62853,0,6,67,0,0,0,0),
-(10459,0,0,'I am ready to fight!',1,1,-1,0,10459,0,0,NULL,1,62853,0,6,67,0,0,0,0),
-(10460,0,0,'I am ready to fight!',1,1,-1,0,10460,0,0,NULL,1,62853,0,6,469,0,0,0,0),
-(10461,0,0,'I am ready to fight!',1,1,-1,0,10461,0,0,NULL,1,62853,0,6,67,0,0,0,0),
-(10462,0,0,'I am ready to fight!',1,1,-1,0,10462,0,0,NULL,1,62853,0,6,67,0,0,0,0);
- 
-INSERT INTO `gossip_scripts`(`id`,`delay`,`command`,`datalong`,`datalong2`,`buddy_entry`,`search_radius`,
+`action_menu_id`,`action_poi_id`,`action_script_id`,`box_coded`,`box_money`,`box_text`) VALUES
+(10453,0,0,'I am ready to fight!',1,1,-1,0,10453,0,0,NULL ,1,62853,0,6,469,0,0,0,0),
+(10454,0,0,'I am ready to fight!',1,1,-1,0,10454,0,0,NULL ,1,62853,0,6,469,0,0,0,0),
+(10455,0,0,'I am ready to fight!',1,1,-1,0,10455,0,0,NULL ,1,62853,0,6,469,0,0,0,0),
+(10456,0,0,'I am ready to fight!',1,1,-1,0,10456,0,0,NULL ,1,62853,0,6,469,0,0,0,0),
+(10457,0,0,'I am ready to fight!',1,1,-1,0,10457,0,0,NULL ,1,62853,0,6,67,0,0,0,0),
+(10458,0,0,'I am ready to fight!',1,1,-1,0,10458,0,0,NULL ,1,62853,0,6,67,0,0,0,0),
+(10459,0,0,'I am ready to fight!',1,1,-1,0,10459,0,0,NULL ,1,62853,0,6,67,0,0,0,0),
+(10460,0,0,'I am ready to fight!',1,1,-1,0,10460,0,0,NULL ,1,62853,0,6,469,0,0,0,0),
+(10461,0,0,'I am ready to fight!',1,1,-1,0,10461,0,0,NULL ,1,62853,0,6,67,0,0,0,0),
+(10462,0,0,'I am ready to fight!',1,1,-1,0,10462,0,0,NULL ,1,62853,0,6,67,0,0,0,0);
+*/
+INSERT INTO `dbscripts_on_gossip`(`id`,`delay`,`command`,`datalong`,`datalong2`,`buddy_entry`,`search_radius`,
 `data_flags`,`dataint`,`dataint2`,`dataint3`,`dataint4`,`x`,`y`,`z`,`o`,`comments`) VALUES
 (10453,1,22,14,2,0,0,4,0,0,0,0,0,0,0,0,''),
 (10453,0,0,0,0,0,0,4,2000000449,2000000450,2000000451,0,0,0,0,0,''),
@@ -144,10 +117,7 @@ INSERT INTO `gossip_scripts`(`id`,`delay`,`command`,`datalong`,`datalong2`,`budd
 (10462,1,22,14,2,0,0,4,0,0,0,0,0,0,0,0,''),
 (10462,0,0,0,0,0,0,4,2000000449,2000000450,2000000451,0,0,0,0,0,'');
 
-DELETE FROM creature_ai_texts WHERE entry = -335621;
-DELETE FROM creature_ai_scripts WHERE creature_id IN (33285,33306,33382,33383,33384,33558,33559,33561,33562,33564);
-UPDATE gossip_scripts SET buddy_entry = 0, search_radius = 0, data_flags = 4 WHERE command = 22 AND id IN (10469,10468,10470,10472,10473,10466,10464,10471,10465,10467);
-UPDATE `creature_template` SET `gossip_menu_id` = 10470 WHERE `entry` = 33382;
+UPDATE `dbscripts_on_gossip` SET buddy_entry = 0, search_radius = 0, data_flags = 4 WHERE command = 22 AND id IN (10469,10468,10470,10472,10473,10466,10464,10471,10465,10467);
 
 -- valiants
 UPDATE creature_template SET unit_flags = 0, AIName = '', ScriptName = 'npc_valiants' WHERE entry IN (33285,33306,33382,33383,33384,33558,33559,33561,33562,33564);
@@ -195,7 +165,6 @@ INSERT INTO `creature_spell` (`guid`, `spell`, `index`, `active`, `disabled`, `f
 -- Just a side note i dont think the mobs are correctly spawned/Placed around this area need to research or get someone to screen shot in live
 
 -- Added Quest credit
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '26773';
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2677351');
 INSERT INTO `creature_ai_scripts` VALUES ('2677351', '26773', '8', '0', '100', '1', '50546', '-1', '1000', '1000', '11', '47390', '6', '6', '33', '26773', '6', '0', '0', '0', '0', '0', 'ytdb/R2');
 -- npc 26773 -- not selectable -- kill bunny credit
@@ -205,14 +174,11 @@ UPDATE `creature_template` SET `unit_flags` = 33554688 WHERE `entry` = 26773;
 -- Quest 12860/12927-
 -- ------------------
 
--- after testing again not needed
-DELETE FROM `item_required_target` WHERE `entry` = 29746;
+-- correct target and take quest item away when quest is done and remove uneeded reqspellcast
+UPDATE `quest_template` SET `ReqSourceId1` = 41179, `ReqSourceCount1` = 1, `ReqCreatureOrGOId1` = 29746 WHERE `entry` = 12860;
 
 -- correct target and take quest item away when quest is done and remove uneeded reqspellcast
-UPDATE `quest_template` SET `ReqSourceId1` = 41179, `ReqSourceCount1` = 1, `ReqCreatureOrGOId1` = 29746, `ReqSpellCast1` = 0 WHERE `entry` = 12860;
-
--- correct target and take quest item away when quest is done and remove uneeded reqspellcast
-UPDATE `quest_template` SET `ReqSourceId1` = 41179, `ReqSourceCount1` = 1, `ReqCreatureOrGOId1` = 29746, `ReqSpellCast1` = 0 WHERE `entry` = 12927;
+UPDATE `quest_template` SET `ReqSourceId1` = 41179, `ReqSourceCount1` = 1, `ReqCreatureOrGOId1` = 29746 WHERE `entry` = 12927;
 
 -- ---------------
 -- Quest 12813 ---
@@ -223,26 +189,8 @@ UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `en
 UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 29333;
 UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 29338;
 
-
 -- fixed spawn of onslaught harbor guards
-DELETE FROM `creature` WHERE `id`=29330;
-INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
-(120868, 29330, 571, 1, 1, 0, 0, 7524.52, 4846.26, 54.1595, 0.0303891, 600, 0, 0, 12175, 0, 0, 0),
-(120869, 29330, 571, 1, 1, 0, 0, 7524.35, 4849.76, 54.1595, 0.0343194, 600, 0, 0, 12175, 0, 0, 0),
-(120870, 29330, 571, 1, 1, 0, 0, 7505.04, 4845.96, 54.1604, 0.0186107, 600, 0, 0, 12175, 0, 0, 0),
-(120871, 29330, 571, 1, 1, 0, 0, 7505.39, 4849.73, 54.1604, 0.0421631, 600, 0, 0, 12175, 0, 0, 0),
-(120874, 29330, 571, 1, 1, 0, 0, 7698.62, 4863.31, 8.10987, 0.0421443, 600, 0, 0, 12175, 0, 0, 0),
-(120875, 29330, 571, 1, 1, 0, 0, 7698.12, 4852.14, 8.2296, 0.0264354, 600, 0, 0, 12175, 0, 0, 0),
-(56765, 29330, 571, 1, 1, 0, 0, 7822.03, 5065.76, 1.34168, 3.19317, 600, 0, 0, 12175, 0, 0, 0),
-(56764, 29330, 571, 1, 1, 0, 0, 7826.57, 5022.96, 2.33828, 1.49592, 600, 0, 0, 12175, 0, 0, 0),
-(56763, 29330, 571, 1, 1, 0, 0, 7893.25, 4991.14, 6.24547, 0.0986963, 600, 0, 0, 12175, 0, 0, 0),
-(56762, 29330, 571, 1, 1, 0, 0, 7890.09, 4918.48, 1.80733, 0.177237, 600, 0, 0, 12175, 0, 0, 0),
-(56761, 29330, 571, 1, 1, 0, 0, 7905.39, 4864.59, 1.58049, 5.86509, 600, 0, 0, 12175, 0, 0, 0),
-(56760, 29330, 571, 1, 1, 0, 0, 7900.21, 4824.12, 2.04582, 2.19414, 600, 0, 0, 12175, 0, 0, 0),
-(56759, 29330, 571, 1, 1, 0, 0, 7845.14, 4863.29, 4.0894, 5.96169, 600, 0, 0, 12175, 0, 0, 0),
-(56766, 29330, 571, 1, 1, 0, 0, 7836.08, 5117.19, 1.62269, 1.46293, 600, 0, 0, 12175, 0, 0, 0),
-(56767, 29330, 571, 1, 1, 0, 0, 7622.53, 4814.38, 20.3294, 0.700302, 600, 0, 0, 12175, 0, 0, 0),
-(56768, 29330, 571, 1, 1, 0, 0, 7625.13, 4889.11, 19.9184, 4.97915, 600, 0, 0, 12175, 0, 0, 0),
+INSERT IGNORE INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
 (600009, 29330, 571, 1, 1, 0, 989, 7459.84, 4851.9, 54.1595, 0.00143623, 600, 0, 0, 12600, 0, 0, 0),
 (600010, 29330, 571, 1, 1, 0, 989, 7459.58, 4840.95, 54.1595, 0.0367786, 600, 0, 0, 12387, 0, 0, 0);
 
@@ -253,7 +201,7 @@ INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equ
 
 -- onslaught Paladin
 UPDATE `creature_template` SET `maxmana` = 7988 WHERE `entry` = 29329;
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2932951');
+DELETE FROM `creature_ai_scripts` WHERE `id` = 2932951; -- not found in YTDB and ScriptName = spell_dummy_npc in creature_template (cause disabling)
 INSERT INTO `creature_ai_scripts` VALUES ('2932951', '29329', '8', '0', '100', '0', '52741', '-1', '0', '0', '11', '54415', '0', '22', '33', '29398', '6', '0', '41', '0', '0', '0', 'ytdb-q12813');
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2932952');
 INSERT INTO `creature_ai_scripts` VALUES ('2932952', '29329', '0', '0', '100', '0', '4000', '6000', '10000', '14000', '11', '19131', '1', '4', '0', '0', '0', '0', '0', '0', '0', '0', 'R2 - cast shield charge');
@@ -261,9 +209,8 @@ DELETE FROM `creature_ai_scripts` WHERE (`id`='2932953');
 INSERT INTO `creature_ai_scripts` VALUES ('2932953', '29329', '0', '0', '100', '0', '7000', '9000', '13000', '16000', '11', '32774', '1', '4', '0', '0', '0', '0', '0', '0', '0', '0', 'R2 - cast Avengers shield');
 
 -- onslaught gryphon rider
-UPDATE `creature_template` SET `spell2` = 40652, `spell3` = '0' WHERE `entry` = 29333; -- removed incorrect and dupe throw spear spell
-UPDATE `creature_template` SET `maxmana` = 7988 WHERE `entry` = 29333;
-UPDATE `creature_template` SET `maxhealth` = 12600 WHERE `entry` = 29333;
+UPDATE `creature_template_spells` SET `spell2` = 40652, `spell3` = 0 WHERE `entry` = 29333; -- removed incorrect and dupe throw spear spell
+UPDATE `creature_template` SET `maxmana` = 7988, `maxhealth` = 12600 WHERE `entry` = 29333;
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2933351');
 INSERT INTO `creature_ai_scripts` VALUES ('2933351', '29333', '8', '0', '100', '0', '52741', '-1', '0', '0', '11', '54415', '0', '22', '33', '29398', '6', '0', '41', '0', '0', '0', 'ytdb_q12813');
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2933352');
@@ -272,7 +219,7 @@ DELETE FROM `creature_ai_scripts` WHERE (`id`='2933353');
 INSERT INTO `creature_ai_scripts` VALUES ('2933353', '29333', '9', '0', '100', '0', '1', '5', '5000', '7000', '11', '40652', '1', '4', '0', '0', '0', '0', '0', '0', '0', '0', 'R2 - cast wing clip');
 
 -- onslaught harbor guard
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2933051');
+DELETE FROM `creature_ai_scripts` WHERE `id` = 2933051; -- not found in YTDB and ScriptName = spell_dummy_npc in creature_template (cause disabling)
 INSERT INTO `creature_ai_scripts` VALUES ('2933051', '29330', '8', '0', '100', '0', '52741', '-1', '0', '0', '11', '54415', '0', '22', '33', '29398', '6', '0', '41', '0', '0', '0', 'ytdb-q12813');
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2933052');
 INSERT INTO `creature_ai_scripts` VALUES ('2933052', '29330', '9', '0', '100', '0', '5', '30', '5000', '6000', '11', '6660', '1', '4', '0', '0', '0', '0', '0', '0', '0', '0', 'R2 - cast shoot');
@@ -283,7 +230,7 @@ INSERT INTO `creature_ai_scripts` VALUES ('2933053', '29330', '9', '0', '100', '
 
 -- onslauhgt raven bishop
 UPDATE `creature_template` SET `maxmana` = 17628 WHERE `entry` = 29338;
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2933801');
+DELETE FROM `creature_ai_scripts` WHERE `id` = 2933801;  -- not found in YTDB and ScriptName = spell_dummy_npc and AIName = '' in creature_template (cause disabling)
 INSERT INTO `creature_ai_scripts` VALUES ('2933801', '29338', '0', '0', '100', '0', '6000', '7500', '8000', '10000', '11', '50740', '1', '4', '0', '0', '0', '0', '0', '0', '0', '0', 'R2 - cast raven flock');
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2933802');
 INSERT INTO `creature_ai_scripts` VALUES ('2933802', '29338', '2', '0', '100', '0', '40', '30', '20', '40', '11', '50750', '0', '21', '0', '0', '0', '0', '0', '0', '0', '0', 'R2 - cast raven heal');
@@ -302,10 +249,7 @@ UPDATE `creature_template` SET `AIName` = '', `ScriptName` = 'npc_fallen_hero_sp
 UPDATE `creature_template` SET `AIName` = '', `ScriptName` = 'npc_scourge_conventor' WHERE `entry` = 32257;
 
 UPDATE `gameobject_template` SET `castBarCaption` = 'Discarded Soul Crytal' WHERE `entry` = 195344;
-DELETE FROM `item_required_target` WHERE `entry` = 47033;
-INSERT INTO `item_required_target` (`entry`, `type`, `targetEntry`) VALUES ('47033', '1', '32149');
 UPDATE `creature_template` SET `KillCredit1` = 35055 WHERE `entry` = 32149; -- set fallen proxy
-UPDATE `quest_template` SET `ReqCreatureOrGOId1` = 35055 WHERE `entry` = 14107;
 UPDATE `creature_template` SET `faction_A` = 7, `faction_H` = 7 WHERE `entry` = 32149; -- Fallens arent suppose to attack unless attacked
 UPDATE `creature_template` SET `maxmana` = 7786 WHERE `entry` = 32149; -- updated fallen mana to 3.3.5 standard
 UPDATE `creature_template` SET `maxmana` = 7988 WHERE `entry` = 32257; -- updated scourgeconv mob mana to 3.3.5
@@ -313,7 +257,7 @@ UPDATE `creature_template` SET `modelid_1` = 27651, `modelid_2` = 27651, `modeli
 -- ---------------------
 -- Quest::14111---------
 -- ---------------------
-UPDATE `quest_template` SET `RewSpell` = '0', `RewSpellCast` = '0', `RewItemId1` = '46978', `RewItemCount1` = '1' WHERE `entry` = 14111;
+UPDATE `quest_template` SET `RewSpell` = 0, `RewSpellCast` = 0 WHERE `entry` = 14111;
 
 -- ----------------------------------------
 -- Quest 12470 ----------------------------
@@ -323,9 +267,7 @@ DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 27840;
 UPDATE `creature_template` SET `unit_flags` = 516, `dynamicflags` = 8 WHERE `entry` = 27840; -- added root, disable movement, passive
 
 -- spawn more sands   (really should be able to use the whole area)
-DELETE FROM `gameobject` WHERE `id`=300209;
-INSERT INTO `gameobject` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`position_x`,`position_y`,`position_z`,`orientation`,`rotation0`,`rotation1`,`rotation2`,`rotation3`,`spawntimesecs`,`animprogress`,`state`) VALUES
-(42417, 300209, 571, 1, 1, 4105.65, -404.624, 117.868, 5.27991, 0, 0, 0.480862, -0.876796, -300, 0, 1),
+INSERT IGNORE INTO `gameobject` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`position_x`,`position_y`,`position_z`,`orientation`,`rotation0`,`rotation1`,`rotation2`,`rotation3`,`spawntimesecs`,`animprogress`,`state`) VALUES
 (600011, 300209, 571, 1, 1, 4102.71, -444.36, 124.134, 1.774, 0, 0, 0.775178, 0.631742, -300, 0, 1),
 (600012, 300209, 571, 1, 1, 4076.75, -441.368, 120.635, 0.995666, 0, 0, 0.477523, 0.878619, -300, 0, 1),
 (600013, 300209, 571, 1, 1, 4070.94, -418.43, 120.234, 6.23349, 0, 0, 0.0248472, -0.999691, -300, 0, 1),
@@ -355,19 +297,15 @@ UPDATE creature_template SET ScriptName = 'npc_jack_adams', AIName = '' WHERE en
 -- -------------------------
 -- better support
 
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '25510';
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2551051');
 INSERT INTO `creature_ai_scripts` VALUES ('2551051', '25510', '8', '0', '100', '1', '45692', '-1', '0', '0', '33', '25510', '6', '0', '11', '64561', '0', '22', '41', '240000', '0', '0', 'ytdb-q11656');
 
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '25511';
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2551151');
 INSERT INTO `creature_ai_scripts` VALUES ('2551151', '25511', '8', '0', '100', '1', '45692', '-1', '0', '0', '33', '25511', '6', '0', '11', '64561', '0', '22', '41', '240000', '0', '0', 'ytdb-q11656');
 
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '25512';
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2551251');
 INSERT INTO `creature_ai_scripts` VALUES ('2551251', '25512', '8', '0', '100', '1', '45692', '-1', '0', '0', '33', '25512', '6', '0', '11', '64561', '0', '22', '41', '240000', '0', '0', 'ytdb-q11656');
 
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '25513';
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2551351');
 INSERT INTO `creature_ai_scripts` VALUES ('2551351', '25513', '8', '0', '100', '1', '45692', '-1', '0', '0', '33', '25513', '6', '0', '11', '64561', '0', '22', '41', '240000', '0', '0', 'ytdb-q11656');
 
@@ -383,10 +321,10 @@ UPDATE creature_template SET
 ScriptName='npc_tipsy_mcmanus'
 WHERE entry=28566;
 
-DELETE FROM `gameobject` WHERE guid = '200000';
+DELETE FROM `gameobject` WHERE `guid` = 200000; -- may redundant (found in YTDB)
 INSERT INTO `gameobject` VALUES ('200000','190643','571','1','1','5545.45','5767.53','-77.8042','5.39307','0','0','0.959937','0.280215','-25','0','1');
 
-DELETE FROM creature where id=28537;
+DELETE FROM `creature` where `id` = 28537; -- may redundant (found in YTDB)
 INSERT INTO creature VALUES
 (600018,28537,571,1,1,0,0,5550.404,5768.214,-78.02,1.278,300,0,0,0,0,0,0);
 UPDATE `creature_template` SET `minhealth` = 0, `maxhealth` = 1 WHERE `entry` = 28537;
@@ -412,19 +350,9 @@ UPDATE creature_template SET ScriptName = 'mob_taste_test' WHERE entry IN (28047
 -- quest 11542/11543 
 -- -------------------------
 
-UPDATE creature_template SET modelid_1 = 11686, modelid_2 = 11686 WHERE entry = 25090;
-UPDATE creature_template SET modelid_1 = 11686, modelid_2 = 11686 WHERE entry = 25091;
-UPDATE creature_template SET modelid_1 = 11686, modelid_2 = 11686 WHERE entry = 25092;
-UPDATE `creature_template` SET `flags_extra` = 0 WHERE `entry` = 25090;
-UPDATE `creature_template` SET `flags_extra` = 0 WHERE `entry` = 25091;
-UPDATE `creature_template` SET `flags_extra` = 0 WHERE `entry` = 25092;
-UPDATE `creature_template` SET `scale` = 4 WHERE `entry` = 25090;
-UPDATE `creature_template` SET `scale` = 4 WHERE `entry` = 25091;
-UPDATE `creature_template` SET `scale` = 4 WHERE `entry` = 25092;
+UPDATE `creature_template` SET `scale` = 4, `modelid_1` = 11686, `modelid_2` = 11686 WHERE `entry` IN (25090, 25091, 25092);
 
-DELETE FROM `creature` WHERE `id`=25092;
-INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
-(100708, 25092, 530, 1, 1, 0, 0, 13272.2, -7144.51, 4.93783, 3.72311, 300, 0, 0, 1, 0, 0, 0),
+INSERT IGNORE INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
 (600019, 25092, 530, 1, 1, 0, 0, 13261.8, -7144.76, 29.6207, 3.73767, 25, 0, 0, 1, 0, 0, 0),
 (600020, 25092, 530, 1, 1, 0, 0, 13313.5, -7149.11, 23.029, 0.326681, 25, 0, 0, 1, 0, 0, 0),
 (600021, 25092, 530, 1, 1, 0, 0, 13263.9, -7144.98, 18.0722, 2.95227, 25, 0, 0, 1, 0, 0, 0),
@@ -435,9 +363,7 @@ INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equ
 (600026, 25092, 530, 1, 1, 0, 0, 13331.7, -7150.1, 25.3583, 3.09835, 25, 0, 0, 1, 0, 0, 0),
 (600027, 25092, 530, 1, 1, 0, 0, 13348.8, -7151.36, 29.4228, 3.06536, 25, 0, 0, 1, 0, 0, 0);
 
-DELETE FROM `creature` WHERE `id`=25090;
-INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
-(100709, 25090, 530, 1, 1, 0, 0, 13200.6, -7048.38, 3.82285, 3.17961, 300, 0, 0, 1, 0, 0, 0),
+INSERT IGNORE INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
 (600028, 25090, 530, 1, 1, 0, 0, 13252.6, -7054.9, 22.4681, 3.5688, 25, 0, 0, 1, 0, 0, 0),
 (600029, 25090, 530, 1, 1, 0, 0, 13229.6, -7052.88, 4.3433, 2.60276, 25, 0, 0, 1, 0, 0, 0),
 (600030, 25090, 530, 1, 1, 0, 0, 13213.4, -7053.09, 18.7827, 1.69955, 25, 0, 0, 1, 0, 0, 0),
@@ -446,9 +372,7 @@ INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equ
 (600033, 25090, 530, 1, 1, 0, 0, 13241, -7054.83, 19.4747, 3.12191, 25, 0, 0, 1, 0, 0, 0),
 (600034, 25090, 530, 1, 1, 0, 0, 13272, -7058.13, 27.1397, 2.9664, 25, 0, 0, 1, 0, 0, 0);
 
-DELETE FROM `creature` WHERE `id`=25091;
-INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
-(100710, 25091, 530, 1, 1, 0, 0, 13317.5, -6988.85, 4.13809, 3.11521, 300, 0, 0, 1, 0, 0, 0),
+INSERT IGNORE INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
 (600035, 25091, 530, 1, 1, 0, 0, 13328.7, -6993.48, 11.8975, 1.60531, 25, 0, 0, 1, 0, 0, 0),
 (600036, 25091, 530, 1, 1, 0, 0, 13346, -6993.5, 3.21209, 1.40346, 25, 0, 0, 1, 0, 0, 0),
 (600037, 25091, 530, 1, 1, 0, 0, 13323, -6989.96, 18.1137, 5.29668, 25, 0, 0, 1, 0, 0, 0),
@@ -460,35 +384,20 @@ INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equ
 (600046, 25091, 530, 1, 1, 0, 0, 13328.7, -6993.48, 11.8975, 1.60531, 25, 0, 0, 1, 0, 0, 0);
 
 -- EventAI -- one additional has been made to YTDB acid  a despawn  so quest graphics and effects reset for next player  at the moment its 2 mins to despawn and 30 secs to respawn (credit triggers are invis) quest might take longer then 2 mins 
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '25090';
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2509051');
 INSERT INTO `creature_ai_scripts` VALUES ('2509051', '25090', '8', '0', '100', '1', '45115', '-1', '0', '0', '33', '25090', '6', '0', '11', '73119', '0', '22', '41', '120000', '0', '0', 'ytdb-q11542,11543&R2');
 
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '25091';
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2509151');
 INSERT INTO `creature_ai_scripts` VALUES ('2509151', '25091', '8', '0', '100', '1', '45115', '-1', '0', '0', '33', '25091', '6', '0', '11', '73119', '0', '22', '41', '120000', '0', '0', 'ytdb-q11542,11543&R2');
 
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '25092';
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2509251');
 INSERT INTO `creature_ai_scripts` VALUES ('2509251', '25092', '8', '0', '100', '1', '45115', '-1', '0', '0', '33', '25092', '6', '0', '11', '73119', '0', '22', '41', '120000', '0', '0', 'ytdb-q11542,11543&R2');
 
 -- -------------------------
 -- fix quest toxic_test 9051 -- still not working is kill credit
 -- -------------------------
-UPDATE `quest_template` SET `ReqCreatureOrGOId1` = '6498' WHERE `entry` =9051; -- fixes spell credit
-UPDATE `quest_template` SET `ReqCreatureOrGOCount1` = 1 WHERE `entry` = 9051; -- fixes spell credit
-
-DELETE FROM `creature_ai_scripts` WHERE `id` =649802; -- clean up of testing hack to get kill credit
-
+UPDATE `quest_template` SET `ReqCreatureOrGOId1` = 6498, `ReqCreatureOrGOCount1` = 1 WHERE `entry` = 9051; -- fixes spell credit
 UPDATE `quest_template` SET `ReqSourceId1` = 22432, `ReqSourceCount1` = 1 WHERE `entry` = 9051; -- take item out of player inventory upon completetion
-
--- ------------------------------
--- Quest : 12078 Worm Wrangler --
--- ------------------------------
-
-DELETE FROM `item_required_target` WHERE `entry` = 36771 AND `type` = 1 AND `targetEntry` = 26359;
-INSERT INTO `item_required_target` (`entry`, `type`, `targetEntry`) VALUES
-('36771', '1', '26359');
 
 -- ------------------------------
 -- Quest: Drake Hunt (11940/11919)
@@ -519,7 +428,6 @@ UPDATE `creature_template` SET `ScriptName`='npc_beryl_sorcerer' , AIName='' WHE
 -- Mob support for Quest: Powering Our Defenses (8490)
 -- ---------------------------------------------------
 -- Enraged Wraith
-DELETE FROM `creature` WHERE id = 17086;
 UPDATE `creature_template` SET AIName='EventAI', flags_extra=flags_extra|64 WHERE entry=17086;
 
 DELETE FROM `creature_ai_scripts` WHERE creature_id = 17086;
@@ -536,15 +444,6 @@ DELETE FROM creature_ai_scripts WHERE creature_id = 26449;
 INSERT INTO creature_ai_scripts VALUES
 (2644901, 26449, 0,0,80,1, 2000,2000,5000,5000, 11,19643,1,0, 0,0,0,0, 0,0,0,0,'R2 - Gamel the Cruel - mortal strike');
 
--- ---------------------------
--- fix quest _abduction 11590
--- ---------------------------
--- item (Arcane Binder)
-DELETE FROM item_required_target WHERE entry = 34691;
-INSERT INTO item_required_target VALUES
-(34691,1,25316);
-
-
 -- --------------------------------------------------
 -- fixes for Quest Kickin'Nass and Takin manes (12630)
 -- --------------------------------------------------
@@ -554,13 +453,8 @@ DELETE FROM creature WHERE id=28523;  -- deletes  nass kc bunny credit needs to 
 -- -----------------------------
 -- Quest Fixes to Hard_to_sallow
 -- -----------------------------
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '26293';
 DELETE FROM `creature_ai_scripts` WHERE (`id`='2629302');
 INSERT INTO `creature_ai_scripts` VALUES ('2629302', '26293', '2', '0', '100', '0', '70', '50', '0', '0', '1', '-262930', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'R2 - Hulking Jormungar - emote between 70% and 50% ');
-
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '26293';
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2629301');
-INSERT INTO `creature_ai_scripts` VALUES ('2629301', '26293', '9', '0', '100', '1', '0', '30', '14000', '17000', '11', '50293', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', ' R2 - Hulking Jormungar - Cast Corrosive Poison');
 
 DELETE FROM `creature_ai_texts` WHERE entry IN ('-262930');
 INSERT INTO `creature_ai_texts` VALUES ('-262930', 'The Hulking Jormungar falters for a moment, opening its mouth wide.', '', '', '', '', '', '', '', '', '3', '0', '0', '0', 'R2 - Hulking Jormungar-raid emote');
@@ -568,20 +462,6 @@ INSERT INTO `creature_ai_texts` VALUES ('-262930', 'The Hulking Jormungar falter
 -- ------------------------------------------
 -- Support for quest The Denouncement (12273)
 -- ------------------------------------------
-
--- Remove creature
-DELETE FROM creature WHERE guid=105029 AND id=27237;
-
--- Rod of Compulsion Item (37438)
-
-DELETE FROM item_required_target WHERE entry=37438;
-INSERT INTO item_required_target VALUES
-(37438,1,27237),
-(37438,1,27235),
-(37438,1,27234),
-(37438,1,27236);
-
--- Rod of Compulsion Spell (48712)
 
 -- Texts
 DELETE FROM creature_ai_texts WHERE entry IN (-272371,-272351,-272341,-272361);
@@ -640,11 +520,6 @@ INSERT INTO creature_ai_scripts VALUES
 (2723603,27236,8,0,100,0,48712,-1,0,0,22,1,0,0,0,0,0,0,0,0,0,0,'R2 - Stable Master Mercer - Set Phase 2 after spell hit'),
 (2723604,27236,6,1,100,0,0,0,0,0,33,27429,6,3,0,0,0,0,0,0,0,0,'R2 - Stable Master Mercer - Kill Credit on Death (Phase 2)');
 
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 27236;
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 27234;
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 27235;
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 27237;
-
 -- ----------------------------------------------
 -- Support for quest Defiling Uther's Tomb (9444)
 -- ----------------------------------------------
@@ -663,9 +538,7 @@ INSERT INTO creature_ai_texts (entry, content_default, type, comment) VALUES
 -- ----------
 -- Quest 9076
 -- ----------
-DELETE FROM `creature` WHERE `id`=16294;
-INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
-(67521, 16294, 530, 1, 1, 0, 160, 8777.19, -6101.27, 72.6775, 3.21199, 300, 0, 0, 148, 825, 0, 0);
+UPDATE `creature` SET `equipment_id` = 160, `spawndist` = 0, `MovementType` = 0 WHERE `id` = 16294;
 
 -- -------------------------------------------------
 -- Support for quest A Necessary Distraction (10637)
@@ -677,7 +550,6 @@ INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equ
 -- still need to make him attack and make the circle of casters around him being channeled a dumby spell -> only visual stuff is missing
 
 UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 21506;
-UPDATE `creature_template` SET `modelid_2` = 17287 WHERE `entry` = 21506; -- this isnt correct display yet
 
 DELETE FROM creature_ai_scripts WHERE creature_id=21506;
 INSERT INTO creature_ai_scripts VALUES
@@ -692,6 +564,4 @@ DELETE FROM creature_ai_texts WHERE entry=-21506;
 INSERT INTO creature_ai_texts (entry,content_default,type,comment) VALUES
 (-21506,'Illidan\s lapdogs! You will pay for my imprisonment with your lives!',1,'Azaloth yell1');
 
-DELETE FROM `creature_template_addon` WHERE (`entry`=21506);
-INSERT INTO `creature_template_addon` (`entry`, `mount`, `bytes1`, `b2_0_sheath`, `b2_1_pvp_state`, `emote`, `moveflags`, `auras`) VALUES (21506, 0, 0, 0, 0, 0, 0, '');
-
+UPDATE `creature_template_addon` SET `b2_0_sheath` = 0, `auras` = '' WHERE `entry` = 21506;

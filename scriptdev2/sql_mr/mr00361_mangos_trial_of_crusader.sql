@@ -1,12 +1,11 @@
 -- instance
-UPDATE `instance_template` SET `ScriptName`='instance_trial_of_the_crusader' WHERE `map`=649;
 DELETE FROM `creature` WHERE `map` = 649 AND `id` IN 
-(34797,34796,34799,35144,34780,34460,34463,34461,34471,34475,34472,34453,34455,34458,34454,34451,34456,34497,34496,34564,34467,35465,34468,35610,34473,34474,34441,34449,34448,34450,34606, 34605, 34607, 34564);
+(34797,34796,34799,35144,34780,34460,34463,34461,34471,34475,34472,34453,34455,34458,34454,34451,34456,34497,34496,34564,34467,35465,34468,35610,34473,34474,34441,34449,34448,34450,34606, 34605, 34607);
 
 -- announcers
 INSERT IGNORE INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`) VALUES
 (114727, 34816, 649, 15, 65535, 0, 0, 559.258, 90.2662, 395.123, 5.01319, 300, 0, 0, 126000, 0, 0, 0);
-UPDATE `creature_template` SET `npcflag`=1, `scriptname`='npc_toc_announcer' WHERE `entry`=34816;
+UPDATE `creature_template` SET `ScriptName` = 'npc_toc_announcer' WHERE `entry` = 34816;
 DELETE FROM `creature` WHERE `map` = 649 AND `id` = 35766;
 
 DELETE FROM `npc_text` WHERE `ID` IN (724001, 724002, 724003, 724004, 724005, 724006); 
@@ -28,7 +27,7 @@ INSERT INTO `locales_npc_text` (`entry`, `Text0_0_loc1`, `Text0_0_loc2`, `Text0_
 (724006, 'Today, the arena is closed.', NULL, NULL, NULL, NULL, NULL, NULL, 'На сегодня арена закрыта.');
 
 UPDATE `creature_template` SET `scriptname`='boss_lich_king_toc' WHERE `entry`=35877;
-UPDATE `creature_template` SET `minhealth`= 20000, `maxhealth` = 20000, `faction_A`= 1770, `faction_H` = 1770,  `scriptname`='npc_fizzlebang_toc' WHERE `entry`=35458;
+UPDATE `creature_template` SET `minhealth`= 20000, `maxhealth` = 20000, `ScriptName` = 'npc_fizzlebang_toc' WHERE `entry` = 35458;
 UPDATE `creature_template` SET `flags_extra`=0 WHERE `entry` IN (22517, 35651);
 DELETE FROM `creature` WHERE `map` = 649 AND `id` IN (35651, 22517);
 
@@ -45,7 +44,7 @@ UPDATE `creature_template` SET `scriptname`='mob_toc_hunter', `AIName` ='' WHERE
 UPDATE `creature_template` SET `scriptname`='mob_toc_rogue', `AIName` ='' WHERE `entry` IN (34472,34454);
 UPDATE `creature_template` SET `scriptname`='mob_toc_priest', `AIName` ='' WHERE `entry` IN (34466,34447);
 UPDATE `creature_template` SET `scriptname`='mob_toc_shadow_priest', `AIName` ='' WHERE `entry` IN (34473,34441);
-DELETE FROM `creature_ai_scripts` WHERE (`id`='3444106') OR (`id`='3444119') OR (`id`='3444104') OR (`id`='3444108') OR (`id`='3444102') OR (`id`='3444116') OR (`id`='3444117') OR (`id`='3444107') OR (`id`='3444109') OR (`id`='3444115') OR (`id`='3444103') OR (`id`='3444114') OR (`id`='3444111') OR (`id`='3444110') OR (`id`='3444118') OR (`id`='3444105') OR (`id`='3444113') OR (`id`='3444101') OR (`id`='3444112');
+DELETE FROM `creature_ai_scripts` WHERE `id` BETWEEN 3444101 AND 3444119;
 UPDATE `creature_template` SET `scriptname`='mob_toc_dk', `AIName` ='' WHERE `entry` IN (34461,34458);
 UPDATE `creature_template` SET `scriptname`='mob_toc_paladin', `AIName` ='' WHERE `entry` IN (34465,34445);
 UPDATE `creature_template` SET `scriptname`='mob_toc_retro_paladin', `AIName` ='' WHERE `entry` IN (34471,34456);
@@ -56,45 +55,14 @@ UPDATE `creature_template` SET `scriptname`='mob_toc_warlock' WHERE `entry` IN (
 UPDATE `creature_template` SET `scriptname`='mob_toc_pet_warlock', `AIName` ='' WHERE `entry` IN (35465);
 UPDATE `creature_template` SET `scriptname`='mob_toc_pet_hunter', `AIName` ='' WHERE `entry` IN (35610);
 
-UPDATE `creature_template` SET `lootid`= 0 WHERE  `entry` IN
-(34460,34463,34461,34471,34475,34472,34453,34455,34458,34454,34451,34456,34467,35465,34468,35610,34473,34474,34441,34449,34448,34450);
-UPDATE `creature_template` SET `lootid`= 0 WHERE  `entry` IN
-(12266,12209,12212,12281,12190,12284,12269,12272,12229,12187,12091,12088,12169,12103,12106,12112,12166,12163,12175,12183,12303,12300);
-UPDATE `creature_template` SET `lootid`= 0 WHERE  `entry` IN
-(12267,12210,12213,12282,12191,12285,12270,12273,12230,12188,12092,12089,12170,12104,12107,12113,12167,12164,12181,12184,12304,12301);
-UPDATE `creature_template` SET `lootid`= 0 WHERE  `entry` IN
-(12268,12211,12214,12283,12192,12286,12271,12274,12231,12189,12093,12090,12171,12105,12108,12114,12168,12165,12182,12185,12305,12302);
-
--- N10
-DELETE FROM `creature_loot_template` WHERE `entry` IN 
-(34460,34463,34461,34471,34475,34472,34453,34455,34458,34454,34451,34456,34467,35465,34468,35610,34473,34474,34441,34449,34448,34450);
--- H10
-DELETE FROM `creature_loot_template` WHERE `entry` IN 
-(12266,12209,12212,12281,12190,12284,12269,12272,12229,12187,12091,12088,12169,12103,12106,12112,12166,12163,12175,12183,12303,12300);
--- N25
-DELETE FROM `creature_loot_template` WHERE `entry` IN 
-(12267,12210,12213,12282,12191,12285,12270,12273,12230,12188,12092,12089,12170,12104,12107,12113,12167,12164,12181,12184,12304,12301);
--- H25
-DELETE FROM `creature_loot_template` WHERE `entry` IN 
-(12268,12211,12214,12283,12192,12286,12271,12274,12231,12189,12093,12090,12171,12105,12108,12114,12168,12165,12182,12185,12305,12302);
-
 -- Nortrend beasts
 DELETE FROM `creature_ai_scripts` WHERE `creature_id` IN (34796, 34799, 35144, 34797);
-UPDATE `creature_template` SET `scriptname`='boss_gormok', `AIName` ='' WHERE `entry`=34796;
 UPDATE `creature_template` SET `scriptname`='mob_snobold_vassal', `AIName` ='' WHERE `entry`=34800;
 UPDATE `creature_template` SET `faction_A` = '14', `faction_H` = '14', `ScriptName` = 'mob_fire_bomb' WHERE `entry` = 34854;
 
-UPDATE `creature_template` SET `scriptname`='boss_dreadscale', `AIName` ='' WHERE `entry`=34799;
-UPDATE `creature_template` SET `scriptname`='boss_acidmaw', `AIName` ='' WHERE `entry`=35144;
-UPDATE `creature_template` SET `scriptname`='mob_slime_pool', `minlevel` = 80, `maxlevel` = 80, `minhealth`= 30000, `maxhealth` = 30000,`AIName` ='', `faction_A`= 14, `faction_H` = 14, `modelid_1` = 11686, `modelid_3` = 11686 WHERE `entry` = 35176;
-
-UPDATE `creature_template` SET `scriptname`='boss_icehowl', `AIName` ='' WHERE `entry`=34797;
-
-UPDATE `creature_template` SET `lootid`= 0 WHERE  `entry` IN (34796,34799,35144);
-DELETE FROM `creature_loot_template`  WHERE  `entry` IN (34796,34799,35144);
+UPDATE `creature_template` SET `ScriptName` = 'mob_slime_pool', `minhealth`= 30000, `maxhealth` = 30000, `modelid_3` = 11686 WHERE `entry` = 35176;
 
 -- Jaraxxus
-UPDATE `creature_template` SET `scriptname`='boss_jaraxxus', `AIName` ='' WHERE `entry`= 34780;
 DELETE FROM `creature_ai_scripts` WHERE `creature_id` IN (34780, 34784, 34813, 34815, 34825, 34826);
 UPDATE `creature_template` SET `scriptname`='mob_legion_flame', `minlevel` = 82, `maxlevel` = 82, `modelid_1` = 11686, `modelid_2` = 11686, `modelid_3` = 11686, `modelid_4` = 11686, `AIName` ='', `faction_A`= 14, `faction_H` = 14 WHERE `entry` = 34784;
 UPDATE `creature_template` SET `scriptname`='mob_infernal_volcano', `AIName` ='' WHERE `entry` = 34813;
@@ -103,13 +71,11 @@ UPDATE `creature_template` SET `scriptname`='mob_nether_portal', `AIName` ='' WH
 UPDATE `creature_template` SET `scriptname`='mob_mistress_of_pain', `AIName` ='' WHERE `entry` = 34826;
 
 -- Valkiries
-UPDATE `creature_template` SET `scriptname` = 'boss_fjola', `AIName` ='' WHERE `entry`=34497;
-UPDATE `creature_template` SET `scriptname` = 'boss_eydis', `AIName` ='' WHERE `entry`=34496;
 DELETE FROM `creature_ai_scripts` WHERE `creature_id` IN (34497, 34496, 34568, 34567);
 UPDATE `creature_template` SET `npcflag`=1, `scriptname`='mob_light_essence', `AIName` ='' WHERE entry = 34568;
 UPDATE `creature_template` SET `npcflag`=1, `scriptname`='mob_dark_essence', `AIName` ='' WHERE entry = 34567;
-UPDATE `creature_template` SET `faction_A` = 14, `minlevel` = 82, `maxlevel` = 82,`faction_H` = 14, `AIName` ='', `scriptname`='mob_unleashed_dark' WHERE entry = 34628;
-UPDATE `creature_template` SET `faction_A` = 14, `minlevel` = 82, `maxlevel` = 82,`faction_H` = 14, `AIName` ='', `scriptname`='mob_unleashed_light' WHERE entry = 34630;
+UPDATE `creature_template` SET `minlevel` = 82, `maxlevel` = 82, `AIName` = '', `ScriptName` = 'mob_unleashed_dark' WHERE `entry` = 34628;
+UPDATE `creature_template` SET `minlevel` = 82, `maxlevel` = 82, `AIName` = '', `ScriptName` = 'mob_unleashed_light' WHERE `entry` = 34630;
 -- Twin pact by Wowka321
 DELETE FROM `spell_script_target` WHERE `entry` IN (65875,67303,67304,67305,65876,67306,67307,67308);
 INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES 
@@ -131,10 +97,10 @@ UPDATE `creature_template` SET `scriptname`='mob_swarm_scarab', `AIName` ='' WHE
 UPDATE `creature_template` SET `scriptname`='mob_nerubian_borrower', `AIName` ='' WHERE `entry`=34607;
 UPDATE `creature_template` SET `scriptname`='mob_anubarak_spike', `faction_A` = 14, `minlevel` = 80, `maxlevel` = 80,`faction_H` = 14, `AIName` ='' WHERE `entry`=34660;
 DELETE FROM `creature_template` WHERE `entry` IN (34863, 34864, 34865);
-INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid_1`, `modelid_2`, `modelid_3`, `modelid_4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `minhealth`, `maxhealth`, `PowerType`, `minmana`, `maxmana`, `armor`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `PetSpellDataId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `unk16`, `unk17`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `vehicle_id`, `equipment_id`, `trainer_id`, `vendor_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES
-(34863, 0, 0, 0, 0, 0, 19725, 28549, 0, 0, 'Nerubian Burrow Two', '', '', 0, 1, 1, 1, 1, 0, 0, 0, 17, 35, 35, 0, 1, 1.14286, 1, 0, 1, 2, 0, 0, 1, 2000, 2000, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, ''),
-(34864, 0, 0, 0, 0, 0, 19725, 28549, 0, 0, 'Nerubian Burrow Three', '', '', 0, 1, 1, 1, 1, 0, 0, 0, 17, 35, 35, 0, 1, 1.14286, 1, 0, 1, 2, 0, 0, 1, 2000, 2000, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, ''),
-(34865, 0, 0, 0, 0, 0, 19725, 28549, 0, 0, 'Nerubian Burrow Four', '', '', 0, 1, 1, 1, 1, 0, 0, 0, 17, 35, 35, 0, 1, 1.14286, 1, 0, 1, 2, 0, 0, 1, 2000, 2000, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, '');
+INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid_1`, `modelid_2`, `modelid_3`, `modelid_4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `minhealth`, `maxhealth`, `PowerType`, `minmana`, `maxmana`, `armor`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `PetSpellDataId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `unk16`, `unk17`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `vehicle_id`, `equipment_id`, `trainer_id`, `vendor_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES
+(34863, 0, 0, 0, 0, 0, 19725, 28549, 0, 0, 'Nerubian Burrow Two', '', '', 0, 1, 1, 1, 1, 0, 0, 0, 17, 35, 35, 0, 1, 1.14286, 1, 0, 1, 2, 0, 0, 1, 2000, 2000, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, ''),
+(34864, 0, 0, 0, 0, 0, 19725, 28549, 0, 0, 'Nerubian Burrow Three', '', '', 0, 1, 1, 1, 1, 0, 0, 0, 17, 35, 35, 0, 1, 1.14286, 1, 0, 1, 2, 0, 0, 1, 2000, 2000, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, ''),
+(34865, 0, 0, 0, 0, 0, 19725, 28549, 0, 0, 'Nerubian Burrow Four', '', '', 0, 1, 1, 1, 1, 0, 0, 0, 17, 35, 35, 0, 1, 1.14286, 1, 0, 1, 2, 0, 0, 1, 2000, 2000, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  '', 0, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, '');
 
 DELETE FROM `creature_template_addon` WHERE `entry` IN (34863, 34864, 34865);
 INSERT INTO `creature_template_addon` VALUES
@@ -177,24 +143,11 @@ UPDATE `creature_template` SET `name` = 'Permafrost', `unit_flags` = '0', `facti
 
 UPDATE `creature_template` SET `flags_extra` = '256' WHERE `entry` = 34800;
 
-UPDATE `creature_template` SET `mechanic_immune_mask` = '769605631' WHERE `entry` = 34780;
-UPDATE `creature_template` SET `mechanic_immune_mask` = '769605631' WHERE `entry` = 35216;
-UPDATE `creature_template` SET `mechanic_immune_mask` = '769605631' WHERE `entry` = 35268;
-UPDATE `creature_template` SET `mechanic_immune_mask` = '769605631' WHERE `entry` = 35269;
+UPDATE `creature_template` SET `mechanic_immune_mask` = 769605631 WHERE `entry` IN (34780, 35216, 35268, 35269);
+UPDATE `creature_template` SET `mechanic_immune_mask` = 635387903 WHERE `entry` IN (34496, 35347, 35348, 35349);
+UPDATE `creature_template` SET `mechanic_immune_mask` = 635387903 WHERE `entry` IN (34497, 35350, 35351, 35352);
 
-UPDATE `creature_template` SET `mechanic_immune_mask` = '635387903' WHERE `entry` = 34496;
-UPDATE `creature_template` SET `mechanic_immune_mask` = '635387903' WHERE `entry` = 35347;
-UPDATE `creature_template` SET `mechanic_immune_mask` = '635387903' WHERE `entry` = 35348;
-UPDATE `creature_template` SET `mechanic_immune_mask` = '635387903' WHERE `entry` = 35349;
-
-UPDATE `creature_template` SET `mechanic_immune_mask` = '635387903' WHERE `entry` = 34497;
-UPDATE `creature_template` SET `mechanic_immune_mask` = '635387903' WHERE `entry` = 35350;
-UPDATE `creature_template` SET `mechanic_immune_mask` = '635387903' WHERE `entry` = 35351;
-UPDATE `creature_template` SET `mechanic_immune_mask` = '635387903' WHERE `entry` = 35352;
-
-UPDATE `creature_template` SET `unit_flags` = '0' WHERE `entry` = 34566;
-UPDATE `creature_template` SET `unit_flags` = '0' WHERE `entry` = 35615;
-UPDATE `creature_template` SET `unit_flags` = '0' WHERE `entry` = 35616;
+UPDATE `creature_template` SET `unit_flags` = 0 WHERE `entry` IN (34566, 35615, 35616);
 
 UPDATE `creature_template` SET `modelid_2` = '0', `minlevel` = '83', `maxlevel` = '83', `faction_A` = '14', `faction_H` = '14', `dmg_multiplier` = '4' WHERE `entry` = 34660;
 UPDATE `creature_template` SET `modelid_2` = '0', `minlevel` = '83', `maxlevel` = '83', `faction_A` = '14', `faction_H` = '14', `dmg_multiplier` = '6' WHERE `entry` = 35652;

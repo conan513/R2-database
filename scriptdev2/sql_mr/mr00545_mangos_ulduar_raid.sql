@@ -4,8 +4,13 @@
 -- Flame Leviathan --
 -- --------------- --
 DELETE FROM `creature` WHERE `id` IN(33060, 33062, 33109); -- Loading vehicles by script
+UPDATE `creature_template_addon` SET `auras` = '52455' WHERE `entry` IN(33060, 33109, 33062, 34045); -- Prevent vehicles auto regen health
+UPDATE `creature_template` SET `modelid_2` = 28783 WHERE `entry` = 33189; -- Liquid Pyrite
+UPDATE `creature_template_addon` SET `mount` = 0 WHERE `entry` = 33214; -- Mechanolift 304-A
+UPDATE `creature_template` SET `unit_flags` = 0, `minlevel` = 80, `maxlevel` = 80 WHERE `entry` = 33090; -- Pool of Tar
+
 UPDATE `creature_template` SET `ScriptName` = 'boss_flame_leviathan' WHERE `entry` = 33113;
-UPDATE `creature` SET `position_x` = 432.09, `position_y` =-13.3 , `position_z` = 409.9 WHERE `id` = 33113;
+UPDATE `creature` SET `position_x` = 432.09, `position_y` = -13.3, `position_z` = 409.9 WHERE `id` = 33113;
 UPDATE `creature_template` SET `ScriptName` = 'npc_brann_bronzebeard' WHERE `entry` = 33579;
 UPDATE `creature_template` SET `npcflag` = `npcflag` | 1 WHERE `entry` = 33579;
 UPDATE `creature_template` SET `ScriptName` = 'mob_defense_turret' WHERE `entry` = 33142;
@@ -16,7 +21,10 @@ UPDATE `creature_template` SET `ScriptName` = 'mob_hodirs_fury' WHERE `entry` = 
 UPDATE `creature_template` SET `ScriptName` = 'mob_mimiron_inferno' WHERE `entry` = 33370;
 UPDATE `creature_template` SET `ScriptName` = 'mob_thorims_hammer' WHERE `entry` = 33365;
 UPDATE `creature_template` SET `ScriptName` = 'mob_lorekeeper' WHERE `entry` = 33686;
+UPDATE `creature_template` SET `faction_A` = 1965, `faction_H` = 1965, `unit_flags` = 2|33554432 WHERE `entry` IN (33370, 33365, 33212);
+UPDATE `creature_template` SET `movementId` = 0, `vehicle_id` = 0, `unit_flags` = `unit_flags` | 4  WHERE `entry` = 33369;
 UPDATE `creature_template` SET `InhabitType` = 4 WHERE `entry` IN (33366, 33369, 33364, 33108);
+
 DELETE FROM `spell_script_target` WHERE `entry` IN(62906, 62909, 62911, 62533);
 INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
 (62906, 1, 33367), -- Freya's Ward
@@ -31,85 +39,62 @@ INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
 (63294, 1, 33365), -- Freya Dummy Blue - Thorim's Hammer
 (63292, 1, 33370); -- Freya Dummy Yellow - Mimiron's Inferno
 
--- Ignis
-    UPDATE creature_template SET mechanic_immune_mask=617299803, scriptname='boss_ignis' WHERE entry=33118;
-    UPDATE creature_template SET ScriptName = 'mob_iron_construct' WHERE entry = 33121;
-    REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('64474', '1', '33118');
-    REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('64475', '1', '33118');
-    -- this may not be correct
-    UPDATE creature_template SET minlevel=80, maxlevel=80, faction_h=1925, faction_a=1925, scale=0.5, scriptname='mob_scorch_target' WHERE entry=33221;
+-- ------------------------ --
+-- Ignis the Furnace Master --
+-- ------------------------ --
+UPDATE `creature_template` SET `mechanic_immune_mask` = `mechanic_immune_mask` &~ 33554596, `ScriptName` = 'boss_ignis' WHERE `entry` = 33118;
+UPDATE `creature_template` SET `ScriptName` = 'mob_iron_construct' WHERE `entry` = 33121;
+UPDATE `creature_template` SET `minlevel` = 80, `maxlevel` = 80, `scale` = 0.5 WHERE `entry` = 33221;
 
--- Razorscale
-    UPDATE creature_template SET mechanic_immune_mask=617299803, scriptname='boss_razorscale' WHERE entry=33186;
--- original x=587.547, y= -174.927, z = 391.517; make the boss fly before encounter starts
-    UPDATE creature SET position_x = 590.346741, position_y = -226.947647, position_z = 442.897583 WHERE id = 33186;
+-- ---------- --
+-- Razorscale --
+-- ---------- --
+UPDATE `creature_template` SET `mechanic_immune_mask` = `mechanic_immune_mask` &~ 33554596, `ScriptName` = 'boss_razorscale' WHERE `entry` = 33186;
+UPDATE `creature` SET `position_x` = 590.346741, `position_y` = -226.947647, `position_z` = 442.897583 WHERE `id` = 33186;
 
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 63524;
-    INSERT INTO spell_script_target VALUES (63524 ,1,33282);
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 63657;
-    INSERT INTO spell_script_target VALUES (63657 ,1,33282);
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 63658;
-    INSERT INTO spell_script_target VALUES (63658 ,1,33282);
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 63659;
-    INSERT INTO spell_script_target VALUES (63659 ,1,33282);
+UPDATE `creature_template` SET `faction_A` = 35, `faction_H` = 35 WHERE `entry` IN(33287, 33816, 33259, 34257, 34256, 34255); -- Prevent combat with other bosses
 
-    DELETE FROM spell_script_target WHERE spell_script_target.entry = 62505;
-    INSERT INTO spell_script_target VALUES (62505 ,1,33186);
+DELETE FROM `spell_script_target` WHERE `entry` IN(63524, 63657, 63658, 63659, 62505);
+INSERT INTO `spell_script_target` VALUES
+(63524, 1, 33282), -- Harpoon Shot - Razorscale Harpoon Fire State
+(63657, 1, 33282), -- Harpoon Shot - Razorscale Harpoon Fire State
+(63658, 1, 33282), -- Harpoon Shot - Razorscale Harpoon Fire State
+(63659, 1, 33282), -- Harpoon Shot - Razorscale Harpoon Fire State
+(62505, 1, 33186); -- Harpoon Shot - Razorscale
 
+UPDATE `gameobject_template` SET `data3` = 180000, `ScriptName` = 'go_repair_harpoon' WHERE `entry` IN (194543, 194542, 194541, 194519);
+-- only 2 harpoons for 10 man
+UPDATE `gameobject` SET `spawnMask` = 2 WHERE `guid` IN (73595, 73592);
+-- mole machines & adds
+UPDATE `creature_template` SET `ScriptName` = 'mob_mole_machine' WHERE `entry` = 33245;
+UPDATE `creature_template` SET `ScriptName` = 'mob_dark_rune_watcher' WHERE `entry` = 33453;
+UPDATE `creature_template` SET `ScriptName` = 'mob_dark_rune_sentinel' WHERE `entry` = 33846;
+UPDATE `creature_template` SET `ScriptName` = 'mob_dark_rune_guardian' WHERE `entry` = 33388;
+UPDATE `creature_template` SET `ScriptName` = 'npc_expedition_commander' WHERE `entry` = 33210;
+UPDATE `creature_template` SET `ScriptName` = 'mob_devouring_flame_target' WHERE `entry` = 34188;
 
-    UPDATE gameobject_template SET data3 = 180000, ScriptName='go_repair_harpoon' WHERE entry IN (194543,194542,194541,194519);
-    -- only 2 harpoons for 10 man
-    UPDATE gameobject SET spawnMask = 2 WHERE guid IN (73595, 73592);
-    -- mole machines & adds
-    UPDATE creature_template SET ScriptName = 'mob_mole_machine' WHERE entry = 33245;
-    UPDATE creature_template SET ScriptName = 'mob_dark_rune_watcher' WHERE entry = 33453;
-    UPDATE creature_template SET ScriptName = 'mob_dark_rune_sentinel' WHERE entry = 33846;
-    UPDATE creature_template SET ScriptName = 'mob_dark_rune_guardian' WHERE entry = 33388;
-    UPDATE creature_template SET ScriptName = 'npc_expedition_commander' WHERE entry = 33210;
-    UPDATE creature_template SET ScriptName = 'mob_devouring_flame_target' WHERE entry = 34188;
+-- -------------------- --
+-- XT-002 Deconstructor --
+-- -------------------- --
+UPDATE `creature_template` SET `ScriptName` = 'boss_xt_002' WHERE `entry` = 33293;
+UPDATE `creature_template` SET `scriptname` = 'mob_xtheart' WHERE `entry` = 33329;
+UPDATE `creature_template` SET `ScriptName` = 'mob_pummeler' WHERE `entry` = 33344;
+UPDATE `creature_template` SET `ScriptName` = 'npc_scrapbot' WHERE `entry` = 33343;
+UPDATE `creature_template` SET `ScriptName` = 'mob_boombot' WHERE `entry` = 33346;
+UPDATE `creature_template` SET `ScriptName` = 'mob_voidzone' WHERE `entry` = 34001;
+UPDATE `creature_template` SET `ScriptName` = 'mob_lifespark', `minhealth` = 176400, `maxhealth` = 176400, `faction_A` = 14, `faction_H` = 14 WHERE `entry` = 34004;
+DELETE FROM `creature` WHERE `id` = 34004;
+UPDATE `creature` SET `spawnMask` = 3 WHERE `id` = 33337; -- XT-Toy Pile
 
--- XT002
-UPDATE creature_template SET mechanic_immune_mask=617299803, scriptname='boss_xt_002' WHERE entry=33293;
-UPDATE creature_template SET ScriptName = 'mob_pummeler' WHERE entry = 33344;
-UPDATE creature_template SET speed_run=0.5, faction_a=1925, faction_h=1925, scriptname='mob_boombot' WHERE entry=33346; -- Script or EventAI?
-UPDATE creature_template SET speed_run=0.5 WHERE entry=33343;
-UPDATE creature_template SET mechanic_immune_mask=652951551, scriptname='mob_xtheart' WHERE entry=33329;
-UPDATE creature_template SET ScriptName = 'mob_voidzone' WHERE entry = 34001;
-UPDATE creature_template SET minhealth = 176400, maxhealth = 176400, minlevel = 80, maxlevel = 80, faction_a = 14, faction_h = 14, ScriptName = 'mob_lifespark' WHERE entry = 34004;
-UPDATE creature SET spawnMask = 0 WHERE id IN (34004);
-
--- THIS IS A WORKAROUND FOR THE HARD MODE LOOT, PLEASE REMOVE IF YOU DON'T WANT TO USE IT!
--- hard loot for the heart
-UPDATE creature_template SET lootid = 33329 WHERE entry = 33329;
-UPDATE creature_template SET lootid = 33995 WHERE entry = 33995;
--- rewrite loot for XT to support hard mode: moved hard mode loot to XT heart
--- 10 man:
--- hard mode loot for the heart
-DELETE FROM `creature_loot_template` WHERE (`entry`=33329);
-INSERT INTO `creature_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `groupid`, `mincountOrRef`, `maxcount`, `lootcondition`, `condition_value1`, `condition_value2`) VALUES 
-(33329, 45867, 0, 1, 1, 1, 0, 0, 0),
-(33329, 45868, 0, 1, 1, 1, 0, 0, 0),
-(33329, 45869, 0, 1, 1, 1, 0, 0, 0),
-(33329, 45870, 0, 1, 1, 1, 0, 0, 0),
-(33329, 45871, 0, 1, 1, 1, 0, 0, 0);
--- 25 man:
--- no hard loot on xt so moving to the heart
-DELETE FROM `creature_loot_template` WHERE (`entry`=33995);
-INSERT INTO `creature_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `groupid`, `mincountOrRef`, `maxcount`, `lootcondition`, `condition_value1`, `condition_value2`) VALUES 
-(33995, 45445, 0, 1, 1, 1, 0, 0, 0),
-(33995, 45443, 0, 1, 1, 1, 0, 0, 0),
-(33995, 45444, 0, 1, 1, 1, 0, 0, 0),
-(33995, 45446, 0, 1, 1, 1, 0, 0, 0),
-(33995, 45442, 0, 1, 1, 1, 0, 0, 0);
-
--- Iron council
-UPDATE creature_template SET mechanic_immune_mask=619395071, scriptname='boss_brundir' WHERE entry=32857;
-UPDATE creature_template SET mechanic_immune_mask=617299803, scriptname='boss_molgeim' WHERE entry=32927;
-UPDATE creature_template SET mechanic_immune_mask=617299803, scriptname='boss_steelbreaker' WHERE entry=32867;
-UPDATE creature_template SET ScriptName = 'mob_rune_of_power' WHERE entry = 33705;
-UPDATE creature_template SET ScriptName = 'mob_rune_of_summoning' WHERE entry = 33051;
-UPDATE creature_template SET ScriptName = 'mob_ulduar_lightning_elemental' WHERE entry = 32958;
-UPDATE `creature_template` SET `mechanic_immune_mask` = 619397115 WHERE `entry` IN (32857, 33694);
+-- ---------------- --
+-- Assembly of Iron --
+-- ---------------- --
+UPDATE `creature_template` SET `mechanic_immune_mask` = `mechanic_immune_mask` &~ 33554432 &~ 128 &~ 32 &~ 4 WHERE `entry` IN(32927, 32867);
+UPDATE `creature_template` SET `ScriptName` = 'npc_ulduar_lightning_elemental' WHERE `entry` = 32958;
+UPDATE `creature_template` SET `mechanic_immune_mask` =
+536870912|67108864|8388608|4194304|2097152|524288|131072|65536|8192|4096|2048|1024|512|256|128|64|32|16|8|2|1
+WHERE `entry` IN (32857, 33694); -- 619397115
+UPDATE `creature_template` SET `unit_flags` = 33554432 | 2 WHERE `entry` IN (33051, 33705);
 
 -- LOOT FOR THESE THREE SHOUDL BE PROGRESSIVE, MAYBE THIS IS NOT THE RIGHT WAY TO DO IT
 -- update loot id:
@@ -122,63 +107,74 @@ UPDATE `creature_template` SET `lootid` = 33693 WHERE `entry` = 33692;
 -- Rewrite loot for council: this will allow us to use hard mode loot because only the last killed boss will be lootable
 -- 10 man version
 -- Brundir:
-DELETE FROM `creature_loot_template` WHERE (`entry`=32857);
-INSERT INTO `creature_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `groupid`, `mincountOrRef`, `maxcount`, `lootcondition`, `condition_value1`, `condition_value2`) VALUES 
-(32857, 45322, 0, 2, 1, 1, 0, 0, 0),
-(32857, 45324, 0, 1, 1, 1, 0, 0, 0),
-(32857, 45329, 0, 2, 1, 1, 0, 0, 0),
-(32857, 45330, 0, 1, 1, 1, 0, 0, 0),
-(32857, 45331, 0, 2, 1, 1, 0, 0, 0),
-(32857, 45332, 0, 1, 1, 1, 0, 0, 0),
-(32857, 45333, 0, 2, 1, 1, 0, 0, 0),
-(32857, 45378, 0, 2, 1, 1, 0, 0, 0),
-(32857, 45418, 0, 1, 1, 1, 0, 0, 0),
-(32857, 45423, 0, 1, 1, 1, 0, 0, 0),
+DELETE FROM `creature_loot_template` WHERE `entry` = 32857;
+INSERT INTO `creature_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `groupid`, `mincountOrRef`, `maxcount`) VALUES 
+(32857, 45322, 0, 2, 1, 1),
+(32857, 45324, 0, 1, 1, 1),
+(32857, 45329, 0, 2, 1, 1),
+(32857, 45330, 0, 1, 1, 1),
+(32857, 45331, 0, 2, 1, 1),
+(32857, 45332, 0, 1, 1, 1),
+(32857, 45333, 0, 2, 1, 1),
+(32857, 45378, 0, 2, 1, 1),
+(32857, 45418, 0, 1, 1, 1),
+(32857, 45423, 0, 1, 1, 1),
 -- emblem 100% drop
-(32857, 47241, 100, 0, 1, 1, 0, 0, 0);
+(32857, 47241, 100, 0, 1, 1);
 -- 25 man version
 -- Brundir:
-DELETE FROM `creature_loot_template` WHERE (`entry`=33694);
-INSERT INTO `creature_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `groupid`, `mincountOrRef`, `maxcount`, `lootcondition`, `condition_value1`, `condition_value2`) VALUES 
-(33694, 45224, 0, 3, 1, 1, 0, 0, 0),
-(33694, 45228, 0, 3, 1, 1, 0, 0, 0),
-(33694, 45233, 0, 3, 1, 1, 0, 0, 0),
-(33694, 45234, 0, 3, 1, 1, 0, 0, 0),
-(33694, 45236, 0, 3, 1, 1, 0, 0, 0),
-(33694, 45226, 0, 2, 1, 1, 0, 0, 0),
-(33694, 45235, 0, 2, 1, 1, 0, 0, 0),
-(33694, 45237, 0, 2, 1, 1, 0, 0, 0),
-(33694, 45238, 0, 2, 1, 1, 0, 0, 0),
-(33694, 45239, 0, 2, 1, 1, 0, 0, 0),
-(33694, 45193, 0, 1, 1, 1, 0, 0, 0),
-(33694, 45225, 0, 1, 1, 1, 0, 0, 0),
-(33694, 45227, 0, 1, 1, 1, 0, 0, 0),
-(33694, 45232, 0, 1, 1, 1, 0, 0, 0),
-(33694, 45240, 0, 1, 1, 1, 0, 0, 0),
-(33694, 45038, 10, 0, 1, 1, 0, 0, 0),
-(33694, 45087, 33, 0, 1, 2, 0, 0, 0),
-(33694, 45089, 5, 0, -45089, 1, 0, 0, 0),
+DELETE FROM `creature_loot_template` WHERE `entry` = 33694;
+INSERT INTO `creature_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `groupid`, `mincountOrRef`, `maxcount`) VALUES 
+(33694, 45224, 0, 3, 1, 1),
+(33694, 45228, 0, 3, 1, 1),
+(33694, 45233, 0, 3, 1, 1),
+(33694, 45234, 0, 3, 1, 1),
+(33694, 45236, 0, 3, 1, 1),
+(33694, 45226, 0, 2, 1, 1),
+(33694, 45235, 0, 2, 1, 1),
+(33694, 45237, 0, 2, 1, 1),
+(33694, 45238, 0, 2, 1, 1),
+(33694, 45239, 0, 2, 1, 1),
+(33694, 45193, 0, 1, 1, 1),
+(33694, 45225, 0, 1, 1, 1),
+(33694, 45227, 0, 1, 1, 1),
+(33694, 45232, 0, 1, 1, 1),
+(33694, 45240, 0, 1, 1, 1),
+(33694, 45038, 10, 0, 1, 1),
+(33694, 45087, 33, 0, 1, 2),
+(33694, 45089, 5, 0, -45089, 1),
 -- emblem 100% drop
-(33694, 47241, 100, 0, 1, 1, 0, 0, 0);
+(33694, 47241, 100, 0, 1, 1);
 
--- Kologarn
-DELETE FROM creature WHERE id IN (32933, 32934);
--- fix arms position because of the missing vehicles
-INSERT INTO creature (id, map, spawnMask, phaseMask, modelid, equipment_id, position_x, position_y, position_z, orientation, spawntimesecs, spawndist, currentwaypoint, curhealth, curmana, DeathState, MovementType) VALUES (32933, 603, 3, 65535, 0, 0, 1799.68, -24.3599, 452.227, 3.14747, 604800, 0, 0, 543855, 0, 0, 0);
-INSERT INTO creature (id, map, spawnMask, phaseMask, modelid, equipment_id, position_x, position_y, position_z, orientation, spawntimesecs, spawndist, currentwaypoint, curhealth, curmana, DeathState, MovementType) VALUES (32934, 603, 3, 65535, 0, 0, 1799.68, -24.3599, 452.227, 3.14747, 604800, 0, 0, 543855, 0, 0, 0);
-UPDATE creature_model_info SET bounding_radius=15, combat_reach=15 WHERE modelid IN (28638, 28822, 28821);
-UPDATE creature_template SET mechanic_immune_mask=617299803, unit_flags = 0, scriptname='boss_kologarn' WHERE entry=32930;
-UPDATE creature_template SET mechanic_immune_mask=652951551, scriptname='boss_right_arm' WHERE entry=32934;
-UPDATE creature_template SET mechanic_immune_mask=652951551, scriptname='boss_left_arm' WHERE entry=32933;
-UPDATE creature_template SET ScriptName = 'mob_ulduar_rubble' WHERE entry IN (33768, 33809);
-UPDATE `gameobject` SET `position_y` = -35.6824, `position_x` = 1837.59 WHERE `id` IN (195047);
-UPDATE `creature_template` SET `RegenHealth` = 1 WHERE `entry` = 33910;
-UPDATE `creature_template` SET `RegenHealth` = 1 WHERE `entry` = 33911;
+-- -------- --
+-- Kologarn --
+-- -------- --
+UPDATE `creature_template` SET `mechanic_immune_mask` = 617299803, `ScriptName` = 'boss_kologarn', `unit_flags` = 0 WHERE `entry` = 32930;
+UPDATE `creature_template` SET `mechanic_immune_mask` = 652951551, `ScriptName` = 'boss_right_arm' WHERE `entry` = 32934;
+UPDATE `creature_template` SET `mechanic_immune_mask` = 652951551, `ScriptName` = 'boss_left_arm' WHERE `entry` = 32933;
+UPDATE `creature_template` SET `ScriptName` = 'mob_ulduar_rubble' WHERE `entry` IN (33768, 33809);
+
+DELETE FROM `creature` WHERE id IN (32933, 32934); -- Arms spawn by vehicle
+DELETE FROM `creature` WHERE id IN (33632, 33802); -- Triggers spawn by Spell
+UPDATE `creature` SET `position_x` = 1797, `position_z` = 449.718 WHERE `id` = 32930; -- Kologarn position
+UPDATE `gameobject` SET `position_y` = -35.6824, `position_x` = 1837.59 WHERE `id` = 195047; -- loot box position
+
+DELETE FROM `spell_script_target` WHERE `entry` = 63628;
+INSERT INTO `spell_script_target` VALUES
+(63628, 1, 32933), -- Instakill Kologarn Arm - Left Arm
+(63628, 1, 32934); -- Instakill Kologarn Arm - Right Arm
+
+UPDATE `creature_model_info` SET `bounding_radius` = 0.31, `combat_reach` = 20 WHERE `modelid` IN (28821, 28822);
+
+UPDATE `creature_template_addon` SET `bytes1` = 7 WHERE `entry` = 34297; -- Dummy death Kologarn
+UPDATE `creature` SET `spawnMask` = 3 WHERE `id` = 33661;
+UPDATE `spell_script_target` SET `targetentry` = 32930 WHERE `entry` = 63979;
+
 
 -- Auriaya
-UPDATE creature_template SET mechanic_immune_mask=583745371, equipment_id = 103000, scriptname='boss_auriaya' WHERE entry=33515;
-UPDATE creature_template SET mechanic_immune_mask=619395071, scriptname='mob_feral_defender' WHERE entry=34035;
-UPDATE creature_template SET minlevel=80, maxlevel=80, faction_h=14, faction_a=14, scriptname='mob_seeping_feral_essence' WHERE entry=34098;
+UPDATE `creature_template` SET `ScriptName` = 'boss_auriaya', `mechanic_immune_mask` = 583745371, `equipment_id` = 103000 WHERE `entry` = 33515;
+UPDATE `creature_template` SET `ScriptName` = 'mob_feral_defender', `mechanic_immune_mask` = 619395071 WHERE `entry` = 34035;
+UPDATE `creature_template` SET `ScriptName` = 'mob_seeping_feral_essence', `minlevel` = 80, `maxlevel` = 80, `faction_h` = 14, `faction_a` = 14 WHERE `entry` = 34098;
 UPDATE creature_template SET ScriptName = 'mob_sanctum_sentry' WHERE entry = 34014;
 UPDATE `creature_template` SET `mechanic_immune_mask` = 619397115 WHERE `entry` IN (33515, 34175);
 DELETE FROM creature_equip_template WHERE entry = 103000;
@@ -341,42 +337,42 @@ INSERT INTO `gameobject` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`position_x`
 (110005, 194958, 603, 2, 65535, 2734.73, 2568.98, 364.314, 0.0139475, 0, 0, 0.00697369, 0.999976, -604800, 100, 1);
 -- 10 man hard:
 DELETE FROM `gameobject_loot_template` WHERE (`entry`=194957);
-INSERT INTO `gameobject_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `groupid`, `mincountOrRef`, `maxcount`, `lootcondition`, `condition_value1`, `condition_value2`) VALUES 
-(194957, 45089, 5, 0, -45089, 1, 0, 0, 0),
-(194957, 45095, 2.0408, 0, 1, 1, 0, 0, 0),
-(194957, 45649, 100, 0, -45649, 1, 0, 0, 0),
-(194957, 45663, 0.4028, 0, 1, 1, 0, 0, 0),
-(194957, 45787, -100, 0, 1, 1, 0, 0, 0),
-(194957, 47241, 100, 0, 1, 1, 0, 0, 0),
-(194957, 45972, 0, 1, 1, 1, 0, 0, 0),
-(194957, 45973, 0, 1, 1, 1, 0, 0, 0),
-(194957, 45974, 0, 1, 1, 1, 0, 0, 0),
-(194957, 45975, 0, 1, 1, 1, 0, 0, 0),
-(194957, 45976, 0, 1, 1, 1, 0, 0, 0),
-(194957, 45982, 0, 2, 1, 1, 0, 0, 0),
-(194957, 45988, 0, 2, 1, 1, 0, 0, 0),
-(194957, 45989, 0, 2, 1, 1, 0, 0, 0),
-(194957, 45990, 0, 2, 1, 1, 0, 0, 0),
-(194957, 45993, 0, 2, 1, 1, 0, 0, 0);
+INSERT INTO `gameobject_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `groupid`, `mincountOrRef`, `maxcount`) VALUES 
+(194957, 45089, 5, 0, -45089, 1),
+(194957, 45095, 2.0408, 0, 1, 1),
+(194957, 45649, 100, 0, -45649, 1),
+(194957, 45663, 0.4028, 0, 1, 1),
+(194957, 45787, -100, 0, 1, 1),
+(194957, 47241, 100, 0, 1, 1),
+(194957, 45972, 0, 1, 1, 1),
+(194957, 45973, 0, 1, 1, 1),
+(194957, 45974, 0, 1, 1, 1),
+(194957, 45975, 0, 1, 1, 1),
+(194957, 45976, 0, 1, 1, 1),
+(194957, 45982, 0, 2, 1, 1),
+(194957, 45988, 0, 2, 1, 1),
+(194957, 45989, 0, 2, 1, 1),
+(194957, 45990, 0, 2, 1, 1),
+(194957, 45993, 0, 2, 1, 1);
 -- 25 man hard:
 DELETE FROM `gameobject_loot_template` WHERE (`entry`=194958);
-INSERT INTO `gameobject_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `groupid`, `mincountOrRef`, `maxcount`, `lootcondition`, `condition_value1`, `condition_value2`) VALUES 
-(194958, 45038, 10, 0, 1, 1, 0, 0, 0),
-(194958, 45087, 33, 0, 1, 1, 0, 0, 0),
-(194958, 45089, 5, 0, -45089, 1, 0, 0, 0),
-(194958, 45643, 100, 0, -45643, 1, 0, 0, 0),
-(194958, 45816, -100, 0, 1, 1, 0, 0, 0),
-(194958, 47241, 100, 0, 1, 1, 0, 0, 0),
-(194958, 45489, 0, 1, 1, 1, 0, 0, 0),
-(194958, 45490, 0, 1, 1, 1, 0, 0, 0),
-(194958, 45491, 0, 1, 1, 1, 0, 0, 0),
-(194958, 45492, 0, 1, 1, 1, 0, 0, 0),
-(194958, 45493, 0, 1, 1, 1, 0, 0, 0),
-(194958, 45494, 0, 2, 1, 1, 0, 0, 0),
-(194958, 45495, 0, 2, 1, 1, 0, 0, 0),
-(194958, 45496, 0, 2, 1, 1, 0, 0, 0),
-(194958, 45497, 0, 2, 1, 1, 0, 0, 0),
-(194958, 45663, 0, 2, 1, 1, 0, 0, 0);
+INSERT INTO `gameobject_loot_template` (`entry`, `item`, `ChanceOrQuestChance`, `groupid`, `mincountOrRef`, `maxcount`) VALUES 
+(194958, 45038, 10, 0, 1, 1),
+(194958, 45087, 33, 0, 1, 1),
+(194958, 45089, 5, 0, -45089, 1),
+(194958, 45643, 100, 0, -45643, 1),
+(194958, 45816, -100, 0, 1, 1),
+(194958, 47241, 100, 0, 1, 1),
+(194958, 45489, 0, 1, 1, 1),
+(194958, 45490, 0, 1, 1, 1),
+(194958, 45491, 0, 1, 1, 1),
+(194958, 45492, 0, 1, 1, 1),
+(194958, 45493, 0, 1, 1, 1),
+(194958, 45494, 0, 2, 1, 1),
+(194958, 45495, 0, 2, 1, 1),
+(194958, 45496, 0, 2, 1, 1),
+(194958, 45497, 0, 2, 1, 1),
+(194958, 45663, 0, 2, 1, 1);
 
 -- Thorim
 UPDATE creature_template SET ScriptName = 'boss_thorim' WHERE entry = 32865;
@@ -499,7 +495,7 @@ UPDATE gameobject SET spawntimesecs = -604800 WHERE id IN (195046, 195047, 19430
 
 -- NOT SURE IF THE TRASH MOBS ARE SCRIPTED BY EVENTAI
 -- Mobs
-UPDATE `creature_template` SET `ScriptName` = 'generic_creature' WHERE 'entry' IN (34086, 34085, 34069, 33237, 34234, 33236, 33264, 34164, 34196, 34199, 34198, 
+UPDATE `creature_template` SET `ScriptName` = 'generic_creature' WHERE `entry` IN (34086, 34085, 34069, 33237, 34234, 33236, 33264, 34164, 34196, 34199, 34198, 
 34190, 34197, 33699, 34134, 34135, 34133, 33430, 33528, 33431, 33527, 33526, 33525, 33355, 33354, 34193, 34183, 33110, 
 32878, 33822, 33818, 33824, 33823, 33772, 33838, 33819, 33820, 32875, 33346, 34057) AND `ScriptName` = '' AND `AIName` = '';
 

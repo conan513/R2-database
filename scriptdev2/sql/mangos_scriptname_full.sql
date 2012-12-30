@@ -167,19 +167,20 @@ UPDATE creature_template SET ScriptName='spell_dummy_npc' WHERE entry IN (
 -- kalimdor
 9299,12296,12298,
 -- outland
-16880,16518,16847,17157,17326,17654,18879,22105,24918,25084,25085,
+16880,16518,16847,17157,17326,17654,18879,22105,24918,24922,25084,25085,
 -- northrend
 23678,25752,25753,25758,25792,25793,26268,26270,26421,26616,26643,26841,26924,27122,27263,27264,27265,27808,28053,28054,28068,28093,28465,28600,29319,29327,29329,29330,29338,30146,32149);
 
 UPDATE gameobject_template SET ScriptName='spell_dummy_go' WHERE entry IN (181616,186949);
 
 /* WORLD MAP SCRIPTS */
-DELETE FROM world_template WHERE map IN (0, 1, 530, 571);
+DELETE FROM world_template WHERE map IN (0, 1, 530, 571, 609);
 INSERT INTO world_template VALUES
 (0, 'world_map_eastern_kingdoms'),
 (1, 'world_map_kalimdor'),
 (530, 'world_map_outland'),
-(571, 'world_map_northrend');
+(571, 'world_map_northrend'),
+(609, 'world_map_ebon_hold');
 
 /*  */
 /* ZONE */
@@ -533,6 +534,12 @@ UPDATE creature_template SET ScriptName='npc_unworthy_initiate' WHERE entry IN (
 UPDATE gameobject_template SET ScriptName='go_acherus_soul_prison' WHERE entry IN (191577,191580,191581,191582,191583,191584,191585,191586,191587,191588,191589,191590);
 UPDATE creature_template SET ScriptName='npc_a_special_surprise' WHERE entry IN (29032,29061,29065,29067,29068,29070,29074,29072,29073,29071);
 UPDATE creature_template SET ScriptName='npc_koltira_deathweaver' WHERE entry=28912;
+UPDATE creature_template SET ScriptName='npc_eye_of_acherus' WHERE entry=28511;
+UPDATE creature_template SET ScriptName='npc_scarlet_ghoul' WHERE entry=28845;
+UPDATE creature_template SET ScriptName='npc_highlord_darion_mograine' WHERE entry=29173;
+UPDATE creature_template SET ScriptName='npc_fellow_death_knight' WHERE entry IN (29199, 29204, 29200);
+UPDATE creature_template SET ScriptName='npc_lich_king_light_dawn' WHERE entry=29183;
+UPDATE creature_template SET ScriptName='npc_acherus_deathcharger' WHERE entry=28782;
 
 /* ELWYNN FOREST */
 
@@ -578,7 +585,7 @@ UPDATE creature_template SET ScriptName='boss_olm_the_summoner' WHERE entry=1883
 UPDATE creature_template SET ScriptName='boss_krosh_firehand' WHERE entry=18832;
 
 /* GUNDRAK */
-UPDATE creature_template SET ScriptName='boss_colossus' WHERE entry=29307;
+UPDATE creature_template SET ScriptName='boss_drakkari_colossus' WHERE entry=29307;
 UPDATE creature_template SET ScriptName='boss_eck' WHERE entry=29932;
 UPDATE creature_template SET ScriptName='boss_galdarah' WHERE entry=29306;
 UPDATE creature_template SET ScriptName='boss_moorabi' WHERE entry=29305;

@@ -15,7 +15,6 @@ UPDATE `item_template` SET `spellid_1` = 24707 WHERE `entry` = 20516;
 
 -- Scriptname assignment
 
-UPDATE creature_template SET ScriptName = 'boss_headless_horseman' WHERE entry = 23682;
 UPDATE creature_template SET ScriptName = 'npc_horsemans_head' WHERE entry = 23775;
 UPDATE creature_template SET ScriptName = 'mob_pulsing_pumpkin' WHERE entry = 23694;
 
@@ -30,25 +29,10 @@ UPDATE `creature_template` SET `modelid_2` = 21908, `faction_A` = 7, `faction_H`
 
 -- Fixes to his template ( smart to wiped clean and replaced data)
 -- Headless Horseman fixes and ect
-DELETE FROM `creature_template` WHERE (`entry`=23682);
-INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid_1`, `modelid_2`, `modelid_3`, `modelid_4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `minhealth`, `maxhealth`, `minmana`, `maxmana`, `armor`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `PetSpellDataId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `unk16`, `unk17`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `vehicle_id`, `equipment_id`, `trainer_id`, `vendor_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES (23682, 0, 0, 0, 0, 0, 22351, 0, 0, 0, 'Headless Horseman', '', '', 0, 80, 80, 126000, 126000, 3994, 3994, 9929, 14, 14, 0, 1, 1.14286, 1, 3, 405, 609, 0, 152, 17.2, 2000, 2000, 2, 0, 0, 0, 0, 0, 0, 0, 324, 487, 122, 6, 1024, 23682, 0, 0, 0, 0, 0, 0, 0, 0, 42587, 42380, 42394, 0, 0, 0, 0, '', 0, 3, 10, 1, 0, 33277, 0, 0, 0, 0, 0, 167, 1, 0, 10400, 0, 0, 646659039, 0, 'boss_headless_horseman');
- 
+UPDATE `creature_template` SET `rank` = 3, `type` = 6, `equipment_id` = 10400, `mechanic_immune_mask` = `mechanic_immune_mask` | 128 WHERE `entry` = 23682;
+
 -- Fix quest script to correct horseman summon location
-DELETE FROM `quest_end_scripts` WHERE `id`=11405;
-INSERT INTO `quest_end_scripts` (`id`, `delay`, `command`, `datalong`, `datalong2`, `buddy_entry`, `search_radius`, `data_flags`,`dataint`,`dataint2`,`dataint3`,`dataint4`, `x`, `y`, `z`, `o`,`comments`) VALUES 
-(11405, 0, 10, 23682, 1200000, 0, 0, 0, '0', '0', '0', '0', 1766.798, 1349.538, 18.6855, 6.2786, '');
-
-DELETE FROM `quest_end_scripts` WHERE `id`=11404;
-INSERT INTO `quest_end_scripts` (`id`, `delay`, `command`, `datalong`, `datalong2`, `buddy_entry`, `search_radius`, `data_flags`,`dataint`,`dataint2`,`dataint3`,`dataint4`, `x`, `y`, `z`, `o`,`comments`) VALUES 
-(11404, 0, 10, 23682, 1200000, 0, 0, 0, '0', '0', '0', '0', 1766.798, 1349.538, 18.6855, 6.2786, '');
-
-DELETE FROM `quest_end_scripts` WHERE `id`=11401;
-INSERT INTO `quest_end_scripts` (`id`, `delay`, `command`, `datalong`, `datalong2`, `buddy_entry`, `search_radius`, `data_flags`,`dataint`,`dataint2`,`dataint3`,`dataint4`, `x`, `y`, `z`, `o`,`comments`) VALUES 
-(11401, 0, 10, 23682, 1200000, 0, 0, 0, '0', '0', '0', '0', 1766.798, 1349.538, 18.6855, 6.2786, '');
-
-DELETE FROM `quest_end_scripts` WHERE `id`=11392;
-INSERT INTO `quest_end_scripts` (`id`, `delay`, `command`, `datalong`, `datalong2`, `buddy_entry`, `search_radius`, `data_flags`,`dataint`,`dataint2`,`dataint3`,`dataint4`, `x`, `y`, `z`, `o`,`comments`) VALUES 
-(11392, 0, 10, 23682, 1200000, 0, 0, 0, '0', '0', '0', '0', 1766.798, 1349.538, 18.6855, 6.2786, '');
+UPDATE `dbscripts_on_quest_end` SET `x` = 1766.8, `y` = 1349.54, `z` = 18.6855, `o` = 6.2786 WHERE `id` IN(11392, 11401, 11404, 11405);
 
 -- -- Quest fix to get quest inside instance w/o having the others from the villages ( this is the daily neutral one )
 UPDATE `quest_template` SET `PrevQuestId` = 0 WHERE `entry` = 11401;

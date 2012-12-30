@@ -7,9 +7,6 @@ UPDATE `creature_template` SET `AIName` = '', `ScriptName` = 'generic_creature' 
 UPDATE `creature_template` SET `AIName` = '', `ScriptName` = 'generic_creature' WHERE `entry` = 29179;
 UPDATE `creature_template` SET `AIName` = '', `ScriptName` = 'generic_creature' WHERE `entry` = 29180;
 
-UPDATE `gameobject_template` SET ScriptName ="go_org_portal", data0 = 0 WHERE `entry` = 193052;
-UPDATE `gameobject_template` SET ScriptName ="go_sw_portal", data0 = 0 WHERE `entry` = 193053;
-
 -- ------------
 -- Special npcs
 -- ------------
@@ -43,35 +40,21 @@ DELETE FROM `creature` WHERE `id`=29179;
 -- remove stativ duke--  spawned during event not static plus they respawn during event
 DELETE FROM `creature` WHERE `id`=29180;
 
-UPDATE `creature_template` SET `AIName` = '', `ScriptName`='npc_highlord_darion_mograine' WHERE `entry`='29173';
-UPDATE `creature_template` SET `AIName` = '', `ScriptName`='npc_the_lich_king_tirion_dawn' WHERE `entry` in (29183,29175);
 UPDATE `creature_template` SET `AIName` = '', `ScriptName`='npc_minibosses_dawn_of_light' WHERE `entry` IN (29199,29204,29200);
 UPDATE `creature_template` SET `AIName` = '', `ScriptName`='mob_acherus_ghoul' WHERE `entry`='29219';
 UPDATE `creature_template` SET `AIName` = '', `ScriptName`='mob_warrior_of_the_frozen_wastes' WHERE `entry`='29206';
-
-DELETE FROM `spell_script_target` WHERE `entry` in (53658, 53679, 53701, 53705, 53706, 53677, 53685);
-INSERT INTO `spell_script_target` VALUES (53679, 1, 29183);
-INSERT INTO `spell_script_target` VALUES (53701, 1, 29175);
-INSERT INTO `spell_script_target` VALUES (53705, 1, 29183);
-INSERT INTO `spell_script_target` VALUES (53706, 1, 29183);
-INSERT INTO `spell_script_target` VALUES (53677, 1, 29227);
-INSERT INTO `spell_script_target` VALUES (53685, 1, 29175);
 
 -- ----------------------------
 -- Quest:: An End To All Things
 -- ----------------------------
 
 -- Frostbrood Vanquisher
-UPDATE `creature_template` SET  `vehicle_id` = 156 WHERE `entry` IN (28670);
 DELETE FROM `creature_spell` WHERE `guid` IN (28670);
 INSERT INTO `creature_spell` (`guid`, `spell`, `index`, `active`, `disabled`, `flags`) VALUES
 (28670, 53114, 0, 0, 0, 0),
 (28670, 53110, 1, 0, 0, 0);
 
-UPDATE creature_template SET maxhealth = 133525, minhealth = 133525, maxmana = 51360, minmana = 51360, InhabitType = 3 WHERE entry = 28670;
-
-REPLACE INTO creature_template_addon (entry, mount, bytes1, b2_0_sheath, emote, moveflags, auras) VALUES
-(28670, 0, 50331648, 1, 0, 1024, '53112');
+UPDATE `creature_template` SET `InhabitType` = 3 WHERE `entry` = 28670;
 
 -- -----------------------------
 -- Quest::Ambush at the overlook
@@ -81,47 +64,28 @@ UPDATE `creature_template` SET `ScriptName`='mob_scarlet_courier' WHERE `entry`=
 -- ----------------------
 -- Quest::Bloody Breakout
 -- ----------------------
-
 UPDATE `creature_template` SET `mechanic_immune_mask` = 12582928 WHERE `entry` = 28912; 
 UPDATE `creature_template` SET `mechanic_immune_mask` = 12582928 WHERE `entry` = 28447;
 
 -- tweak Valroth EAI
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '29001';
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2900112');
-INSERT INTO `creature_ai_scripts` VALUES ('2900112', '29001', '0', '0', '100', '1', '2000', '10000', '7500', '10000', '11', '52922', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'High Inquisitor Valroth - Cast Inquisitor_penance');
-
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '29001';
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2900101');
+DELETE FROM `creature_ai_scripts` WHERE `id` IN (2900101, 2900112);
 INSERT INTO `creature_ai_scripts` VALUES ('2900101', '29001', '1', '0', '100', '0', '0', '0', '0', '0', '21', '1', '1', '0', '22', '0', '0', '0', '0', '0', '0', '0', 'High Inquisitor Valroth - Set Phase to 0 on Spawn');
+INSERT INTO `creature_ai_scripts` VALUES ('2900112', '29001', '0', '0', '100', '1', '2000', '10000', '7500', '10000', '11', '52922', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'High Inquisitor Valroth - Cast Inquisitor_penance');
 
 UPDATE `gameobject_template` SET `castBarCaption` = 'Valroth\'s Remains' WHERE `entry` = 191092;  -- caption bar message when looting remains
 
 UPDATE `creature_template` SET `equipment_id` = 0 WHERE `entry` = 28912;  -- tabled half dead version shouldnt be carrying a axe
 UPDATE `creature_template` SET `equipment_id` = 488 WHERE `entry` = 28447; -- this is model with axe
 
-DELETE FROM `creature_equip_template` WHERE (`entry`=488);
-INSERT INTO `creature_equip_template` (`entry`, `equipentry1`, `equipentry2`, `equipentry3`) VALUES (488, 38633, 0, 0); -- make sure axe is right 
+UPDATE `creature_equip_template` SET `equipentry1` = 38633, `equipentry2` = 0 WHERE `entry` = 488; -- make sure axe is right
 
-DELETE FROM `creature_template_addon` WHERE (`entry`=28912);   -- spawned entry should nt have anti zone magic field 
-INSERT INTO `creature_template_addon` (`entry`, `mount`, `bytes1`, `b2_0_sheath`, `b2_1_pvp_state`, `emote`, `moveflags`, `auras`) VALUES (28912, 0, 7, 1, 0, 0, 0, ''); 
-
-DELETE FROM `creature_template_addon` WHERE (`entry`=28447);  -- this entry is the one that needs antimagic zone
-INSERT INTO `creature_template_addon` (`entry`, `mount`, `bytes1`, `b2_0_sheath`, `b2_1_pvp_state`, `emote`, `moveflags`, `auras`) VALUES (28447, 0, 0, 1, 0, 0, 0, 52894);
+UPDATE `creature_template_addon` SET `auras` = '' WHERE `entry` = 28912; -- spawned entry should not have anti zone magic field
+UPDATE `creature_template_addon` SET `auras` = '52894' WHERE `entry` = 28447; -- spawned entry should not have anti zone magic field
 
 -- tweaked crimsons EAIs
-DELETE FROM `creature` WHERE `id`=29007;
-UPDATE `creature_template` SET `AIName`='EventAI',minmana=1020,maxmana=1058,unit_flags=32768 WHERE (`entry`='29007');
-
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '29007';
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2900702');
-INSERT INTO `creature_ai_scripts` VALUES ('2900702', '29007', '0', '0', '100', '1', '1000', '4000', '1000', '4000', '11', '15498', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
-
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '29007';
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2900701');
+DELETE FROM `creature_ai_scripts` WHERE `id` IN (2900701, 2900702, 2900703);
 INSERT INTO `creature_ai_scripts` VALUES ('2900701', '29007', '4', '0', '100', '0', '0', '0', '0', '0', '11', '15498', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
-
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '29007';
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2900703');
+INSERT INTO `creature_ai_scripts` VALUES ('2900702', '29007', '0', '0', '100', '1', '1000', '4000', '1000', '4000', '11', '15498', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
 INSERT INTO `creature_ai_scripts` VALUES ('2900703', '29007', '11', '0', '100', '1', '0', '0', '0', '0', '11', '34809', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '');
 
 -- -----------------------------------------------------
@@ -134,15 +98,11 @@ UPDATE `creature_template` SET `AIName` = '', `ScriptName` = 'npc_crusade_persua
 -- ---------------------------------------------------------------
 -- Eye of acherus
 UPDATE `creature_template` SET `InhabitType` = 3, `ScriptName` = 'npc_eye_of_acherus' WHERE `entry` = 28511;
-REPLACE INTO `creature_template_addon` (`entry`,`moveflags`,`auras`) VALUES (28511,33562624,''),(28525,0,'64328'),(28542,0,'64328'),(28543,0,'64328'),(28544,0,'64328');
-REPLACE INTO `spell_script_target` (`entry`,`type`,`targetEntry`) VALUES (51859,1,28525),(51859,1,28542),(51859,1,28543),(51859,1,28544);
-DELETE FROM `creature_addon` WHERE `guid` IN (SELECT guid FROM `creature` WHERE `id` IN (28511,28525,28542,28543,28544));
-UPDATE `npc_spellclick_spells` SET `quest_start` = 0, `quest_start_active` = 0 WHERE `npc_entry` = 29501;
+REPLACE INTO `creature_template_addon` (`entry`,`auras`) VALUES
+(28525, '64328'), (28542, '64328'), (28543, '64328'), (28544, '64328'); -- aura=51859 and b2_0_sheath=1 in YTDB
 
-UPDATE `quest_template` SET `ReqSpellCast1` = 0, `ReqSpellCast2` = 0, `ReqSpellCast3` = 0, `ReqSpellCast4` = 0 WHERE `entry` = 12641;
+UPDATE `creature_template` SET `minlevel` = 55, `maxlevel` = 55, `unit_flags` = 0, `InhabitType` = 4, `ScriptName` = 'npc_eye_of_acherus' WHERE `entry` = 28511;
 
-DELETE FROM `creature_template` WHERE (`entry`=28511);
-INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid_1`, `modelid_2`, `modelid_3`, `modelid_4`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `minhealth`, `maxhealth`, `minmana`, `maxmana`, `armor`, `faction_A`, `faction_H`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `mindmg`, `maxdmg`, `dmgschool`, `attackpower`, `dmg_multiplier`, `baseattacktime`, `rangeattacktime`, `unit_class`, `unit_flags`, `dynamicflags`, `family`, `trainer_type`, `trainer_spell`, `trainer_class`, `trainer_race`, `minrangedmg`, `maxrangedmg`, `rangedattackpower`, `type`, `type_flags`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `PetSpellDataId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `unk16`, `unk17`, `RacialLeader`, `questItem1`, `questItem2`, `questItem3`, `questItem4`, `questItem5`, `questItem6`, `movementId`, `RegenHealth`, `equipment_id`, `trainer_id`, `vendor_id`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`) VALUES (28511, 0, 0, 0, 0, 0, 26320, 25499, 0, 0, 'Eye of Acherus', '', '', 0, 55, 55, 2614, 2614, 0, 0, 9730, 35, 35, 0, 1, 1.14286, 1, 0, 420, 630, 0, 157, 1, 2000, 2000, 1, 0, 0, 0, 0, 0, 0, 0, 336, 504, 126, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52694, 52006, 51859, 51904, 0, 0, 0, '', 0, 4, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 'npc_eye_of_acherus');
 -- -----------------------------------------------------------------------------
 -- Quest  Death's Changelle --
 -- -----------------------------------------------------------------------------
@@ -150,67 +110,24 @@ INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entr
 -- bug olrun - is out of interaction reach for smaller races  --
 UPDATE `creature` SET `position_x` = 2371.77, `position_y` = -5788.7, `position_z` = 155.61 WHERE `guid` = 96309;
 
--- Flying to high for smaller races to interact with olrun during  --
-DELETE FROM `creature_movement` WHERE `id`=96309;
-INSERT INTO `creature_movement` (`id`,`point`,`position_x`,`position_y`,`position_z`,`waittime`,`script_id`,`textid1`,`textid2`,`textid3`,`textid4`,`textid5`,`emote`,`spell`,`wpguid`,`orientation`,`model1`,`model2`) VALUES
-(96309, 1, 2376.5, -5781.67, 155.667, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(96309, 2, 2372.28, -5788.87, 155.667, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(96309, 3, 2364.96, -5780.4, 155.667, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(96309, 4, 2360.76, -5774.66, 155.667, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(96309, 5, 2365.82, -5770.87, 155.667, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(96309, 6, 2371.81, -5767.54, 155.667, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(96309, 7, 2371.6, -5775.58, 155.667, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(96309, 8, 2376.5, -5781.67, 155.667, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(96309, 9, 2372.28, -5788.87, 155.667, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(96309, 10, 2364.96, -5780.4, 155.667, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
 -- --------------------------------------------------------------------
 -- Quest Fix Noth Special Brew  (dk starting area quest fix 12716/12717
 -- ---------------------------------------------------------------------
-DELETE FROM `creature_questrelation` WHERE `quest` = 12716; 
-DELETE FROM `gameobject_questrelation` WHERE `quest` = 12716; 
-UPDATE `item_template` SET `StartQuest`=0 WHERE `StartQuest` = 12716; 
-INSERT INTO `creature_questrelation` (`id`, `quest`) VALUES (28919, 12716); 
-UPDATE `creature_template` SET `npcflag`=`npcflag`|2 WHERE `entry` = 28919; 
-DELETE FROM `creature_involvedrelation` WHERE `quest` = 12716; 
-DELETE FROM `gameobject_involvedrelation` WHERE `quest` = 12716; 
-INSERT INTO `creature_involvedrelation` (`id`, `quest`) VALUES (28919, 12716); 
-UPDATE `creature_template` SET `npcflag`=`npcflag`|2 WHERE `entry`=28919; 
-UPDATE `quest_template` SET `ExclusiveGroup` = 12716 WHERE `entry` = 12716; 
-UPDATE `quest_template` SET `SpecialFlags` = 0 WHERE `entry` = 12717;
+UPDATE `quest_template` SET `ExclusiveGroup` = 12716 WHERE `entry` = 12716; -- in YTDB is -12716
 
 -- -------------------------------
 -- Quest Into the Realm of Shadows
 -- -------------------------------
-UPDATE creature_template SET IconName = 'vehichleCursor',
-unit_flags = 0,
-spell1 = 52362
-WHERE entry =28782;
+UPDATE `creature_template` SET `unit_flags` = 0 WHERE `entry` = 28782;
+DELETE FROM `creature_spell` WHERE `guid` IN (28782);
+INSERT INTO `creature_spell` (`guid`, `spell`, `index`) VALUES
+(28782, 52362, 0);
 
-UPDATE quest_template SET 
-SrcSpell = 52359,
-SpecialFlags = 2,
-ReqCreatureOrGOId1 = 28768,
-ReqCreatureOrGOCount1 = 1,
-ReqSpellCast1 = 0,
-RewItemId1 = 39208,
-RewItemCount1 = 1 WHERE entry = 12687;
+UPDATE `quest_template` SET `SrcSpell` = 52359, `ReqCreatureOrGOId1` = 28768, `ReqCreatureOrGOCount1` = 1, `ReqSpellCast1` = 0 WHERE `entry` = 12687;
 
-DELETE FROM creature_involvedrelation WHERE quest IN (12687);
-INSERT INTO creature_involvedrelation (id, quest) VALUES (28788, 12687);
+-- DELETE FROM creature_involvedrelation WHERE quest IN (12687); -- this cause drop id 28653 from YTDB
+INSERT IGNORE INTO creature_involvedrelation (id, quest) VALUES (28788, 12687);
 UPDATE creature_template SET npcflag = 2 WHERE entry = 28788;
-
-DELETE FROM spell_script_target WHERE entry = 52349;
-
--- original YTDB scripts here
-DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 28768;
-INSERT INTO `creature_ai_scripts` (`id`, `creature_id`, `event_type`, `event_inverse_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action1_type`, `action1_param1`, `action1_param2`, `action1_param3`, `action2_type`, `action2_param1`, `action2_param2`, `action2_param3`, `action3_type`, `action3_param1`, `action3_param2`, `action3_param3`, `comment`) VALUES
-(2876803, 28768, 0, 0, 100, 1, 3000, 7000, 6000, 9000, 11, 50688, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Dark Rider of Acherus - Cast Plague Strike'),
-(2876806, 28768, 6, 0, 100, 0, 0, 0, 0, 0, 12, 28782, 0, 10000, 15, 12687, 6, 0, 43, 0, 0, 0, 'Dark Rider of Acherus - Spawn Deathcharger of Acherus and Set Quest Event Complete and Dismount on Death'),
-(2876801, 28768, 4, 0, 100, 0, 0, 0, 0, 0, 1, -780, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Dark Rider of Acherus - Yell on Aggro'),
-(2876804, 28768, 0, 0, 100, 1, 6000, 10000, 6000, 9000, 11, 52374, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Dark Rider of Acherus - Cast Blood Strike'),
-(2876802, 28768, 0, 0, 100, 1, 0, 1500, 6000, 9000, 11, 52372, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Dark Rider of Acherus - Cast Icy Touch'),
-(2876805, 28768, 9, 0, 100, 1, 5, 30, 2000, 2000, 11, 52356, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Dark Rider of Acherus - Cast Throw');
 
 -- replace for one action
 UPDATE creature_ai_scripts SET 
@@ -225,42 +142,36 @@ action2_param3 = '16',
 action3_type   = '0'
 WHERE id = 2876806;
 
-DELETE FROM creature WHERE id = 28782;
+DELETE FROM `creature` WHERE id = 28782;
+DELETE FROM `creature_template_addon` WHERE entry = 28782;
 
-DELETE FROM creature_template_addon WHERE entry = 28782;
-
-DELETE FROM npc_spellclick_spells WHERE npc_entry IN (28782);
-INSERT INTO npc_spellclick_spells VALUES
-(28782, 46598, 0, 0, 0, 1);
+UPDATE `npc_spellclick_spells` SET `spell_id` = 46598, `quest_start` = 0, `quest_start_active` = 0, `quest_end` = 0 WHERE `npc_entry` = 28782; -- cause corrupt Q12687 from YTDB
 
 -- -----------------------------------
 -- Quest The Gift That Keeps On Giving
 -- -----------------------------------
 
 -- item spell script targets (Scarlet Miners)
-DELETE FROM spell_script_target WHERE entry = 52479;
-INSERT INTO spell_script_target VALUES
+DELETE FROM `spell_script_target` WHERE entry = 52479;
+INSERT INTO `spell_script_target` VALUES
 (52479, 1, 28819),
 (52479, 1, 28822),
 (52479, 1, 28891);
 
-UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 28846;
-UPDATE `creature_template` SET `AIName` = '', `ScriptName` = 'mob_scarlet_ghoul' WHERE `entry` = 28845;
-UPDATE `creature_template` SET `AIName` = '', `ScriptName` = 'mob_scarlet_miner' WHERE `entry` = 28822;
-UPDATE `creature_template` SET `AIName` = '', `ScriptName` = 'mob_scarlet_miner' WHERE `entry` = 28819;
-UPDATE `creature_template` SET `AIName` = '', `ScriptName` = 'mob_scarlet_miner' WHERE `entry` = 28891;
-UPDATE `item_template` SET `ScriptName` = 'mob_scarlet_miner' WHERE `entry` = 39253;
+DELETE FROM `world_template` WHERE `map` = 609;
+INSERT INTO `world_template` VALUES (609, 'world_map_ebon_hold');
+INSERT IGNORE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('52514', '1', '28845');
 
 -- EventAI for ghost needs tweaked and double checked
-DELETE FROM `creature_ai_texts` WHERE `entry` IN (-286102, -286101, -286100);
-INSERT INTO `creature_ai_texts` VALUES
-(-286100, "Die, Scourge filth!", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "Scarlet Ghost SAY1"),
-(-286101, "It won't be that easy, friend!", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "Scarlet Ghost SAY2"),
-(-286102, "I'll take you with me!", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "Scarlet Ghost SAY3");
- 
+UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 28846;
 DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 28846;
 INSERT INTO `creature_ai_scripts` VALUES
 (2884601, 28846, 11, 0, 100, 0, 0, 0, 0, 0, 1, -286100, -286101, -286102, 0, 0, 0, 0, 0, 0, 0, 0, "Scarlet Ghost - Random say at spawn");
+DELETE FROM `creature_ai_texts` WHERE `entry` IN (-286102, -286101, -286100);
+INSERT INTO `creature_ai_texts` VALUES
+(-286100, "Die, Scourge filth!", NULL, NULL, NULL, NULL, NULL, NULL, NULL, "Сдохни, отродье Плети!", 0, 0, 0, 0, "Scarlet Ghost SAY1"),
+(-286101, "It won't be that easy, friend!", NULL, NULL, NULL, NULL, NULL, NULL, NULL, "Это не будет просто, друг!", 0, 0, 0, 0, "Scarlet Ghost SAY2"),
+(-286102, "I'll take you with me!", NULL, NULL, NULL, NULL, NULL, NULL, NULL, "Я заберу тебя с собой!", 0, 0, 0, 0, "Scarlet Ghost SAY3");
 
 -- fix to take Quest Item Away at end of quest
 UPDATE `quest_template` SET `ReqItemId1` = 39253, `ReqItemCount1` = 1 WHERE `entry` = 12698;
@@ -279,10 +190,10 @@ UPDATE `creature_template` SET `mechanic_immune_mask` = 0, `flags_extra` = 0 WHE
 UPDATE `creature_template` SET `modelid_2` = 25703 WHERE `entry` = 28817;
 
 /* Scourge Gryphon */
-UPDATE creature_template SET vehicle_id = 143, speed_run = 2 WHERE entry = 28864;
+UPDATE `creature_template` SET `speed_run` = 2 WHERE `entry` = 28864;
 
 DELETE FROM `creature_template_addon` WHERE (`entry`=28864);
-INSERT INTO `creature_template_addon` (`entry`, `mount`, `bytes1`, `b2_0_sheath`, `b2_1_pvp_state`, `emote`, `moveflags`, `auras`) VALUES (28864, 0, 0, 0, 0, 0, 0, 61453);
+INSERT INTO `creature_template_addon` (`entry`, `mount`, `bytes1`, `b2_0_sheath`, `b2_1_pvp_state`, `emote`, `moveflags`, `auras`) VALUES (28864, 0, 0, 0, 0, 0, 0, '61453');
 
 UPDATE `creature_template` SET `vehicle_id` = 79 WHERE `entry` IN (28833);
 DELETE FROM `creature_spell` WHERE `guid` IN (28833);
@@ -291,26 +202,17 @@ INSERT INTO `creature_spell` (`guid`, `spell`, `index`, `active`, `disabled`, `f
 (28833, 52576, 1, 0, 0, 0),
 (28833, 52588, 4, 0, 0, 0);
 
-UPDATE `creature_template` SET `vehicle_id` = 68 WHERE entry IN (28887);
 DELETE FROM `creature_spell` WHERE `guid` IN (28887);
 INSERT INTO `creature_spell` (`guid`, `spell`, `index`, `active`, `disabled`, `flags`) VALUES
 (28887, 52435, 0, 0, 0, 0),
 (28887, 52576, 1, 0, 0, 0),
 (28887, 52588, 4, 0, 0, 0);
 
-INSERT INTO npc_spellclick_spells VALUES ('28833', '52447', '12701', '1', '12701', '1');
-INSERT INTO npc_spellclick_spells VALUES ('28887', '52447', '12701', '1', '12701', '1');
-UPDATE creature_template SET minhealth = 26140, maxhealth = 26140, dynamicflags = 0, minmana = 2117, maxmana = 2117, unit_flags = 772, minlevel = 55, maxlevel = 55, unk16 = 10, unk17 = 1, InhabitType = 3, scale = 1, mindmg = 685, maxdmg = 715, armor = 3232, attackpower = 214, unit_class = 2, TYPE = 10 WHERE entry = 28833;
-UPDATE creature_template SET minhealth = 26140, maxhealth = 26140, dynamicflags = 0, minmana = 0, maxmana = 0, unit_flags = 772, minlevel = 55, maxlevel = 55, unk16 = 10, unk17 = 1, InhabitType = 3, scale = 1, mindmg = 685, maxdmg = 715, armor = 3232, attackpower = 214, unit_class = 2, TYPE = 10 WHERE entry = 28887;
+UPDATE `creature_template` SET `unit_flags` = 772, `mindmg` = 685, `maxdmg` = 715, `armor` = 3232, `attackpower` = 214 WHERE `entry` = 28833;
+UPDATE `creature_template` SET `minhealth` = 26140, `maxhealth` = 26140, `minmana` = 0, `maxmana` = 0, `unit_flags` = 772, `minlevel` = 55, `maxlevel` = 55, `mindmg` = 685, `maxdmg` = 715, `armor` = 3232, `attackpower` = 214 WHERE `entry` = 28887;
 INSERT IGNORE INTO spell_script_target VALUES (52576, 1, 28834);
 INSERT IGNORE INTO spell_script_target VALUES (52576, 1, 28886);
 INSERT IGNORE INTO spell_script_target VALUES (52576, 1, 28850);
-
-DELETE FROM spell_target_position WHERE id = 52462;
-INSERT INTO spell_target_position
-(id,target_map,target_position_x,target_position_y,target_position_z,target_orientation) VALUES
-(52462, 609, 2390.193115, -5900.238281, 108.967354, 3.894099);
-
 
 -- -------------------------------------
 -- ACID scripts for Scarlet Enclave mobs
