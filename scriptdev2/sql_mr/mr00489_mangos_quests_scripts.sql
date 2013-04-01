@@ -330,10 +330,10 @@ INSERT INTO creature VALUES
 UPDATE `creature_template` SET `minhealth` = 0, `maxhealth` = 1 WHERE `entry` = 28537;
 
 DELETE from spell_script_target WHERE entry in(51932,51931,51933);
-INSERT into spell_script_target VALUES
-(51932,1,28537),
-(51931,1,28537),
-(51933,1,28537);
+INSERT into `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(51932, 1, 28537),
+(51931, 1, 28537),
+(51933, 1, 28537);
 
 UPDATE creature_template SET
 flags_extra=flags_extra |128

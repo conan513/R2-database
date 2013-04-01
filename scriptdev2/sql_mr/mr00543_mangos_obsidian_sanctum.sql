@@ -23,7 +23,7 @@ UPDATE `creature` SET `DeathState` = 1 WHERE `guid` IN (131063, 131064);
 
 -- Hatch Eggs - target Twilight Egg Controller
 DELETE FROM `spell_script_target` WHERE `entry` IN (58542, 59189); -- cause drop (58542, 1, 30172), (59189, 1, 30173) from YTDB
-INSERT INTO `spell_script_target` VALUES
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
 (58542, 1, 31138),
 (59189, 1, 31138);
 

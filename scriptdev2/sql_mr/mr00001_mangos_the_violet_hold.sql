@@ -26,7 +26,7 @@ UPDATE `creature_template` SET `AIName`='' WHERE `entry` IN (30695,31079,30666,3
 -- triggers
 UPDATE `creature_template` SET flags_extra=flags_extra|128  WHERE entry IN (30857,30883,29326,30896);
 
-INSERT IGNORE INTO `spell_script_target` VALUES
+INSERT IGNORE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
 (59474,1,31511);
 
 -- immune masks (charm, fear, root, silence, sleep, snare, stun, freeze, knockout, polymorph, banish, shackle, horror, sapped)

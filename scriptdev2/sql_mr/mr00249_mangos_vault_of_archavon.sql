@@ -8,4 +8,6 @@ DELETE FROM `creature_ai_scripts` WHERE (`creature_id`=38433);
 
 UPDATE `instance_template` SET `ScriptName`='instance_vault_of_archavon' WHERE `map`=624;
 DELETE FROM `spell_script_target` WHERE `entry` IN (72034,72096); -- this cause drop (72034, 1, 38439),(72034, 1, 38461),(72096, 1, 38439),(72096, 1, 38461) from YTDB
-INSERT INTO `spell_script_target` VALUES (72034,1,38433),(72096,1,38433);
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(72034,1,38433),
+(72096,1,38433);

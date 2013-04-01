@@ -33,8 +33,9 @@ update `creature` set spawnMask = 0 where `guid` in (123745, 123584, 123548, 123
 UPDATE `gameobject_template` SET `data10` = 1 WHERE `entry` = 196485;
 
 -- spells
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('69347', '1', '36794');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('70521', '1', '37581');
+REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(69347, 1, 36794),
+(70521, 1, 37581);
 
 DELETE FROM `spell_target_position` WHERE `id` = 70860;
 INSERT INTO `spell_target_position` VALUES
@@ -61,18 +62,21 @@ UPDATE `creature_template` SET `unit_flags`='768', `type_flags`='268435564' WHER
 UPDATE `creature_template` SET `AIName`='', `Scriptname`='npc_frostworn_general' WHERE `entry`=36723;
 UPDATE `creature_template` SET `AIName`='', `Scriptname`='npc_spiritual_reflection' WHERE `entry`=37068;
 
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('70464', '1', '36881');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('69708', '1', '37226');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('70194', '1', '37226');
+REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(70464, 1, 36881),
+(69708, 1, 37226),
+(70194, 1, 37226);
 
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('70224', '1', '37014');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('70225', '1', '37014');
+REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(70224, 1, 37014),
+(70225, 1, 37014);
 
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('69431', '1', '37497');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('69431', '1', '37496');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('69431', '1', '37588');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('69431', '1', '37584');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('69431', '1', '37587');
+REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(69431, 1, 37497),
+(69431, 1, 37496),
+(69431, 1, 37588),
+(69431, 1, 37584),
+(69431, 1, 37587);
 
 REPLACE INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `DeathState`, `MovementType`) VALUES
 (135341, 38112, 668, 3, 1, 0, 0, 5276.81, 2037.45, 709.32, 5.58779, 604800, 0, 0, 377468, 0, 0, 0);

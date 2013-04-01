@@ -1,7 +1,7 @@
 
 -- only 56266 is used
 DELETE FROM `spell_script_target` WHERE `targetEntry` = 30090;
-INSERT INTO spell_script_target VALUES
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
 (55853, 1, 30090),  -- nonhero
 (56263, 1, 30090),
 (56264, 1, 30090),

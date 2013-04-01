@@ -82,9 +82,10 @@ VALUES
 (40557, 1, 6, 578, 0, '0', 1001.61, 1051.13, 359.48, 3.1, '');
 
 DELETE FROM `spell_script_target` WHERE `entry` IN (49460, 49346, 49464);
-INSERT INTO `spell_script_target` VALUES (49460, 1, 27755);
-INSERT INTO `spell_script_target` VALUES (49346, 1, 27692);
-INSERT INTO `spell_script_target` VALUES (49464, 1, 27756);
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(49460, 1, 27755),
+(49346, 1, 27692),
+(49464, 1, 27756);
 
 DELETE FROM `creature_spell` WHERE `guid` IN (27755,27756,27692);
 INSERT INTO `creature_spell` (`guid`, `spell`, `index`, `active`, `disabled`, `flags`) VALUES
@@ -105,9 +106,10 @@ INSERT INTO `creature_spell` (`guid`, `spell`, `index`, `active`, `disabled`, `f
 (27692, 57403, 5, 0, 0, 0);
 
 DELETE FROM `spell_script_target` WHERE `entry` IN (49460, 49346, 49464);
-INSERT INTO `spell_script_target` VALUES (49460, 1, 27755);
-INSERT INTO `spell_script_target` VALUES (49346, 1, 27692);
-INSERT INTO `spell_script_target` VALUES (49464, 1, 27756);
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(49460, 1, 27755),
+(49346, 1, 27692),
+(49464, 1, 27756);
 
 -- herbalism flower   a ytdb bugs flowers cant wander around lol
 UPDATE `creature_template` SET `unit_flags` = 33555204, `dynamicflags` = 8 WHERE `entry` = 29888;

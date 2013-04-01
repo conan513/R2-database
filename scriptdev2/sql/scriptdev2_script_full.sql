@@ -3,7 +3,7 @@
 --
 
 DELETE FROM sd2_db_version;
-INSERT INTO sd2_db_version (version) VALUES ('ScriptDev2 (for MangosR2 2525+ / C-MaNGOS 12328+) ');
+INSERT INTO sd2_db_version (version) VALUES ('ScriptDev2 (for MangosR2 2754+ / C-MaNGOS 12409+) ');
 
 --
 -- Below contains data for table `script_texts` mainly used in C++ parts.
@@ -1206,7 +1206,9 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1229017,'Taste in my power!',0,1,0,0,'nefarius SAY_BUFF_GYTH'),
 (-1229018,'Your victory shall be short lived. The days of both the Alliance and Horde are coming to an end. The next time we meet shall be the last.',0,1,0,1,'nefarius SAY_VICTORY'),
 
-(-1229019,'%s is knocked off his drake!',0,2,0,0,'rend EMOTE_KNOCKED_OFF');
+(-1229019,'%s is knocked off his drake!',0,2,0,0,'rend EMOTE_KNOCKED_OFF'),
+
+(-1229020,'Intruders are destroying our eggs! Stop!!',0,1,0,0,'rookery hatcher - SAY_ROOKERY_EVENT_START');
 
 -- -1 230 000 BLACKROCK DEPTHS
 INSERT INTO script_texts (entry,content_default,sound,type,language,emote,comment) VALUES
@@ -4530,6 +4532,10 @@ INSERT INTO gossip_texts (entry,content_default,comment) VALUES
 (-3564001,'I\'m ready, Akama.','akama(illidan) GOSSIP_ITEM_PREPARE'),
 (-3564002,'We\'re ready to face Illidan.','akama(illidan) GOSSIP_ITEM_START_EVENT');
 
+-- -3 568 000 ZUL'AMAN
+INSERT INTO gossip_texts (entry,content_default,comment) VALUES
+(-3568000,'Thanks for the concern, but we intend to explore Zul\'Aman.','harrison jones GOSSIP_ITEM_BEGIN');
+
 -- -3 595 000 CULLING OF STRATHOLME
 INSERT INTO gossip_texts (entry,content_default,comment) VALUES
 (-3595000,'What do you think they\'re up to?','chromie GOSSIP_ITEM_ENTRANCE_1'),
@@ -4538,6 +4544,11 @@ INSERT INTO gossip_texts (entry,content_default,comment) VALUES
 (-3595003,'Why have I been sent back to this particular place and time?','chromie GOSSIP_ITEM_INN_1'),
 (-3595004,'What was this decision?','chromie GOSSIP_ITEM_INN_2'),
 (-3595005,'So how does the Infinite Dragonflight plan to interfere?','chromie GOSSIP_ITEM_INN_3');
+
+-- -3 599 000 HALLS OF STONE
+INSERT INTO gossip_texts (entry,content_default,comment) VALUES
+(-3599000,'Brann, it would be our honor!','brann GOSSIP_ITEM_ID_START'),
+(-3599001,'Let\'s move Brann, enough of the history lessons!','brann GOSSIP_ITEM_ID_PROGRESS');
 
 -- -3 603 000 ULDUAR
 INSERT INTO gossip_texts (entry,content_default,comment) VALUES

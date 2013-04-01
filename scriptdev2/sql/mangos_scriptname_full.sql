@@ -163,11 +163,11 @@ UPDATE creature_template SET ScriptName='npc_redemption_target' WHERE entry IN (
 /* SPELL */
 UPDATE creature_template SET ScriptName='spell_dummy_npc' WHERE entry IN (
 -- eastern kingdoms
-1200,8888,
+1200,8888,13016,
 -- kalimdor
 9299,12296,12298,
 -- outland
-16880,16518,16847,17157,17326,17654,18879,22105,24918,24922,25084,25085,
+16880,16518,16847,17157,17326,17654,18879,21729,22105,24918,24922,25084,25085,
 -- northrend
 23678,25752,25753,25758,25792,25793,26268,26270,26421,26616,26643,26841,26924,27122,27263,27264,27265,27808,28053,28054,28068,28093,28465,28600,29319,29327,29329,29330,29338,30146,32149);
 
@@ -245,6 +245,7 @@ UPDATE instance_template SET ScriptName='instance_ahnkahet' WHERE map=619;
 
 /* AZJOL-NERUB */
 UPDATE creature_template SET ScriptName='boss_anubarak' WHERE entry=29120;
+UPDATE creature_template SET ScriptName='npc_impale_target' WHERE entry=29184;
 UPDATE creature_template SET ScriptName='boss_hadronox' WHERE entry=28921;
 UPDATE creature_template SET ScriptName='boss_krikthir' WHERE entry=28684;
 UPDATE instance_template SET ScriptName='instance_azjol-nerub' WHERE map=601;
@@ -339,6 +340,7 @@ UPDATE creature_template SET ScriptName='boss_pyroguard_emberseer' WHERE entry=9
 DELETE FROM scripted_event_id WHERE id=4884;
 INSERT INTO scripted_event_id VALUES
 (4884,'event_spell_altar_emberseer');
+UPDATE gameobject_template SET ScriptName='go_father_flame' WHERE entry=175245;
 
 /* BLACKWING LAIR */
 UPDATE instance_template SET ScriptName='instance_blackwing_lair' WHERE map=469;
@@ -1173,6 +1175,8 @@ UPDATE instance_template SET ScriptName='instance_halls_of_stone' WHERE map=599;
 UPDATE creature_template SET ScriptName='boss_maiden_of_grief' WHERE entry=27975;
 UPDATE creature_template SET ScriptName='boss_sjonnir' WHERE entry=27978;
 UPDATE creature_template SET ScriptName='npc_brann_hos' WHERE entry=28070;
+UPDATE creature_template SET ScriptName='npc_dark_matter' WHERE entry=28235;
+UPDATE creature_template SET ScriptName='npc_searing_gaze' WHERE entry=28265;
 
 /* ULDUAR */
 UPDATE instance_template SET ScriptName='instance_ulduar' WHERE map=603;

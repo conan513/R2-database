@@ -239,7 +239,7 @@ UPDATE `creature_template` SET `ScriptName` = 'mob_ooze_puddle', `scale` = 1.0, 
 UPDATE `gameobject_template` SET `faction` = 0, `ScriptName` = 'go_plague_sigil' WHERE `entry` = 202182;
 
 DELETE FROM `spell_script_target` WHERE `entry` = 71617;
-INSERT INTO `spell_script_target` VALUES
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
 (71617, 1, 38317); -- Tear Gas
 
 -- delete Grow Stacker - handle in script
@@ -276,7 +276,9 @@ INSERT INTO `creature_template_addon` (`entry`, `auras`) VALUES
 UPDATE `creature_template` SET `PowerType` = 3 WHERE `entry` IN (37672, 38605, 38786, 38787, 38285, 38788, 38789, 38790);
 
 DELETE FROM `spell_script_target` WHERE `entry` IN (70360,72527);
-INSERT INTO `spell_script_target` VALUES (70360,1,37690), (72527,1,37690);
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(70360, 1, 37690),
+(72527, 1, 37690);
 
 UPDATE `creature_template` SET `ScriptName`='mob_mutated_amobination' WHERE `entry`=38285;
 UPDATE `creature_template` SET `ScriptName`='mob_mutated_amobination' WHERE `entry`=37672;

@@ -1,7 +1,7 @@
 -- svala
 DELETE FROM spell_script_target WHERE entry = 59930;
-INSERT INTO spell_script_target VALUES
-(59930, 1,26555);
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(59930, 1, 26555);
 
 UPDATE `creature_template` SET `faction_A` = 35, `faction_H` = 35, `ScriptName` = 'npc_ritual_target' WHERE `entry` = 27327;
 UPDATE `creature_template` SET `faction_A` = 35, `faction_H` = 35 WHERE `entry` = 30805;

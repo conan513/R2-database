@@ -153,7 +153,7 @@ UPDATE `npc_spellclick_spells` SET `spell_id` = 46598, `quest_start` = 0, `quest
 
 -- item spell script targets (Scarlet Miners)
 DELETE FROM `spell_script_target` WHERE entry = 52479;
-INSERT INTO `spell_script_target` VALUES
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
 (52479, 1, 28819),
 (52479, 1, 28822),
 (52479, 1, 28891);
@@ -210,9 +210,10 @@ INSERT INTO `creature_spell` (`guid`, `spell`, `index`, `active`, `disabled`, `f
 
 UPDATE `creature_template` SET `unit_flags` = 772, `mindmg` = 685, `maxdmg` = 715, `armor` = 3232, `attackpower` = 214 WHERE `entry` = 28833;
 UPDATE `creature_template` SET `minhealth` = 26140, `maxhealth` = 26140, `minmana` = 0, `maxmana` = 0, `unit_flags` = 772, `minlevel` = 55, `maxlevel` = 55, `mindmg` = 685, `maxdmg` = 715, `armor` = 3232, `attackpower` = 214 WHERE `entry` = 28887;
-INSERT IGNORE INTO spell_script_target VALUES (52576, 1, 28834);
-INSERT IGNORE INTO spell_script_target VALUES (52576, 1, 28886);
-INSERT IGNORE INTO spell_script_target VALUES (52576, 1, 28850);
+INSERT IGNORE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(52576, 1, 28834),
+(52576, 1, 28886),
+(52576, 1, 28850);
 
 -- -------------------------------------
 -- ACID scripts for Scarlet Enclave mobs

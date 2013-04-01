@@ -55,7 +55,7 @@ UPDATE `creature` SET `position_x` = 590.346741, `position_y` = -226.947647, `po
 UPDATE `creature_template` SET `faction_A` = 35, `faction_H` = 35 WHERE `entry` IN(33287, 33816, 33259, 34257, 34256, 34255); -- Prevent combat with other bosses
 
 DELETE FROM `spell_script_target` WHERE `entry` IN(63524, 63657, 63658, 63659, 62505);
-INSERT INTO `spell_script_target` VALUES
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
 (63524, 1, 33282), -- Harpoon Shot - Razorscale Harpoon Fire State
 (63657, 1, 33282), -- Harpoon Shot - Razorscale Harpoon Fire State
 (63658, 1, 33282), -- Harpoon Shot - Razorscale Harpoon Fire State
@@ -160,7 +160,7 @@ UPDATE `creature` SET `position_x` = 1797, `position_z` = 449.718 WHERE `id` = 3
 UPDATE `gameobject` SET `position_y` = -35.6824, `position_x` = 1837.59 WHERE `id` = 195047; -- loot box position
 
 DELETE FROM `spell_script_target` WHERE `entry` = 63628;
-INSERT INTO `spell_script_target` VALUES
+INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
 (63628, 1, 32933), -- Instakill Kologarn Arm - Left Arm
 (63628, 1, 32934); -- Instakill Kologarn Arm - Right Arm
 
@@ -228,12 +228,13 @@ UPDATE creature_template SET ScriptName = 'mob_iron_roots' WHERE entry IN (33088
 UPDATE creature_template SET ScriptName = 'mob_freya_ground' WHERE entry IN (33215, 33228, 33170, 33050, 34129);
 UPDATE creature_template SET ScriptName = 'mob_freya_spawned' WHERE entry IN (32916, 32919, 33202, 33203, 32918);
 -- some aura fixes, this may be wrong
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('62525', '1', '32906');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('62524', '1', '32906');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('62521', '1', '32906');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('62385', '1', '32906');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('62387', '1', '32906');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('62386', '1', '32906');
+REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(62525, 1, 32906),
+(62524, 1, 32906),
+(62521, 1, 32906),
+(62385, 1, 32906),
+(62387, 1, 32906),
+(62386, 1, 32906);
 
 -- Added hack for Freya's gift
 DELETE FROM `gameobject` WHERE `id` IN (194324, 194325,194326,194327,194328,194329,194330,194331);
@@ -323,9 +324,10 @@ UPDATE creature_template SET ScriptName = 'mob_assault_bot' WHERE entry = 34057;
 UPDATE creature_template SET ScriptName = 'mob_magnetic_core' WHERE entry = 34068;
 UPDATE `gameobject` SET `position_x` = 2734.73 WHERE `id` IN (194789, 194956);
 -- spells, may not be correct
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('64444', '1', '33670');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('63414', '1', '33651');
-REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES ('65101', '1', '33350');
+REPLACE INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
+(64444, 1, 33670),
+(63414, 1, 33651),
+(65101, 1, 33350);
 
 -- SOME MIMIRON LOOT BOXES ARE MISSING IN YTDB, THIS IS THE FIX FOR IT!
 -- mimiron loot fix:
