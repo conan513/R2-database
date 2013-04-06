@@ -42,9 +42,8 @@ echo 3 - Import MaNGOS database
 echo 4 - Import realmd database
 echo 5 - Import ScriptDev2 database
 echo.
-echo Extra
-echo -----
-echo 6 - Import ike3's PlayerbotAI SQL files
+echo 6 - Import ike3's PlayerbotAI files
+echo 7 - Import Takenbecon's WoW Armory files
 echo.
 set /P menu=Select a number or lettter: 
 if "%menu%"=="1" (goto setup)
@@ -53,6 +52,7 @@ if "%menu%"=="3" (goto import_mangos)
 if "%menu%"=="4" (goto import_realmd)
 if "%menu%"=="5" (goto import_sd2)
 if "%menu%"=="6" (goto import_playerbotai)
+if "%menu%"=="7" (goto import_armory)
 if "%menu%"=="%menu%" echo. & echo Wrong number! & pause & goto menu
 
 :import_char
@@ -96,17 +96,14 @@ echo.
 echo Import YTDB database
 for %%i in (ytdb\full\ytdb*mangos*sql) do if %%i neq ytdb\full\ytdb*mangos*sql if %%i neq ytdb\full\ytdb*mangos*sql if %%i neq ytdb\full\ytdb*mangos*sql echo %%i & tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < %%i
 for %%i in (ytdb\update\*mangos*sql) do if %%i neq ytdb\update\ytdb*mangos*sql if %%i neq ytdb\update\ytdb*mangos*sql if %%i neq ytdb\update\ytdb*mangos*sql echo %%i & tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < %%i
-
 echo.
 echo Import MaNGOS updates
 for %%i in (mangos\updates\*sql) do if %%i neq mangos\updates\*sql if %%i neq mangos\updates\*sql if %%i neq mangos\updates\*sql echo %%i & tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < %%i
-
 echo.
 echo Import R2 files
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < "mangos\sql_mr\custom_mangos_tables.sql"
 for %%i in (mangos\sql_mr\mr*mangos*sql) do if %%i neq mangos\sql_mr\mr*mangos*sql if %%i neq mangos\sql_mr\mr*mangos*sql if %%i neq mangos\sql_mr\mr*mangos*sql echo %%i & tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < %%i
 echo.
-
 echo MaNGOS database import completed
 echo.
 pause
@@ -135,7 +132,6 @@ echo mr01765_realmd_warden_data.sql
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%realmd% < "mangos\sql_mr\mr01765_realmd_warden_data.sql"
 echo mr02283_realmd_account_access.sql
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%realmd% < "mangos\sql_mr\mr02283_realmd_account_access.sql"
-
 echo Realmd database import completed
 echo.
 pause
@@ -162,21 +158,17 @@ tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%scri
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%scriptdev2% < "scriptdev2\sql_mr\custom_scriptdev2_bsw_table.sql"
 REM tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < "scriptdev2\sql\mangos_scriptname_clear.sql"
 REM tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < "scriptdev2\sql\mangos_scriptname_full.sql"
-
 echo.
 echo Importing MaNGOSR2 files
 for %%i in (scriptdev2\sql_mr\mr*mangos*sql) do if %%i neq scriptdev2\sql_mr\mr*mangos*sql if %%i neq scriptdev2\sql_mr\mr*mangos*sql if %%i neq scriptdev2\sql_mr\mr*mangos*sql echo %%i & tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < %%i
-
 echo.
 echo Importing ScriptDev2 R2 files
 for %%i in (scriptdev2\sql_mr\mr*scriptdev2*sql) do if %%i neq scriptdev2\sql_mr\mr*scriptdev2*sql if %%i neq scriptdev2\sql_mr\mr*scriptdev2*sql if %%i neq scriptdev2\sql_mr\mr*scriptdev2*sql echo %%i & tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%scriptdev2% < %%i
-
 echo.
 echo Last mangos files
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < "scriptdev2\sql_mr\last_mangos_sql_at_every_db_update.sql"
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < "mangos\sql_mr\custom_rerun_every_mangos_DB_update.sql
 echo.
-
 echo ScriptDev2 database import completed
 echo.
 pause
@@ -193,8 +185,19 @@ tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%char
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%characters% < "playerbotai\characters_auctionhousebot_update.sql"
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%characters% < "playerbotai\characters_armory.sql"
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%characters% < "playerbotai\characters_armory_2.sql"
-
 echo PlayerbotAI files import completed
+echo.
+
+:import_armory
+cls
+set /P characters=Characters database [%characters%]: 
+echo.
+echo Importing WoW Armory files
+tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%characters% < "armory\characters.sql"
+tools\mysql -u %user% --password=%pass% -h %host% --port=%port% < "armory\armory.sql"
+tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < "mangos\sql_mr\custom_mangos_tables.sql"
+for %%i in (armory\updates\*sql) do if %%i neq armory\updates\*sql if %%i neq armory\updates\*sql if %%i neq armory\updates\*sql echo %%i & tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=armory < %%i
+echo WoW Armory files import completed
 echo.
 pause
 goto menu
