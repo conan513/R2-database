@@ -187,6 +187,8 @@ tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%char
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%characters% < "playerbotai\characters_armory_2.sql"
 echo PlayerbotAI files import completed
 echo.
+pause
+goto menu
 
 :import_armory
 cls
