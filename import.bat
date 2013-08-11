@@ -33,26 +33,26 @@ echo Port: %port%
 echo User: %user%
 echo Pass: %pass%
 echo.
-echo 1 - Change MySQL settings
+echo 0 - Change MySQL settings
 echo.
 echo Full databases
 echo --------------
-echo 2 - Import characters database
-echo 3 - Import MaNGOS database
-echo 4 - Import realmd database
-echo 5 - Import ScriptDev2 database
+echo 1 - Import characters database
+echo 2 - Import MaNGOS database
+echo 3 - Import realmd database
+echo 4 - Import ScriptDev2 database
 echo.
-echo 6 - Import ike3's PlayerbotAI files
-echo 7 - Import Takenbecon's WoW Armory files
+echo 5 - Import ike3's PlayerbotAI files
+echo 6 - Import Takenbecon's WoW Armory files
 echo.
 set /P menu=Select a number or lettter: 
-if "%menu%"=="1" (goto setup)
-if "%menu%"=="2" (goto import_char)
-if "%menu%"=="3" (goto import_mangos)
-if "%menu%"=="4" (goto import_realmd)
-if "%menu%"=="5" (goto import_sd2)
-if "%menu%"=="6" (goto import_playerbotai)
-if "%menu%"=="7" (goto import_armory)
+if "%menu%"=="0" (goto setup)
+if "%menu%"=="1" (goto import_char)
+if "%menu%"=="2" (goto import_mangos)
+if "%menu%"=="3" (goto import_realmd)
+if "%menu%"=="4" (goto import_sd2)
+if "%menu%"=="5" (goto import_playerbotai)
+if "%menu%"=="6" (goto import_armory)
 if "%menu%"=="%menu%" echo. & echo Wrong number! & pause & goto menu
 
 :import_char
@@ -156,8 +156,8 @@ tools\mysql -u %user% --password=%pass% -h %host% --port=%port% < "scriptdev2\sq
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% < "scriptdev2\sql\scriptdev2_create_database.sql"
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%scriptdev2% < "scriptdev2\sql\scriptdev2_create_structure_mysql.sql"
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%scriptdev2% < "scriptdev2\sql_mr\custom_scriptdev2_bsw_table.sql"
-REM tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < "scriptdev2\sql\mangos_scriptname_clear.sql"
-REM tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < "scriptdev2\sql\mangos_scriptname_full.sql"
+tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < "scriptdev2\sql\mangos_scriptname_clear.sql"
+tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < "scriptdev2\sql\mangos_scriptname_full.sql"
 echo.
 echo Importing MaNGOSR2 files
 for %%i in (scriptdev2\sql_mr\mr*mangos*sql) do if %%i neq scriptdev2\sql_mr\mr*mangos*sql if %%i neq scriptdev2\sql_mr\mr*mangos*sql if %%i neq scriptdev2\sql_mr\mr*mangos*sql echo %%i & tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < %%i

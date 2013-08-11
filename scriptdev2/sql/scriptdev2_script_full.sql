@@ -3,7 +3,7 @@
 --
 
 DELETE FROM sd2_db_version;
-INSERT INTO sd2_db_version (version) VALUES ('ScriptDev2 (for MangosR2 2812+ / for CMaNGOS 12514+) ');
+INSERT INTO sd2_db_version (version) VALUES ('ScriptDev2 (for MangosR2 2812+ / for CMaNGOS 12524+) ');
 
 --
 -- Below contains data for table `script_texts` mainly used in C++ parts.
@@ -979,7 +979,48 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 
 (-1000907,'%s sniffs at the air. A tuber is near!',0,2,0,0,'domesticated felboar EMOTE_SNIFF_AIR'),
 (-1000908,'%s starts to dig.',0,2,0,0,'domesticated felboar EMOTE_START_DIG'),
-(-1000909,'%s squeals with glee at its discovery.',0,2,0,0,'domesticated felboar EMOTE_SQUEAL');
+(-1000909,'%s squeals with glee at its discovery.',0,2,0,0,'domesticated felboar EMOTE_SQUEAL'),
+
+(-1000910,'Shall we begin, my friend?',0,0,0,0,'anchorite truuen SAY_BEGIN'),
+(-1000911,'This area is known to be full of foul Scourge. You may want to take a moment to prepare any defenses at your disposal.',0,0,0,0,'anchorite truuen SAY_FIRST_STOP'),
+(-1000912,'Very well, let us continue.',0,0,0,0,'anchorite truuen SAY_CONTINUE'),
+(-1000913,'Beware! We are attacked!',0,0,0,0,'anchorite truuen SAY_FIRST_ATTACK'),
+(-1000914,'It must be the purity of the Mark of the Lightbringer that is drawing forth the Scourge to us. We must proceed with caution lest we overwhelmed!',0,0,0,0,'anchorite truuen SAY_PURITY'),
+(-1000915,'We are beset upon again! Defend yourself!',0,0,0,0,'anchorite truuen SAY_SECOND_ATTACK'),
+(-1000916,'The land truly needs to be cleansed by the Light! Let us continue on the tomb. It isn\'t far now.',0,0,0,0,'anchorite truuen SAY_CLEANSE'),
+(-1000917,'Be welcome, friends!',0,0,0,0,'high priest thel\'danis SAY_WELCOME'),
+(-1000918,'Thank you for coming in remembrance of me. Your efforts in recovering that symbol, while unnecessary, are certainly touching to an old man\'s heart.',0,0,0,0,'ghost of uther SAY_EPILOGUE_1'),
+(-1000919,'Please, rise my friend. Keep the Blessing as a symbol of the strength of the Light and how heroes long gone might once again rise in each of us to inspire.',0,0,0,0,'ghost of uther SAY_EPILOGUE_2'),
+
+(-1000920,'%s turns to face you.',0,2,0,0,'lich_king_wyrmskull EMOTE_LICH_KING_FACE'),
+(-1000921,'Shamanism has brought you here... Its scent permeates the air. *The Lich King laughs* I was once a shaman.',14742,0,0,0,'lich_king_wyrmskull SAY_LICH_KING_1'),
+(-1000922,'Shall we prepare it for you, my lord?',0,0,0,0,'valkyr_soulclaimer SAY_PREPARE'),
+(-1000923,'No, minion. This one is not ready.',14743,0,0,0,'lich_king_wyrmskull SAY_LICH_KING_2'),
+(-1000924,'Do you feel it, mortal? Death seeps through me, enveloping all that I touch. With just a snap of my finger your soul will languish in damnation for all eternity.',14744,0,0,0,'lich_king_wyrmskull SAY_LICH_KING_3'),
+(-1000925,'But... It is not yet your time to serve the Lich King. Yes, a greater destiny awaits you. Power... You must become more powerful before you are to serve me.',14745,0,0,0,'lich_king_wyrmskull SAY_LICH_KING_4'),
+(-1000926,'Now watch, val\'kyr. Observe as I apply pressure. Can you see that it is not yet ripe? Watch as it pops and falls lifeless to the floor.',14746,0,0,0,'lich_king_wyrmskull SAY_LICH_KING_5'),
+(-1000927,'Persistence or stupidity? It matters not. Let this be a lesson learned, mortal!',14747,0,0,0,'lich_king_wyrmskull SAY_LICH_KING_6'),
+
+(-1000928,'%s motions for silence.',0,3,0,25,'king_ymiron EMOTE_KING_SILENCE'),
+(-1000929,'Vrykul, your king implores you listen!',0,1,0,22,'king_ymiron SAY_KING_YMIRON_SPEECH_1'),
+(-1000930,'The Gods have abandonned us!',0,1,0,22,'king_ymiron SAY_KING_YMIRON_SPEECH_2'),
+(-1000931,'The crowd gasps in horror.',0,2,0,0,'king_ymiron EMOTE_YMIRON_CROWD_1'),
+(-1000932,'Even now, in our darkest hour, they mock us!',0,1,0,22,'king_ymiron SAY_KING_YMIRON_SPEECH_3'),
+(-1000933,'Where are the titans in out time of greatest need? Our women birth abberations - disfigured runts unable to even stand on their own! Weak and ugly... Useless...',0,1,0,22,'king_ymiron SAY_KING_YMIRON_SPEECH_4'),
+(-1000934,'Ymiron has toiled. Long have I sat upon my throne and thought hard of our plight. There is only one answer... One reason...',0,1,0,22,'king_ymiron SAY_KING_YMIRON_SPEECH_5'),
+(-1000935,'For who but the titans themselves could bestow such a curse? What could have such power?',0,1,0,22,'king_ymiron SAY_KING_YMIRON_SPEECH_6'),
+(-1000936,'And the answer is nothing... For it is the titans who have cursed us!',0,1,0,22,'king_ymiron SAY_KING_YMIRON_SPEECH_7'),
+(-1000937,'The crowd clamours.',0,2,0,0,'king_ymiron EMOTE_YMIRON_CROWD_2'),
+(-1000938,'On this day all Vrykul will shed their old beliefs! We denounce our old gods! All Vrykul will pledge their allegiance to Ymiron! Ymiron will protect our noble race!',0,1,0,22,'king_ymiron SAY_KING_YMIRON_SPEECH_8'),
+(-1000939,'The crowd cheers.',0,2,0,0,'king_ymiron EMOTE_YMIRON_CROWD_3'),
+(-1000940,'And now my first decree upon the Vrykul! All malformed infants born of Vrykul mother and father are to be destroyed upon birth! Our blood must remain pure always! Those found in violation of Ymiron\'s decree will be taken to Gjalerbron for execution!',0,1,0,22,'king_ymiron SAY_KING_YMIRON_SPEECH_9'),
+(-1000941,'Vrykul must remain pure!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_1'),
+(-1000942,'Show the aberrations no mercy, Ymiron!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_2'),
+(-1000943,'Show them mercy, my king! They are of our flesh and blood!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_3'),
+(-1000944,'They weaken us! Our strength is dilluted by their very existence! Destroy them all!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_4'),
+(-1000945,'All hail our glorious king, Ymiron!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_5'),
+(-1000946,'The King is going to speak!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_6'),
+(-1000947,'Let him speak! Be silent!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_7');
 
 -- -1 033 000 SHADOWFANG KEEP
 INSERT INTO script_texts (entry,content_default,sound,type,language,emote,comment) VALUES
@@ -1711,7 +1752,10 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1532127,'Miserable vermin. I shall exterminate you from the air!',0,1,0,0,'nightbane SAY_AIR_PHASE'),
 (-1532128,'Enough! I shall land and crush you myself!',0,1,0,0,'nightbane SAY_LAND_PHASE_1'),
 (-1532129,'Insects! Let me show you my strength up close!',0,1,0,0,'nightbane SAY_LAND_PHASE_2'),
-(-1532130,'%s takes a deep breath.',0,3,0,0,'nightbane EMOTE_DEEP_BREATH');
+(-1532130,'%s takes a deep breath.',0,3,0,0,'nightbane EMOTE_DEEP_BREATH'),
+
+(-1532131,'The halls of Karazhan shake, as the curse binding the doors of the Gamemaster\'s Hall is lifted.',0,2,0,0,'echo_of_medivh EMOTE_LIFT_CURSE'),
+(-1532132,'%s cheats!',0,3,0,0,'echo_of_medivh EMOTE_CHEAT');
 
 -- -1 533 000 NAXXRAMAS
 INSERT INTO script_texts (entry,content_default,sound,type,language,emote,comment) VALUES
@@ -4519,7 +4563,20 @@ INSERT INTO gossip_texts (entry,content_default,comment) VALUES
 (-3532002,'Ok, I\'ll give it a try, then.','barnes GOSSIP_ITEM_OPERA_2'),
 (-3532003,'I\'ve never been more ready.','barnes GOSSIP_ITEM_OPERA_JULIANNE_WIPE'),
 (-3532004,'The wolf\'s going down.','barnes GOSSIP_ITEM_OPERA_WOLF_WIPE'),
-(-3532005,'What phat lewtz you have grandmother?','grandma GOSSIP_ITEM_GRANDMA');
+(-3532005,'What phat lewtz you have grandmother?','grandma GOSSIP_ITEM_GRANDMA'),
+
+(-3532006,'Control Orc Grunt','orc grunt GOSSIP_ITEM_ORC_GRUNT'),
+(-3532007,'Control Orc Wolf','orc wolf GOSSIP_ITEM_ORC_WOLF'),
+(-3532008,'Control Summoned Daemon','summoned deamon GOSSIP_ITEM_SUMMONED_DEAMON'),
+(-3532009,'Control Orc Warlock','orc warlock GOSSIP_ITEM_ORC_WARLOCK'),
+(-3532010,'Control Orc Necrolyte','orc necrolyte GOSSIP_ITEM_ORC_NECROLYTE'),
+(-3532011,'Control Warchief Blackhand','warchief blackhand GOSSIP_ITEM_WARCHIEF_BLACKHAND'),
+(-3532012,'Control Human Footman','human footman GOSSIP_ITEM_HUMAN_FOOTMAN'),
+(-3532013,'Control Human Charger','human charger GOSSIP_ITEM_HUMAN_CHARGER'),
+(-3532014,'Control Conjured Water Elemental','conjured water elemental GOSSIP_ITEM_WATER_ELEMENTAL'),
+(-3532015,'Control Human Conjurer','human conjurer GOSSIP_ITEM_HUMAN_CONJURER'),
+(-3532016,'Control Human Cleric','human cleric GOSSIP_ITEM_HUMAN_CLERIC'),
+(-3532017,'Control King Llane','king llane GOSSIP_ITEM_KING_LLANE');
 
 -- -3 534 000 THE BATTLE OF MT. HYJAL
 INSERT INTO gossip_texts (entry,content_default,comment) VALUES
@@ -7229,5 +7286,50 @@ INSERT INTO script_waypoint VALUES
 (3584, 18, 4566.09, 303.127, 55.0396, 0, ''),
 (3584, 19, 4561.65, 295.456, 57.0984, 4000, 'SAY_THERYLUNE_FINISH'),
 (3584, 20, 4551.03, 293.333, 57.1534, 2000, '');
+
+DELETE FROM script_waypoint WHERE entry=17238;
+INSERT INTO script_waypoint VALUES
+(17238, 0, 954.21, -1433.72, 63.00, 0, ''),
+(17238, 1, 972.70, -1438.85, 65.56, 0, ''),
+(17238, 2, 984.79, -1444.15, 64.13, 0, ''),
+(17238, 3, 999.00, -1451.74, 61.20, 0, ''),
+(17238, 4, 1030.94, -1470.39, 63.49, 25000, 'SAY_FIRST_STOP'),
+(17238, 5, 1030.94, -1470.39, 63.49, 3000, 'SAY_CONTINUE'),
+(17238, 6, 1036.50, -1484.25, 64.60, 0, ''),
+(17238, 7, 1039.11, -1501.22, 65.32, 0, ''),
+(17238, 8, 1038.44, -1522.18, 64.55, 0, ''),
+(17238, 9, 1037.19, -1543.15, 62.33, 0, ''),
+(17238, 10, 1036.79, -1563.88, 61.93, 5000, 'SAY_FIRST_ATTACK'),
+(17238, 11, 1036.79, -1563.88, 61.93, 5000, 'SAY_PURITY'),
+(17238, 12, 1035.61, -1587.64, 61.66, 0, ''),
+(17238, 13, 1035.43, -1612.97, 61.54, 0, ''),
+(17238, 14, 1035.36, -1630.66, 61.53, 0, ''),
+(17238, 15, 1038.85, -1653.02, 60.35, 0, ''),
+(17238, 16, 1042.27, -1669.36, 60.75, 0, ''),
+(17238, 17, 1050.41, -1687.22, 60.52, 0, ''),
+(17238, 18, 1061.15, -1704.45, 60.59, 0, ''),
+(17238, 19, 1073.51, -1716.99, 60.65, 0, ''),
+(17238, 20, 1084.20, -1727.24, 60.95, 0, ''),
+(17238, 21, 1100.71, -1739.89, 60.64, 5000, 'SAY_SECOND_ATTACK'),
+(17238, 22, 1100.71, -1739.89, 60.64, 0, 'SAY_CLEANSE'),
+(17238, 23, 1117.03, -1749.01, 60.87, 0, ''),
+(17238, 24, 1123.58, -1762.29, 62.40, 0, ''),
+(17238, 25, 1123.36, -1769.29, 62.83, 0, ''),
+(17238, 26, 1115.78, -1779.59, 62.09, 0, ''),
+(17238, 27, 1109.56, -1789.78, 61.03, 0, ''),
+(17238, 28, 1094.81, -1797.62, 61.22, 0, ''),
+(17238, 29, 1079.30, -1801.58, 64.95, 0, ''),
+(17238, 30, 1060.24, -1803.40, 70.36, 0, ''),
+(17238, 31, 1047.69, -1804.49, 73.92, 0, ''),
+(17238, 32, 1032.59, -1805.99, 76.13, 0, ''),
+(17238, 33, 1013.60, -1812.36, 77.32, 0, ''),
+(17238, 34, 1007.01, -1814.38, 80.48, 0, ''),
+(17238, 35, 999.93, -1816.39, 80.48, 2000, 'SAY_WELCOME'),
+(17238, 36, 984.72, -1822.05, 80.48, 0, ''),
+(17238, 37, 977.77, -1824.80, 80.79, 0, ''),
+(17238, 38, 975.33, -1824.91, 81.24, 12000, 'event complete'),
+(17238, 39, 975.33, -1824.91, 81.24, 10000, 'SAY_EPILOGUE_1'),
+(17238, 40, 975.33, -1824.91, 81.24, 8000, 'SAY_EPILOGUE_2'),
+(17238, 41, 975.33, -1824.91, 81.24, 30000, '');
 
 -- EOF
