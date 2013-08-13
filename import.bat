@@ -84,6 +84,8 @@ goto menu
 cls
 set /P mangos=MaNGOS database [%mangos%]: 
 echo.
+echo Extrackting YTDB
+tools\rar.exe x ytdb\full\*.rar ytdb\full\
 echo Create MaNGOS database
 (
 echo DROP DATABASE IF EXISTS `%mangos%` ;
@@ -104,6 +106,8 @@ echo Import R2 files
 tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < "mangos\sql_mr\custom_mangos_tables.sql"
 for %%i in (mangos\sql_mr\mr*mangos*sql) do if %%i neq mangos\sql_mr\mr*mangos*sql if %%i neq mangos\sql_mr\mr*mangos*sql if %%i neq mangos\sql_mr\mr*mangos*sql echo %%i & tools\mysql -u %user% --password=%pass% -h %host% --port=%port% --database=%mangos% < %%i
 echo.
+echo Delete YTDB sql file
+del ytdb\full\*.sql
 echo MaNGOS database import completed
 echo.
 pause
