@@ -62,7 +62,6 @@ REPLACE INTO `spell_target_position` (`id`, `target_map`, `target_position_x`, `
 (70857, 631, -615.145, 2211.47, 199.972, 0),
 (70858, 631, -549.131, 2211.29, 539.291, 0),
 (70859, 631, 4198.42, 2769.22, 351.065, 0),
-(70860, 631, 529.302, -2124.49, 840.857, 3.1765),
 (70861, 631, 4356.58, 2565.75, 220.402, 4.9);
 
 -- Icecrown buff
@@ -366,6 +365,7 @@ UPDATE `gameobject_template` SET `type`='0', `flags`='32', `faction`='114' WHERE
 -- ---------------------
 -- Valithria dreamwalker
 -- ---------------------
+DELETE FROM `creature` WHERE `id` = 36789; -- Summon by script
 UPDATE `creature_template` SET `ScriptName` = 'mob_valithria_combat_trigger', `flags_extra` = `flags_extra` &~2 WHERE `entry` = 38752;
 UPDATE `creature` SET `phaseMask` = `phaseMask` | 16 WHERE `id` = 38752; -- phaseMask for Combat Trigger
 UPDATE `creature_template` SET `unit_flags` = `unit_flags` &~ 33554432, `AIName` = '', `ScriptName` = 'mob_valithria_dream_phase' WHERE `entry` = 37950; -- Valithria in dream phase
@@ -486,9 +486,6 @@ UPDATE `creature_template` SET `minhealth` = 6000, `maxhealth` = 6000 WHERE `ent
 UPDATE `creature_template` SET `minhealth` = 15200, `maxhealth` = 15200 WHERE `entry` = 39305; -- 25normal
 UPDATE `creature_template` SET `minhealth` = 15200, `maxhealth` = 15200 WHERE `entry` = 39306; -- 10hero
 UPDATE `creature_template` SET `minhealth` = 53200, `maxhealth` = 53200 WHERE `entry` = 39307; -- 25hero
-
--- correct target position for teleporting spells ( Harvest Soul(s) )
-UPDATE `spell_target_position` SET `target_position_z` = 1249.99 WHERE `id` IN (72546, 73655);
 
 -- -----------------
 -- EAI YTDB CLEAN UP

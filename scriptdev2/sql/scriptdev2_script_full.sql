@@ -3,7 +3,7 @@
 --
 
 DELETE FROM sd2_db_version;
-INSERT INTO sd2_db_version (version) VALUES ('ScriptDev2 (for MangosR2 2812+ / for CMaNGOS 12524+) ');
+INSERT INTO sd2_db_version (version) VALUES ('ScriptDev2 (for MangosR2 2864+ / for CMaNGOS 12524+) ');
 
 --
 -- Below contains data for table `script_texts` mainly used in C++ parts.
@@ -1020,7 +1020,34 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1000944,'They weaken us! Our strength is dilluted by their very existence! Destroy them all!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_4'),
 (-1000945,'All hail our glorious king, Ymiron!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_5'),
 (-1000946,'The King is going to speak!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_6'),
-(-1000947,'Let him speak! Be silent!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_7');
+(-1000947,'Let him speak! Be silent!',0,0,0,0,'king_ymiron_crowd SAY_YMIRON_CROWD_7'),
+
+(-1000948,'Well then, let\'s get this started. The longer we\'re here, the more damage the undead could be doing back in Hilsbrad.',0,0,0,0,'kinelory SAY_START'),
+(-1000949,'All right, this is where we really have to be on our paws. Be ready!',0,0,0,0,'kinelory SAY_REACH_BOTTOM'),
+(-1000950,'Attack me if you will, but you won\'t stop me from getting back to Quae.',0,0,0,0,'kinelory SAY_AGGRO_KINELORY'),
+(-1000951,'You have my word that I shall find a use for your body after I\'ve killed you, Kinelory.',0,0,0,0,'jorell SAY_AGGRO_JORELL'),
+(-1000952,'Watch my rear! I\'ll see what I can find in all this junk...',0,0,0,0,'kinelory SAY_WATCH_BACK'),
+(-1000953,'%s begins rummaging through the apothecary\'s belongings.',0,2,0,0,'kinelory EMOTE_BELONGINGS'),
+(-1000954,'I bet Quae\'ll think this is important. She\'s pretty knowledgeable about these things--no expert, but knowledgable.',0,0,0,0,'kinelory SAY_DATA_FOUND'),
+(-1000955,'Okay, let\'s get out of here quick quick! Try and keep up. I\'m going to make a break for it.',0,0,0,0,'kinelory SAY_ESCAPE'),
+(-1000956,'We made it! Quae, we made it!',0,0,0,0,'kinelory SAY_FINISH'),
+(-1000957,'%s hands her pack to Quae.',0,2,0,0,'kinelory EMOTE_HAND_PACK'),
+
+(-1000958,'You must protect me from monsters, who are living in this forest!',0,0,0,0,'stinky ignatz SAY_STINKY_BEGIN'),
+(-1000959,'This part of forest are very danger for us. We must be a careful!',0,0,0,0,'stinky ignatz SAY_STINKY_FIRST_STOP'),
+(-1000960,'Kill two monsters, who stay near Bogbean plant and then I gather a bogbean.',0,0,0,0,'stinky ignatz SAY_STINKY_2_MONSTERS'),
+(-1000961,'I am gathering a bogbean. It takes some time.',0,0,0,69,'stinky ignatz SAY_STINKY_GATHERING'),
+(-1000962,'Thanks you for help.',0,0,0,0,'stinky ignatz SAY_STINKY_END'),
+
+(-1000963,'%s looks at you for a moment, then motions for you to follow.',0,2,0,0,'cenarion sparrowhawk EMOTE_FOLLOW'),
+(-1000964,'%s surveys the ground for the buried raven stones.',0,2,0,0,'cenarion sparrowhawk EMOTE_SURVEY'),
+(-1000965,'%s locates a buried raven stone.',0,2,0,0,'cenarion sparrowhawk EMOTE_LOCATE');
+
+-- -1 004 000 GENERAL MAPS - CATACLYSM (not instance maps)
+INSERT INTO script_texts (entry,content_default,sound,type,language,emote,comment) VALUES
+(-1004000,'Yipe! Help Hogger!',0,1,0,0,'hogger SAY_CALL_HELP'),
+(-1004001,'Hogger is eating! Stop him!',0,5,0,0,'hogger WHISPER_EATING'),
+(-1004002,'No hurt Hogger!',0,1,0,0,'hogger SAY_HOGGER_BEATEN');
 
 -- -1 033 000 SHADOWFANG KEEP
 INSERT INTO script_texts (entry,content_default,sound,type,language,emote,comment) VALUES
@@ -3878,7 +3905,7 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1615005,'I will take pity on you Sartharion, just this once.',14117,1,0,0,'shadron SAY_SHADRON_RESPOND'),
 (-1615006,'Father tought me well!',14115,1,0,0,'shadron SAY_SHADRON_SPECIAL_1'),
 (-1615007,'On your knees!',14116,1,0,0,'shadron SAY_SHADRON_SPECIAL_2'),
-(-1615008,'A Shadron Disciple appears in the Twilight!',0,5,0,0,'shadron WHISPER_SHADRON_DICIPLE'),
+(-1615008,'A Shadron Disciple appears in the Twilight!',0,3,0,0,'shadron WHISPER_SHADRON_DICIPLE'),
 
 (-1615009,'You have no place here. Your place is among the departed.',14122,1,0,0,'tenebron SAY_TENEBRON_AGGRO'),
 (-1615010,'No contest.',14123,1,0,0,'tenebron SAY_TENEBRON_SLAY_1'),
@@ -3888,7 +3915,7 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1615014,'It is amusing to watch you struggle. Very well, witness how it is done.',14128,1,0,0,'tenebron SAY_TENEBRON_RESPOND'),
 (-1615015,'Arrogant little creatures! To challenge powers you do not yet understand...',14126,1,0,0,'tenebron SAY_TENEBRON_SPECIAL_1'),
 (-1615016,'I am no mere dragon! You will find I am much, much, more...',14127,1,0,0,'tenebron SAY_TENEBRON_SPECIAL_2'),
-(-1615017,'%s begins to hatch eggs in the twilight!',0,5,0,0,'tenebron WHISPER_HATCH_EGGS'),
+(-1615017,'%s begins to hatch eggs in the twilight!',0,3,0,0,'tenebron WHISPER_HATCH_EGGS'),
 
 (-1615018,'It is my charge to watch over these eggs. I will see you burn before any harm comes to them!',14093,1,0,0,'sartharion SAY_SARTHARION_AGGRO'),
 (-1615019,'This pathetic siege ends NOW!',14103,1,0,0,'sartharion SAY_SARTHARION_BERSERK'),
@@ -3904,7 +3931,7 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1615029,'You will make a fine meal for the hatchlings.',14094,1,0,0,'sartharion SAY_SARTHARION_SLAY_1'),
 (-1615030,'You are the grave disadvantage.',14096,1,0,0,'sartharion SAY_SARTHARION_SLAY_2'),
 (-1615031,'This is why we call you lesser beeings.',14097,1,0,0,'sartharion SAY_SARTHARION_SLAY_3'),
-(-1615032,'The lava surrounding %s churns!',0,5,0,0,'sartharion WHISPER_LAVA_CHURN'),
+(-1615032,'The lava surrounding %s churns!',0,3,0,0,'sartharion WHISPER_LAVA_CHURN'),
 
 (-1615033,'You pose no threat, lesser beings...give me your worst!',14133,1,0,0,'vesperon SAY_VESPERON_AGGRO'),
 (-1615034,'The least you could do is put up a fight...',14134,1,0,0,'vesperon SAY_VESPERON_SLAY_1'),
@@ -3914,9 +3941,9 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1615038,'Father was right about you, Sartharion...You are a weakling!',14139,1,0,0,'vesperon SAY_VESPERON_RESPOND'),
 (-1615039,'Aren\'t you tricky...I have a few tricks of my own...',14137,1,0,0,'vesperon SAY_VESPERON_SPECIAL_1'),
 (-1615040,'Unlike, I have many talents.',14138,1,0,0,'vesperon SAY_VESPERON_SPECIAL_2'),
-(-1615041,'A Vesperon Disciple appears in the Twilight!',0,5,0,0,'shadron WHISPER_VESPERON_DICIPLE'),
+(-1615041,'A Vesperon Disciple appears in the Twilight!',0,3,0,0,'shadron WHISPER_VESPERON_DICIPLE'),
 
-(-1615042,'%s begins to open a Twilight Portal!',0,5,0,0,'sartharion drake WHISPER_OPEN_PORTAL');
+(-1615042,'%s begins to open a Twilight Portal!',0,3,0,0,'sartharion drake WHISPER_OPEN_PORTAL');
 
 -- -1 616 000 EYE OF ETERNITY
 INSERT INTO script_texts (entry,content_default,sound,type,LANGUAGE,emote,comment) VALUES
@@ -4576,7 +4603,8 @@ INSERT INTO gossip_texts (entry,content_default,comment) VALUES
 (-3532014,'Control Conjured Water Elemental','conjured water elemental GOSSIP_ITEM_WATER_ELEMENTAL'),
 (-3532015,'Control Human Conjurer','human conjurer GOSSIP_ITEM_HUMAN_CONJURER'),
 (-3532016,'Control Human Cleric','human cleric GOSSIP_ITEM_HUMAN_CLERIC'),
-(-3532017,'Control King Llane','king llane GOSSIP_ITEM_KING_LLANE');
+(-3532017,'Control King Llane','king llane GOSSIP_ITEM_KING_LLANE'),
+(-3532018,'Please reset the chess board, we would like to play again.','medivh GOSSIP_ITEM_RESET_BOARD');
 
 -- -3 534 000 THE BATTLE OF MT. HYJAL
 INSERT INTO gossip_texts (entry,content_default,comment) VALUES
@@ -7331,5 +7359,71 @@ INSERT INTO script_waypoint VALUES
 (17238, 39, 975.33, -1824.91, 81.24, 10000, 'SAY_EPILOGUE_1'),
 (17238, 40, 975.33, -1824.91, 81.24, 8000, 'SAY_EPILOGUE_2'),
 (17238, 41, 975.33, -1824.91, 81.24, 30000, '');
+
+DELETE FROM script_waypoint WHERE entry=2713;
+INSERT INTO script_waypoint VALUES
+(2713, 0, -1416.91, -3044.12, 36.21, 0, ''),
+(2713, 1, -1408.43, -3051.35, 37.79, 0, ''),
+(2713, 2, -1399.45, -3069.20, 31.25, 0, ''),
+(2713, 3, -1400.28, -3083.14, 27.06, 0, ''),
+(2713, 4, -1405.30, -3096.72, 26.36, 0, ''),
+(2713, 5, -1406.12, -3105.95, 24.82, 0, ''),
+(2713, 6, -1417.41, -3106.80, 16.61, 0, ''),
+(2713, 7, -1433.06, -3101.55, 12.56, 0, ''),
+(2713, 8, -1439.86, -3086.36, 12.29, 0, ''),
+(2713, 9, -1450.48, -3065.16, 12.58, 5000, 'SAY_REACH_BOTTOM'),
+(2713, 10, -1456.15, -3055.53, 12.54, 0, ''),
+(2713, 11, -1459.41, -3035.16, 12.11, 0, ''),
+(2713, 12, -1472.47, -3034.18, 12.44, 0, ''),
+(2713, 13, -1495.57, -3034.48, 12.55, 0, ''),
+(2713, 14, -1524.91, -3035.47, 13.15, 0, ''),
+(2713, 15, -1549.05, -3037.77, 12.98, 0, ''),
+(2713, 16, -1555.69, -3028.02, 13.64, 3000, 'SAY_WATCH_BACK'),
+(2713, 17, -1555.69, -3028.02, 13.64, 5000, 'SAY_DATA_FOUND'),
+(2713, 18, -1555.69, -3028.02, 13.64, 2000, 'SAY_ESCAPE'),
+(2713, 19, -1551.19, -3037.78, 12.96, 0, ''),
+(2713, 20, -1584.60, -3048.77, 13.67, 0, ''),
+(2713, 21, -1602.14, -3042.82, 15.12, 0, ''),
+(2713, 22, -1610.68, -3027.42, 17.22, 0, ''),
+(2713, 23, -1601.65, -3007.97, 24.65, 0, ''),
+(2713, 24, -1581.05, -2992.32, 30.85, 0, ''),
+(2713, 25, -1559.95, -2979.51, 34.30, 0, ''),
+(2713, 26, -1536.51, -2969.78, 32.64, 0, ''),
+(2713, 27, -1511.81, -2961.09, 29.12, 0, ''),
+(2713, 28, -1484.83, -2960.87, 32.54, 0, ''),
+(2713, 29, -1458.23, -2966.80, 40.52 , 0, ''),
+(2713, 30, -1440.20, -2971.20, 43.15, 0, ''),
+(2713, 31, -1427.85, -2989.15, 38.09, 0, ''),
+(2713, 32, -1420.27, -3008.91, 35.01, 0, ''),
+(2713, 33, -1427.58, -3032.53, 32.31, 5000, 'SAY_FINISH'),
+(2713, 34, -1427.40, -3035.17, 32.26, 0, '');
+
+DELETE FROM script_waypoint WHERE entry=4880;
+INSERT INTO script_waypoint VALUES
+(4880, 0,  -2674.53, -3440.48, 33.686,  0, ''),
+(4880, 1,  -2711.17, -3435.06, 33.1926, 0, ''),
+(4880, 2,  -2734.04, -3456.12, 33.2254, 0, ''),
+(4880, 3,  -2749.64, -3457.26, 32.8249, 0, ''),
+(4880, 4,  -2762.25, -3457.77, 30.6813, 0, ''),
+(4880, 5,  -2777.0,  -3456.12, 30.2484, 0, ''),
+(4880, 6,  -2805.49, -3450.27, 29.0624, 0, ''),
+(4880, 7,  -2809.77, -3447.14, 30.0948, 0, ''),
+(4880, 8,  -2824,    -3440.62, 33.405,  0, ''),
+(4880, 9,  -2840.2,  -3439.02, 34.1008, 0, ''),
+(4880, 10, -2878.49, -3482.81, 34.362,  0, ''),
+(4880, 11, -2878.35, -3511.51, 34.4826, 0, 'SAY_STINKY_FIRST_STOP'),
+(4880, 12, -2873.99, -3514.84, 34.5298, 0, ''),
+(4880, 13, -2866.71, -3519.06, 36.3674, 0, ''),
+(4880, 14, -2850.75, -3539.38, 36.4573, 0, ''),
+(4880, 15, -2844.49, -3557.7,  35.5588, 0, ''),
+(4880, 16, -2841.36, -3574.59, 35.5056, 0, ''),
+(4880, 17, -2841.13, -3596.95, 36.7699, 30000, 'SAY_STINKY_2_MONSTERS'),
+(4880, 18, -2828.83, -3597.3,  31.2891, 0, ''),
+(4880, 19, -2822.13, -3596.33, 31.2684, 5000, 'SAY_STINKY_GATHERING'),
+(4880, 20, -2829.08, -3597.82, 31.307,  0, ''),
+(4880, 21, -2859.28, -3602.33, 42.298,  0, ''),
+(4880, 22, -2881.64, -3601.28, 42.2111, 0, ''),
+(4880, 23, -2904.04, -3601.35, 34.969,  0, ''),
+(4880, 24, -2907.6,  -3612.73, 34.2434, 10000, 'SAY_STINKY_END');
 
 -- EOF
