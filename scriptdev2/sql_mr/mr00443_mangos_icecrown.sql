@@ -267,19 +267,13 @@ INSERT INTO `spell_proc_event` (`entry`, `procFlags`) VALUES
 -- Abomination
 -- -----------
 
-DELETE FROM `creature_template_addon` WHERE `entry` IN (37672, 38285);
-INSERT INTO `creature_template_addon` (`entry`, `auras`) VALUES
-(37672, '70385'), -- aura in YTDB = '70385 70405'
-(38285, '70385');
-
-UPDATE `creature_template` SET `PowerType` = 3 WHERE `entry` IN (37672, 38605, 38786, 38787, 38285, 38788, 38789, 38790);
+UPDATE `creature_template` SET `PowerType` = 3 WHERE `entry` IN (37672, 38605, 38786, 38787);
 
 DELETE FROM `spell_script_target` WHERE `entry` IN (70360,72527);
 INSERT INTO `spell_script_target` (`entry`, `type`, `targetEntry`) VALUES
 (70360, 1, 37690),
 (72527, 1, 37690);
 
-UPDATE `creature_template` SET `ScriptName`='mob_mutated_amobination' WHERE `entry`=38285;
 UPDATE `creature_template` SET `ScriptName`='mob_mutated_amobination' WHERE `entry`=37672;
 
 -- GO Drink Me table --
