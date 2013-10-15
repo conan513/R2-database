@@ -689,6 +689,17 @@ UPDATE instance_template SET ScriptName='instance_forge_of_souls' WHERE map=632;
 /* PIT OF SARON */
 UPDATE instance_template SET ScriptName='instance_pit_of_saron' WHERE map=658;
 UPDATE creature_template SET ScriptName='boss_forgemaster_garfrost' WHERE entry=36494;
+UPDATE creature_template SET ScriptName='boss_krick' WHERE entry=36477;
+UPDATE creature_template SET ScriptName='boss_ick' WHERE entry=36476;
+UPDATE creature_template SET ScriptName='npc_exploding_orb' WHERE entry=36610;
+UPDATE creature_template SET ScriptName='npc_ymirjar_deathbringer' WHERE entry=36892;
+UPDATE creature_template SET ScriptName='npc_collapsing_icicle' WHERE entry=36847;
+UPDATE creature_template SET ScriptName='boss_tyrannus' WHERE entry=36658;
+UPDATE creature_template SET ScriptName='boss_rimefang_pos' WHERE entry=36661;
+DELETE FROM scripted_areatrigger WHERE entry IN (5578,5581);
+INSERT INTO scripted_areatrigger VALUES
+(5578,'at_pit_of_saron'),
+(5581,'at_pit_of_saron');
 
 /* ICECROWN */
 
